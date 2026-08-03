@@ -7,9 +7,9 @@ Please look at [ChangeLog](ChangeLog.md) for details on what has changed in this
 
 To try out Obidos, Please look at the following sections in [README](README.md)
 
-* [Demo server](#demo-server)
-* [Install using docker (easiest)](#install-using-docker-easiest)
-* [Manually compile from source](#manually-compile-from-source)
+* [Demo server](https://github.com/spenego/Obidos#demo-server)
+* [Install using docker (easiest)](https://github.com/spenego/Obidos#install-using-docker-easiest)
+* [Manually compile from source](https://github.com/spenego/Obidos#manually-compile-from-source)
 
 Please look at [README](README.md) for details
 
