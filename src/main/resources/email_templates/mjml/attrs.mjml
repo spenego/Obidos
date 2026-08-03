@@ -1,0 +1,65 @@
+<mj-attributes>
+     <mj-class name="btn"
+        href="{{action_url}}"
+        align="center"
+        font-size="20px"
+        font-family="Arial, Helvetica, Times New Roman, Verdana"
+        border-radius="4px",
+        color="#fff"
+        background-color="#28a745"
+     />
+     <mj-class name="text-large"
+        align="left",
+        font-weight="bold"
+        font-family="Arial, Helvetica, Times New Roman, Verdana"
+        font-size="20px"
+        color="#000"
+     />
+   
+     <mj-class name="text-normal"
+        align="left",
+        font-weight="bold"
+        font-family="Arial, Helvetica, Times New Roman, Verdana"
+        font-size="16px"
+        color="#7e7e7e"
+     />
+
+     <mj-class name="text-normal-black"
+        align="left",
+        font-weight="bold"
+        font-family="Arial, Helvetica, Times New Roman, Verdana"
+        font-size="16px"
+        color="#000"
+     />
+
+     <mj-class name="text-comment"
+        align="left",
+        font-weight="bold"
+        font-family="Arial, Helvetica, Times New Roman, Verdana"
+        font-size="16px"
+        color="#F45E43"
+     />
+
+     <mj-class name="text-url"
+        align="left",
+        font-weight="bold"
+        font-family="Arial, Helvetica, Times New Roman, Verdana"
+        font-size="16px"
+        color="#9442FF"
+     />
+    
+     <mj-class name="divider"
+        border-color="#eee"
+        border-style="solid"
+        border-width="1px"
+     />
+
+
+     <mj-class name="footer"
+        full-width="full-width"
+        background-color="#5A606F"
+        vertical-align="top"
+        padding-bottom="20px"
+        padding-top="20px"
+      />
+</mj-attribtues>

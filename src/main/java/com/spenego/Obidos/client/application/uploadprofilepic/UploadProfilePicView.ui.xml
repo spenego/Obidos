@@ -1,0 +1,288 @@
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:f='urn:import:org.vectomatic.file' xmlns:v='urn:import:org.vectomatic.dnd'
+	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:h="urn:import:com.google.gwt.canvas.client"
+	xmlns:b="urn:import:org.gwtbootstrap3.client.ui"
+	xmlns:b.html="urn:import:org.gwtbootstrap3.client.ui.html"
+	xmlns:m="urn:import:com.spenego.Obidos.client.application.widgets"
+	xmlns:b.gwt="urn:import:org.gwtbootstrap3.client.ui.gwt">
+
+	<ui:with field='i18n' type='com.spenego.Obidos.client.i18n.ObidosMessages' />
+	<ui:style gss="true">
+	.twof-spacing {
+		margin-right: 10px;
+	}
+	
+	.twof-form-error-label {
+		color: red;
+	}
+	
+	.twof-info {
+		background-color: #EEEEEE;
+		border-color: #2F79B9;
+	}
+	
+	.twof-danger {
+		background-color: #eee;
+		border-color: #dFb5b4;
+	}
+	
+	.twof-margin-fix {
+		margin-top: 0 !important;
+	}
+	
+	.top-margin {
+		margin-top: 50px;
+	}
+	
+	.badge-color {
+		background-color: #00f;
+	}
+	
+	.twof-paragraph-font {
+		font-size: 13px;
+	}
+	
+	.twof-hr {
+		border-bottom: 1px solid #ccc;
+		padding-bottom: 10px;
+		margin-bottom: 10px;
+		margin-left: 10px;
+		margin-right: 10px;
+	}
+	
+	.fp-bottom-margin {
+		margin-bottom: 5px;
+	}
+	
+	.top-margin {
+		margin-top: 70px;
+	}
+	
+	.dtop-panel {
+		width: 156px;
+		height: 156px;
+		line-height: 156px;
+		border: 2px dashed #ccc;
+		color: #ccc;
+		text-align: center;
+	}
+	
+	.bottom-margin {
+		margin-bottom: 3px;
+	}
+	
+	.button-width {
+		width: 120px !important;
+	}
+	
+	.upload-padding {
+		padding: 7px 7px !important;
+	}
+	
+	.centered {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+	
+	.image-tnail {
+		border: 2px solid #f000;
+	}
+	.x-info {
+		background-color: #EEEEEE;
+		border-color: #2F79B9;
+	}
+	.paragraph-font {
+		font-size: 13px;
+	}
+	.upload-padding {
+	   padding-top: 5px !important;
+	   padding-left: 8px !important;
+    }
+    .button-margin {
+	   margin-right: 4px;
+	   margin-bottom: 4px;
+	}
+	.canvas-style {
+	   border:1px solid #000000;
+	}
+	.histogram-image {
+	   margin-left: 5px;
+
+	}
+	</ui:style>
+	<!-- we don't need top-margin here, obidos.css already has that defined -->
+	<!-- <g:HTMLPanel ui:field="htmlPanel" addStyleNames='{style.top-margin}'> -->
+
+	<g:HTMLPanel ui:field="htmlPanel">
+		<b:Container addStyleNames="col-sm-12">
+			<b:BlockQuote addStyleNames="{style.x-info}" ui:field='helpBlockQuote' visible="false">
+				<b.html:Paragraph ui:field='helpParagraph' addStyleNames='{style.paragraph-font}' HTML="{i18n.uploadProfilePicHelp}"/>
+			</b:BlockQuote>
+			<b:Row>
+					<b:Panel type="PRIMARY">
+    			        <m:ObidosPanelHeader ui:field="panelHeader" showBackButton="true" headerText="{i18n.uploadProfilePic}"/>
+						<b:PanelBody>
+							<g:HTMLPanel>
+								<b:Form type="HORIZONTAL">
+									<m:ObidosRow bottomMargin="2px">
+										<g:FlowPanel addStyleNames="col-sm-offset-4 col-sm-8">
+											<b:Image type="THUMBNAIL" ui:field="previewImage" url="128x128.png" />
+											<b:Image type="THUMBNAIL" ui:field="histogramImage" url="128x128.png" addStyleNames="{style.histogram-image}" visible="false"/>
+										</g:FlowPanel>
+									</m:ObidosRow>
+
+									<!-- file upload widget -->
+									<m:ObidosRow bottomMargin="2px">
+										<b:FormLabel addStyleNames="col-sm-4" text="{i18n.selectProfilePic}"/>
+										<g:FlowPanel addStyleNames="col-sm-4 {style.upload-padding}">
+											 <m:ObidosImageUpload ui:field="imageUpload" addStyleNames="{style.upload-padding}"/>
+										</g:FlowPanel>
+									</m:ObidosRow>
+									
+
+									<!-- drop panel -->
+									<!-- I do not like dropping files .. so not implementing at this time -->
+									<!-- <b:Row addStyleNames="{style.bottom-margin}" visible="false"> <b:FormLabel addStyleNames="col-sm-4" 
+										text="Or Drop Image file here"/> <g:FlowPanel addStyleNames="col-sm-8"> <v:DropPanel ui:field="dropPanel" 
+										addStyleNames="{style.dtop-panel}"/> </g:FlowPanel> </b:Row> -->
+
+									<!-- panel to hold cropper widget -->
+									<m:ObidosRow bottomMargin="4px">
+										<g:FlowPanel addStyleNames="col-sm-offset-4 col-sm-8">
+											<g:SimplePanel ui:field="cropperSimplePanel"/>
+										</g:FlowPanel>
+									</m:ObidosRow>
+
+									<!-- invisible canvas for resizing cropper image -->
+									<b:Row visible="false">
+										<h:Canvas ui:field="cropperCanvas" />
+									</b:Row>
+									
+									<!--  invisible canvas for histogram image -->
+									<b:Row visible="false">
+										<h:Canvas ui:field="histogramCanvas" addStyleNames="{style.canvas-style}"/>
+									</b:Row>
+
+
+                                    <!-- invisible canvas for resizing preview image -->
+									<b:Row visible="false">
+										<h:Canvas ui:field="previewImageCanvas" />
+									</b:Row>
+
+                                    <!--  invisible image to determine preview image size -->
+									<b:Row visible="false">
+										<b:Image ui:field="previewImageResizer" visible="false" />
+									</b:Row>
+
+									<!-- invisible image to determine cropper image size -->
+									<b:Row visible="false">
+										<g:FlowPanel addStyleNames="col-sm-offset-4 col-sm-8">
+											<b:Image ui:field="croppedImageResizer" visible="false" />
+										</g:FlowPanel>
+									</b:Row>
+
+									<!-- Invisible image to determine size of loaded image file HTML5 File API -->
+									<b:Row addStyleNames="{style.bottom-margin}" visible="false">
+										<g:FlowPanel>
+											<b:Image ui:field="loadedImageResizer" visible="false" />
+										</g:FlowPanel>
+									</b:Row>
+									<!-- preview image resizer -->
+									
+									<m:ObidosMessageRow ui:field="messageRow"/>
+
+									<m:ObidosRow bottomMargin="4px">
+										<g:FlowPanel addStyleNames="col-sm-offset-4 col-sm-8">
+                                            <b:Button size="SMALL" type="SUCCESS" ui:field="uploadButton" addStyleNames="{style.button-width} {style.button-margin}" text="{i18n.uploadImage}"/>
+											<b:Button size="SMALL" ui:field="cropButton" type="PRIMARY" block="false" addStyleNames="{style.button-width} {style.button-margin}" text="{i18n.crop}"/>
+										</g:FlowPanel>
+									</m:ObidosRow>
+
+<!--
+									<m:ObidosRow bottomMargin="2px">
+										<g:FlowPanel addStyleNames="col-sm-offset-4 col-sm-4">
+										<b:InputGroup>
+										  <b:InputGroupButton>
+											  <b:Button size="SMALL" ui:field="annotateButton" type="PRIMARY" block="false" text="{i18n.annotate}" addStyleNames="{style.button-width}" />
+										  </b:InputGroupButton>
+										  <m:ObidosTextBox ui:field="annotateTextBox" placeholder="{i18n.annotateText}" autoComplete="false"/>
+										</b:InputGroup>
+										</g:FlowPanel>
+									</m:ObidosRow>
+									-->
+
+
+
+									<m:ObidosRow bottomMargin="2px">
+										<b:FormLabel addStyleNames="col-sm-4" text="Annotate Text"/>
+										<g:FlowPanel addStyleNames="col-sm-4">
+          									  <m:ObidosTextBox ui:field="annotateTextBox" placeholder="{i18n.annotateText}" autoComplete="false"/>
+    									  </g:FlowPanel>
+									</m:ObidosRow>
+
+									<m:ObidosRow bottomMargin="2px">
+										<b:FormLabel addStyleNames="col-sm-4" text="Annotate Text Color"/>
+										<g:FlowPanel addStyleNames="col-sm-4">
+									  <m:ObidosTextBox ui:field="annotateColorTextBox" placeholder="white" autoComplete="false"/>
+									  </g:FlowPanel>
+									</m:ObidosRow>
+
+									<m:ObidosRow bottomMargin="2px">
+										<b:FormLabel addStyleNames="col-sm-4" text="Annotate Text Font Size"/>
+										<g:FlowPanel addStyleNames="col-sm-4">
+										<m:ObidosIntegerTextBox ui:field="annotateFontIntegerTextBox" placeholder="14"/>
+									  </g:FlowPanel>
+									</m:ObidosRow>
+
+									<m:ObidosRow bottomMargin="2px">
+										<g:FlowPanel addStyleNames="col-sm-offset-4 col-sm-4">
+                                            <b:Button size="SMALL" type="PRIMARY" ui:field="annotateButton" addStyleNames="{style.button-width} {style.button-margin}" text="{i18n.annotate}"/>
+                                            <b:Label ui:field="annotateLabel" text="x,y"/>
+										</g:FlowPanel>
+									</m:ObidosRow>
+
+
+
+
+									<m:ObidosRow bottomMargin="2px">
+										<b:FormLabel addStyleNames="col-sm-4" text="{i18n.imageFilters}"/>
+										<g:FlowPanel addStyleNames="col-sm-4">
+										<b:CheckBox ui:field="applyToRegionCheckBox" text="{i18n.applyToRegion}"/>
+										</g:FlowPanel>
+									</m:ObidosRow>
+
+                                    <m:ObidosRow bottomMargin="4px">
+										<g:FlowPanel addStyleNames="col-sm-offset-4 col-sm-8">
+											<b:Button ui:field="grayButton" size="SMALL" type="PRIMARY" block="false" addStyleNames="{style.button-width} {style.button-margin}" text="{i18n.grayFilter}"/>
+											<b:Button ui:field="sepiaButton" size="SMALL" type="PRIMARY" block="false" addStyleNames="{style.button-width} {style.button-margin}" text="{i18n.sepiaFilter}"/>
+											<b:Button ui:field="brightenButton" size="SMALL" type="PRIMARY" block="false" addStyleNames="{style.button-width} {style.button-margin}" text="{i18n.brightenFilter}"/>
+											<b:Button ui:field="darkenButton" size="SMALL" type="PRIMARY" block="false" addStyleNames="{style.button-width} {style.button-margin}" text="{i18n.darkenFilter}"/>
+										</g:FlowPanel>
+									</m:ObidosRow>
+									<b:Row>
+										<g:FlowPanel addStyleNames="col-sm-offset-4 col-sm-8">
+											<b:Button ui:field="negativeButton" size="SMALL" type="PRIMARY" block="false" addStyleNames="{style.button-width} {style.button-margin}" text="{i18n.negativeFilter}"/>
+											<b:Button ui:field="solarizeButton" size="SMALL" type="PRIMARY" block="false" addStyleNames="{style.button-width} {style.button-margin}" text="{i18n.solarizeFilter}"/>
+											<b:Button ui:field="noiseButton" size="SMALL" type="PRIMARY" block="false" addStyleNames="{style.button-width} {style.button-margin}" text="{i18n.noiseFilter}"/>
+											<b:Button ui:field="histogramButton" size="SMALL" type="PRIMARY" block="false" addStyleNames="{style.button-width} {style.button-margin}" text="{i18n.histogramImage}"/>
+										</g:FlowPanel>
+									</b:Row>
+									<b:Row>
+										<g:FlowPanel addStyleNames="col-sm-offset-4 col-sm-8">
+											<b:Button ui:field="redButton" size="SMALL" type="PRIMARY" block="false" addStyleNames="{style.button-width} {style.button-margin}" text="{i18n.redChannel}"/>
+											<b:Button ui:field="greenButton" size="SMALL" type="PRIMARY" block="false" addStyleNames="{style.button-width} {style.button-margin}" text="{i18n.greenChannel}"/>
+											<b:Button ui:field="blueButton" size="SMALL" type="PRIMARY" block="false" addStyleNames="{style.button-width} {style.button-margin}" text="{i18n.blueChannel}"/>
+											<b:Button ui:field="revertButton" size="SMALL" type="DANGER" block="false" addStyleNames="{style.button-width} {style.button-margin}" text="{i18n.revertFilters}"/>
+										</g:FlowPanel>
+									</b:Row>
+								</b:Form>
+							</g:HTMLPanel>
+						</b:PanelBody>
+					</b:Panel>
+			</b:Row>
+		</b:Container>
+	</g:HTMLPanel>
+</ui:UiBinder>

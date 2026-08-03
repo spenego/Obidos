@@ -1,0 +1,120 @@
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:b="urn:import:org.gwtbootstrap3.client.ui"
+	xmlns:b.html="urn:import:org.gwtbootstrap3.client.ui.html"
+	xmlns:m="urn:import:com.spenego.Obidos.client.application.widgets"
+	xmlns:d="urn:import:com.spenego.Obidos.client.ui">
+
+	<ui:with field='i18n' type='com.spenego.Obidos.client.i18n.ObidosMessages' />
+
+	<ui:style gss="true">
+	.admins-management-well {
+		color: #948A54;
+		background: #C3E4ED;
+		font-weight: bold;
+		overflow: auto;
+		margin-bottom: 0;
+	}
+	
+	.users-management-well {
+		color: #948A54;
+		background: #CFC9A7;
+		font-weight: bold;
+		overflow: auto;
+		margin-bottom: 0;
+	}
+	
+	.settings-management-well {
+		color: #948A54;
+		background: #ABFBBD;
+		font-weight: bold;
+		overflow: auto;
+		margin-bottom: 0;
+	}
+	
+	.console-top-margin {
+		margin-top: 20px;
+	}
+	
+	.panel-header-primary {
+		background-color: #222222 !important;
+	}
+	</ui:style>
+
+	<g:HTMLPanel>
+		<b:Container addStyleNames="col-sm-12">
+			<b:Row>
+				<b:Panel type="PRIMARY">
+					<m:ObidosPanelHeader ui:field="panelHeader"
+						showBackButton="false" headerText="{i18n.adminConsole}" />
+					<b:PanelBody>
+						<b:Row>
+							<b:Column size="MD_4">
+								<b:Well addStyleNames='{style.admins-management-well}'>
+									<b.html:Span text="{i18n.manageAdminAccounts}" />
+									<b.html:Span>
+										<br />
+										<ul>
+											<li>
+												<b.html:Span text="{i18n.createAdminAccounts}" />
+											</li>
+											<li>
+												<b.html:Span text="{i18n.listAdminAccounts}" />
+											</li>
+											<li>
+												<b.html:Span text="{i18n.modifyAdminAccounts}" />
+											</li>
+										</ul>
+									</b.html:Span>
+								</b:Well>
+							</b:Column>
+
+							<b:Column size="MD_4">
+								<b:Well addStyleNames='{style.users-management-well}'>
+									<b.html:Span text="{i18n.manageUserAccounts}" />
+									<b.html:Span>
+										<ul>
+											<li>
+												<b.html:Span text="{i18n.createUserAccount}" />
+											</li>
+											<li>
+												<b.html:Span text="{i18n.listUserAccounts}" />
+											</li>
+											<li>
+												<b.html:Span text="{i18n.modifyUserAccounts}" />
+											</li>
+										</ul>
+									</b.html:Span>
+								</b:Well>
+							</b:Column>
+
+							<b:Column size="MD_4">
+								<b:Well addStyleNames='{style.settings-management-well}'>
+									<b.html:Span text="{i18n.manageSettings}" />
+									<b.html:Span>
+										<br />
+										<ul>
+											<li>
+												<b.html:Span text="{i18n.adLdapSettings}" />
+											</li>
+											<li>
+												<b.html:Span text="{i18n.createSMTPSettings}" />
+											</li>
+											<li>
+												<b.html:Span text="{i18n.generalSettings}" />
+											</li>
+										</ul>
+
+									</b.html:Span>
+								</b:Well>
+
+							</b:Column>
+
+
+						</b:Row>
+					</b:PanelBody>
+				</b:Panel>
+			</b:Row>
+		</b:Container>
+	</g:HTMLPanel>
+</ui:UiBinder>

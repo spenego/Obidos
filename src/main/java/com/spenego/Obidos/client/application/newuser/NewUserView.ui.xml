@@ -1,0 +1,241 @@
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:b="urn:import:org.gwtbootstrap3.client.ui"
+	xmlns:b.html="urn:import:org.gwtbootstrap3.client.ui.html"
+	xmlns:b.gwt="urn:import:org.gwtbootstrap3.client.ui.gwt"
+	xmlns:m="urn:import:com.spenego.Obidos.client.application.widgets"
+    xmlns:select="urn:import:org.gwtbootstrap3.extras.select.client.ui"
+	xmlns:b3="urn:import:org.gwtbootstrap3.extras.toggleswitch.client.ui"
+	xmlns:d="urn:import:com.spenego.Obidos.client.ui">
+
+	<ui:with field='i18n' type='com.spenego.Obidos.client.i18n.ObidosMessages' />
+
+	<ui:style gss="true">
+	.form-error-label {
+		color: red;
+	}
+	
+	.message-info {
+		margin: 10px 0px;
+		padding: 12px;
+		color: #00529B;
+		background-color: #BDE5F8;
+		box-shadow: 1px 1px 3px #888;
+	}
+	
+	.margin-fix {
+		margin-top: 0 !important;
+	}
+	.ro-font {
+	   font-weight: bold;
+	}
+	
+	.paragraph-font {
+		font-size: 13px;
+	}
+	
+	.info {
+		background-color: #EEEEEE;
+		border-color: #2F79B9;
+	}
+	
+	.mustChangePasswordLabel {
+		color: blue;
+		font-weight: bold;
+	}
+	
+	.new-user-panel-header {
+		background-color: #222 !important;
+	}
+	
+	.fp-bottom-margin {
+		margin-bottom: 5px;
+	}
+	
+	.center {
+		text-align:center;
+	}
+	
+	.uhr {
+		border-bottom: 1px solid #ccc;
+		padding-bottom: 10px;
+		margin-bottom: 10px;
+	}
+	.help-bq {
+		background-color:  #EEEEEE;
+		border-color: #2F79B9;
+	}
+	.help-paragraph-font {
+		font-size: 13px;    
+	}
+	.must_change_password_label {
+	   margin-left: -20px;
+	   weight: bold;
+	   color: red;
+	}
+	.customSelect button {
+		color: #000 !important;
+	}
+	.fp-right-margin {
+		margin-right: 10px;
+	}
+	</ui:style>
+	<g:HTMLPanel ui:field="htmlPanel">
+		<b:Container addStyleNames="col-sm-12">
+			<b:Row>
+			<b:BlockQuote addStyleNames="{style.info}" ui:field="helpBlockQuote" visible="false">
+			     <b.html:Paragraph ui:field='helpParagraph' addStyleNames='{style.help-paragraph-font}' HTML="{i18n.newUserHelp}"/>
+			</b:BlockQuote>
+					<b:Panel type="PRIMARY">
+						<m:ObidosPanelHeader ui:field="panelHeader" showBackButton="true" addStyleNames="{style.new-user-panel-header}" headerText="{i18n.newUserAccount}"/>
+						<b:PanelBody>
+							<g:HTMLPanel>
+								<b:Form type="HORIZONTAL">
+                                        <m:ObidosRowBottom2px>
+											<b:FormLabel for="forLoginName" addStyleNames="col-sm-4" HTML="{i18n.usernameLabelHtml}" />
+											<g:FlowPanel addStyleNames="col-sm-5">
+												<m:ObidosTextBox ui:field="userNameTextBox" b:id="username" placeholder="{i18n.usernameTextBoxPlaceHolder}" allowBlank="false" />
+											</g:FlowPanel>
+										</m:ObidosRowBottom2px>
+
+                                        <m:ObidosRowBottom2px>
+											<b:FormLabel for="fullname" addStyleNames="col-sm-4" HTML="{i18n.fullnameLabelHtml}" />
+											<g:FlowPanel addStyleNames="col-sm-5">
+												<m:ObidosTextBox ui:field="fullNameTextBox" b:id="fullname" placeholder="{i18n.fullnameTextBoxPlaceHolder}" allowBlank="false" />
+											</g:FlowPanel>
+										</m:ObidosRowBottom2px>
+
+                                        <m:ObidosRowBottom2px>
+											<b:FormLabel for="formAuthSource" b:id="authsource" addStyleNames="col-sm-4" HTML="{i18n.authenticationSourceLabelHtml}" />
+											<g:FlowPanel addStyleNames="col-sm-5">
+												<b:ListBox b:id="authenticationsource" ui:field='authSourceListBox'>
+													<g:item>Local</g:item>
+													<g:item>Active Directory/LDAP</g:item>
+												</b:ListBox>
+											</g:FlowPanel>
+										</m:ObidosRowBottom2px>
+
+                                        <m:ObidosRowBottom2px ui:field='passwordRow'>
+											<b:FormLabel for="userPassword" ui:field="passwordLabel" addStyleNames="col-sm-4" HTML="{i18n.passwordLabelHtml}" />
+											<g:FlowPanel addStyleNames="col-sm-5" ui:field='passwordFlowPanel'>
+												<b:InputGroup ui:field='inputGroup'>
+													<m:ObidosPasswordBox ui:field="passwordBox" b:id="password" placeholder="{i18n.passwordTextBoxPlaceHolder}" />
+													<b:InputGroupButton>
+														<b:Button type="INFO" icon="EYE" ui:field='showHidePasswordButton' text="" />
+													</b:InputGroupButton>
+												</b:InputGroup>
+											</g:FlowPanel>
+											<g:FlowPanel addStyleNames="col-sm-3">
+												<b:FormLabel ui:field='mustChangePasswordLabel' addStyleNames='{style.must_change_password_label}' HTML="{i18n.userMustChangePassword}" />
+											</g:FlowPanel>
+										</m:ObidosRowBottom2px>
+
+                                        <m:ObidosRowBottom2px ui:field='expireRow'>
+											<b:FormLabel addStyleNames="col-sm-4" text="{i18n.maxPasswordAgeInDays}"/>
+											<g:FlowPanel addStyleNames="col-sm-5">
+												<m:ObidosIntegerTextBox ui:field="passwordExpiresTextBox" b:id="expires" readOnly="false"/>
+											</g:FlowPanel>
+											<g:FlowPanel addStyleNames="col-sm-4">
+												<b:FormLabel ui:field='passwordNeverExpiresLabel' HTML="{i18n.userMustChangePassword}" visible="false"/>
+											</g:FlowPanel>
+										</m:ObidosRowBottom2px>
+
+                                        <m:ObidosRowBottom2px>
+											<b:FormLabel for="formPrimaryEmail" ui:field="emailLabel" addStyleNames="col-sm-4" HTML="{i18n.primaryEmailLabelHtml}" />
+											<g:FlowPanel addStyleNames="col-sm-5">
+												<m:ObidosTextBox ui:field="primaryEmailTextBox" b:id="primaryemail" placeholder="{i18n.primaryEmailTextBoxPlaceHolder}" allowBlank="false" />
+											</g:FlowPanel>
+										</m:ObidosRowBottom2px>
+
+
+                                        <m:ObidosRowBottom2px>
+											<b:FormLabel for="formPrimaryPhone" ui:field="phoneLabel" addStyleNames="col-sm-4" HTML="{i18n.primaryPhoneLabelHtml}" />
+											<g:FlowPanel addStyleNames="col-sm-5">
+												<m:ObidosTextBox ui:field="primaryPhoneBox" b:id='primaryphone' placeholder="{i18n.primaryPhoneTextBoxPlaceHolder}" allowBlank="true" />
+											</g:FlowPanel>
+										</m:ObidosRowBottom2px>
+
+<!-- 
+                                        <m:ObidosRowBottom2px>
+											<b:FormLabel for="formMobilePhone" ui:field="mobilePhoneLabel" addStyleNames="col-sm-4" HTML="{i18n.mobilePhone}" />
+											<g:FlowPanel addStyleNames="col-sm-5">
+												<m:ObidosTextBox ui:field="mobilePhoneBox" b:id='mobilephone' placeholder="{i18n.mobilePhonePlaceHolder}" allowBlank="true" />
+											</g:FlowPanel>
+										</m:ObidosRowBottom2px>
+-->
+
+										<m:ObidosRowBottom2px>
+											<b:FormLabel for="formMobilePhone" ui:field='mobilePhoneLabel' addStyleNames="col-sm-4" HTML="{i18n.mobilePhone}"/>
+											<g:FlowPanel addStyleNames="col-sm-5">
+											  <b:Column size="XS_5 SM_5" paddingRight="2" paddingLeft="0">
+												   <select:Select addStyleNames="{style.customSelect}" liveSearch="true" ui:field="countryCodeSelect" title="{i18n.countryCode}" showTick="true"></select:Select>
+											  </b:Column>
+											  <b:Column size="XS_7 SM_7" paddingLeft="2" paddingRight="0">
+												<m:ObidosTextBox ui:field="mobilePhoneTextBox" placeholder="{i18n.mobilePhoneWithoutCountryCode}"/>
+												</b:Column>
+											</g:FlowPanel>
+										</m:ObidosRowBottom2px>
+
+
+                                        <m:ObidosRowBottom2px>
+											<g:FlowPanel
+												addStyleNames="col-sm-offset-4 col-sm-4">
+												<b:CheckBox ui:field='sendEmailCheckBox' b:id="sendemailtouser" text="{i18n.sendUserCreationEmailLabel}" value="true" />
+											</g:FlowPanel>
+										</m:ObidosRowBottom2px>
+
+                                        <m:ObidosRowBottom2px>
+											<b:FormLabel for="formEmailComment" ui:field="emailComment" addStyleNames="col-sm-4" text="{i18n.emailComment}" />
+											<g:FlowPanel addStyleNames="col-sm-5">
+												<m:ObidosTextArea ui:field="emailCommentTextArea" placeholder="{i18n.emailComment}" maxLength="255"/>
+											</g:FlowPanel>
+										</m:ObidosRowBottom2px>
+
+
+								<!-- capabilities start -->
+
+                                         <b:FormGroup>
+                                         </b:FormGroup>
+        
+                                        <m:ObidosRowBottom2px>
+											<g:FlowPanel addStyleNames="col-sm-offset-1 col-sm-7">
+											     <b:FormLabel text="{i18n.settings}"/>
+											</g:FlowPanel>
+										</m:ObidosRowBottom2px>
+
+										<m:ObidosRowBottom2px>
+											<g:FlowPanel addStyleNames="col-sm-offset-1 col-sm-8">
+											     <b:Row addStyleNames="{style.uhr}" />
+											</g:FlowPanel>
+										</m:ObidosRowBottom2px>
+
+                                        <b:Row ui:field='twofarow'>
+											<b:FormLabel ui:field="twoFAPasswordResetLabel" addStyleNames="col-sm-4" text="{i18n.twoFactorForPasswordReset}" />
+											<g:FlowPanel addStyleNames="col-sm-4 {style.fp-bottom-margin}">
+												<b3:ToggleSwitch ui:field='twoFAPasswordResetSwitch' size="SMALL" onText="✓" offText="✗" onColor="SUCCESS" offColor="DANGER" value="false" />
+											</g:FlowPanel>
+										</b:Row>
+
+										<m:ObidosRowBottom2px>
+											<b:FormLabel ui:field="canCreateGlobalTemplateLabel" addStyleNames="col-sm-4" text="{i18n.canManageGlobalTemplates}" />
+											<g:FlowPanel addStyleNames="col-sm-4 {style.fp-bottom-margin}">
+												<b3:ToggleSwitch ui:field='globalTemplateToggleSwitch' b:id="globaltemplatetoggleswitch" size="SMALL"  onText="✓" offText="✗" onColor="SUCCESS" offColor="DANGER" value="false" />
+											</g:FlowPanel>
+										</m:ObidosRowBottom2px>
+
+                                        <m:ObidosMessageRow ui:field="messageRow"/>
+    
+ 								        <b:Row>
+								            <m:ObidosButtonToolBar ui:field="buttonToolBarBottom">
+												<b:Button type="SUCCESS" b:id="createuseraccount" ui:field='createUserButton' text="{i18n.createUserAccount}" />
+								            </m:ObidosButtonToolBar>
+								        </b:Row>
+								</b:Form>
+							</g:HTMLPanel>
+						</b:PanelBody>
+					</b:Panel>
+			</b:Row>
+		</b:Container>
+	</g:HTMLPanel>
+
+</ui:UiBinder>

@@ -1,0 +1,91 @@
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:b="urn:import:org.gwtbootstrap3.client.ui"
+	xmlns:b.html="urn:import:org.gwtbootstrap3.client.ui.html"
+	xmlns:b.gwt="urn:import:org.gwtbootstrap3.client.ui.gwt"
+	xmlns:m="urn:import:com.spenego.Obidos.client.application.widgets"
+	xmlns:d="urn:import:com.spenego.Obidos.client.ui">
+
+	<ui:with field='i18n' type='com.spenego.Obidos.client.i18n.ObidosMessages' />
+	<ui:style gss="true">
+	.form-error-label {
+		color: red;
+	}
+	
+	.message-info {
+		margin: 10px 0px;
+		padding: 12px;
+		color: #00529B;
+		background-color: #BDE5F8;
+		box-shadow: 1px 1px 3px #888;
+	}
+	
+	.ginfo {
+		background-color: #EEEEEE;
+		border-color: #2F79B9;
+	}
+	
+	.margin-fix {
+		margin-top: 0 !important;
+	}
+	
+	.paragraph-font {
+		font-size: 13px;
+	}
+	
+	.margin {
+		margin: 5px;
+	}
+	
+	.bottom-margin {
+		margin-bottom: 4px;
+	}
+	</ui:style>
+
+	<g:HTMLPanel ui:field="htmlPanel">
+		<b:Container addStyleNames="col-sm-12">
+			<b:BlockQuote addStyleNames="{style.ginfo}" ui:field='helpBlockQuote' visible="false">
+				<b.html:Paragraph ui:field='copyTemplateInfoParagraph' addStyleNames='{style.paragraph-font}' HTML="{i18n.copyTemplateHelp}" />
+			</b:BlockQuote>
+			<b:Row>
+				<b:Panel type="PRIMARY">
+					<m:ObidosPanelHeader ui:field="panelHeader" showBackButton="true"
+						headerText="{i18n.copyTemplateTitle}" />
+					<b:PanelBody>
+						<g:HTMLPanel>
+							<b:Form type="HORIZONTAL">
+
+								<m:ObidosRow bottomMargin="2px">
+									<b.html:Br />
+									<b:FormLabel for="forName" ui:field='templateNameLabel'
+										addStyleNames="col-sm-4" text="{i18n.templateNameLabel}" />
+									<g:FlowPanel addStyleNames="col-sm-4">
+										<m:ObidosTextBox ui:field="templateNameTextBox" placeholder="Template Name"
+											readOnly="true" />
+									</g:FlowPanel>
+								</m:ObidosRow>
+
+								<m:ObidosRow bottomMargin="2px">
+									<b:FormLabel for="forName" ui:field='newTemplateNameLabel'
+										addStyleNames="col-sm-4" text="{i18n.newTemplateNameLabel}" />
+									<g:FlowPanel addStyleNames="col-sm-4">
+										<m:ObidosTextBox ui:field="newTemplateNameTextBox"
+											placeholder="{i18n.newTemplateNameLabel}" allowBlank="false" />
+									</g:FlowPanel>
+								</m:ObidosRow>
+
+								<m:ObidosMessageRow ui:field="messageRow" />
+
+								<b:Row>
+									<m:ObidosButtonToolBar ui:field="buttonToolBar">
+										<b:Button type="SUCCESS" ui:field='submitButton' text="{i18n.copy}" />
+									</m:ObidosButtonToolBar>
+								</b:Row>
+							</b:Form>
+						</g:HTMLPanel>
+					</b:PanelBody>
+				</b:Panel>
+			</b:Row>
+		</b:Container>
+	</g:HTMLPanel>
+</ui:UiBinder>

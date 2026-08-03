@@ -1,0 +1,16 @@
+{
+    "id":171,
+    "logo_image_url": "https://spenego.com/logo.png",
+    "action_url": "",
+    "button_title": "Sign In",
+    "button_trouble": "If you are having trouble clicking the button above, copy and paste the URL below into the address bar of your web browser.",
+    "contact": "Please contact support at xxx-xxx-xxxx if you have any questions.",
+    "footer": "Example Inc., Address, City, State/Region, Country.",
+    "hello": "Hi {{name}}",
+    "html_message": "An Obidos (by Spenego) account is created for you. Please contact your administrator for your initial login credentials. Please click the button below to sign in.",
+    "product_name": "Obidos Digital Artifacts Management and Sharing Platform from Spenego",
+    "product_url": "https://spenego.com",
+    "subject": "New Obidos (by Spenego) user account.",
+    "text_message":"An Obidos (by Spenego) account is created for you. Please copy and paste the URL below to sign in with the Login Name and Password set by your administrator.",
+    "title": "Obidos (by Spenego) Secure Artifacts Management and Sharing Software"
+}

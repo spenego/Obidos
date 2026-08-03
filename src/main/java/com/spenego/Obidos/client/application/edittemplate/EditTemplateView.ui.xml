@@ -1,0 +1,139 @@
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:b="urn:import:org.gwtbootstrap3.client.ui"
+	xmlns:b.html="urn:import:org.gwtbootstrap3.client.ui.html"
+	xmlns:m="urn:import:com.spenego.Obidos.client.application.widgets"
+    xmlns:b3="urn:import:org.gwtbootstrap3.extras.toggleswitch.client.ui"
+	xmlns:b.gwt="urn:import:org.gwtbootstrap3.client.ui.gwt">
+
+	<ui:with field='i18n' type='com.spenego.Obidos.client.i18n.ObidosMessages' />
+
+	<ui:style gss="true">
+	.e-name-field-label-align {
+		text-align: left !important;
+	}
+	
+	.form-error-label {
+		color: red;
+	}
+	
+	.ept-message-info {
+		margin: 10px 0px;
+		padding: 12px;
+		color: #00529B;
+		background-color: #BDE5F8;
+		box-shadow: 1px 1px 3px #888;
+	}
+	
+	.ept-ginfo {
+		background-color: #EEEEEE;
+		border-color: #2F79B9;
+	}
+	
+	.ept-margin-fix {
+		margin-top: 0 !important;
+	}
+	
+	.ept-paragraph-font {
+		font-size: 13px;
+	}
+	
+	.ept-margin {
+		margin: 5px;
+	}
+	.ro-font {
+	   color: #000;
+	   font-weight: bold;
+	}
+	
+	.bottom-margin {
+		margin-bottom: 4px;
+	}
+	</ui:style>
+
+	<g:HTMLPanel ui:field="htmlPanel">
+		<b:Container addStyleNames="col-sm-12">
+			<b:BlockQuote addStyleNames="{style.ept-ginfo}" ui:field='helpBlockQuote' visible="false">
+				<b.html:Paragraph ui:field='newGroupInfoParagraph' addStyleNames='{style.ept-paragraph-font}' HTML="{i18n.editTemplateHelp}" />
+			</b:BlockQuote>
+			<b:Row>
+				<b:Panel type="PRIMARY">
+					<m:ObidosPanelHeader ui:field="panelHeader" showBackButton="true" headerText="{i18n.editTemplate}" />
+					<b:PanelBody>
+						<g:HTMLPanel>
+							<b:Form ui:field='form' type="HORIZONTAL">
+								<b:FormGroup>
+									 <!--  Language -->
+									<m:ObidosRowBottom2px ui:field="languageRow">
+										 <b:FormLabel for="languagel" b:id="languagel" addStyleNames="col-sm-4" HTML="{i18n.language}" />
+										 <g:FlowPanel addStyleNames="col-sm-4">
+											<b:ListBox b:id="languagelb" ui:field='languageListBox'>
+												<g:item>English</g:item>
+												<g:item>বাংলা</g:item>
+											</b:ListBox>
+										</g:FlowPanel>
+									</m:ObidosRowBottom2px>
+									<b:Row>
+										<b:FormLabel for="forTempalteName" addStyleNames="col-sm-4" text="{i18n.nameOfTemplate}" />
+										<g:FlowPanel addStyleNames="col-sm-4">
+											<m:ObidosTextBox ui:field="tempalteNameTextBox" placeholder="{i18n.nameOfTemplate}" addStyleNames="{style.ro-font}"/>
+										</g:FlowPanel>
+									</b:Row>
+								</b:FormGroup>
+
+								<b:Row>
+									<b:FormLabel for="forNameAndType" addStyleNames="col-sm-offset-4 col-sm-3 {style.e-name-field-label-align}" text="{i18n.templateFieldNames}" />
+									<b:FormLabel for="forNameAndType"
+										addStyleNames="{style.e-name-field-label-align}" text="{i18n.displayOrder}" />
+								</b:Row>
+
+
+								<b:FormGroup ui:field='formGroup'>
+								</b:FormGroup>
+
+								<b:FormGroup ui:field='addFieldFormGroup'>
+									<b:Row ui:field='addFieldGroupRow'>
+										<g:FlowPanel ui:field='addFieldFp' addStyleNames="col-sm-offset-4 col-sm-3">
+											<m:ObidosTextBox ui:field="addFieldTextBox" placeholder="{i18n.fieldName}" allowBlank="false" />
+										</g:FlowPanel>
+
+										<g:FlowPanel ui:field='addDisplayOrderFp' addStyleNames="col-sm-1">
+											<m:ObidosIntegerTextBox ui:field="addFieldDisplayOrderTextBox" placeholder="{i18n.displayOrderPlaceHolder}" enabled="true" text="1" />
+										</g:FlowPanel>
+
+										<g:FlowPanel ui:field='addButtonFp' addStyleNames="col-sm-1 {style.bottom-margin}">
+											<b:Button type="INFO" icon="PLUS" ui:field='addFieldButton' text="" />
+										</g:FlowPanel>
+									</b:Row>
+								</b:FormGroup>
+
+								<m:ObidosRowBottom2px ui:field='uploadRow'>
+									<b:FormLabel addStyleNames="col-sm-4" text="{i18n.canAttachDocument}"/>
+									<g:FlowPanel addStyleNames="col-sm-4">
+										 <b3:ToggleSwitch ui:field="attachDocumentToggleSwitch" size="SMALL" onColor="SUCCESS" offColor="DANGER" onText="✓" offText="✗" value="true"/>
+									</g:FlowPanel>
+								</m:ObidosRowBottom2px>
+
+								<m:ObidosRowBottom2px ui:field='twoFARow'>
+									<b:FormLabel addStyleNames="col-sm-4" text="{i18n.canAddTwoFAInfo}"/>
+									<g:FlowPanel addStyleNames="col-sm-4">
+										 <b3:ToggleSwitch ui:field="add2FAToggleSwitch" size="SMALL" onColor="SUCCESS" offColor="DANGER" onText="✓" offText="✗" value="true"/>
+									</g:FlowPanel>
+								</m:ObidosRowBottom2px>
+
+								<m:ObidosMessageRow ui:field="messageRow" />
+
+								<b:Row>
+									<m:ObidosButtonToolBar ui:field="bottomToolBar">
+										<b:Button type="SUCCESS" ui:field='submitButton' text="{i18n.updateButtonTitle}" />
+										<m:ObidosResetButton ui:field='resetButton' />
+									</m:ObidosButtonToolBar>
+								</b:Row>
+							</b:Form>
+						</g:HTMLPanel>
+					</b:PanelBody>
+				</b:Panel>
+			</b:Row>
+		</b:Container>
+	</g:HTMLPanel>
+</ui:UiBinder>

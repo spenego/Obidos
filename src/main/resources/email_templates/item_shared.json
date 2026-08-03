@@ -1,0 +1,15 @@
+{
+    "id":417,
+    "action_url": "",
+    "button_title": "View Shared Item",
+    "button_trouble": "If you are having trouble with the button above, copy and paste the URL below into your web browser.",
+    "contact": "Please contact support at xxx-xxx-xxxx if you have any questions.",
+    "footer": "Example Inc., Address, City, State/Region, Country.",
+    "hello": "Hi {{name}}",
+    "html_message": "{{owner_name}} has shared a secured item with you. After login, please click on the notification bell for details.",
+    "product_name": "Obidos Digital Artifacts Management and Sharing Platform from Spenego",
+    "product_url": "https://spenego.com/",
+    "subject": "A secured Item is shared with you",
+    "text_message": "{{owner_name}} has shared a secured item with you. After login, please click on the notification bell for details.",
+    "title": "A secure Item is shared with you"
+}

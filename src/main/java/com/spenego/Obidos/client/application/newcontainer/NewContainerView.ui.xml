@@ -1,0 +1,101 @@
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+             xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	     xmlns:m="urn:import:com.spenego.Obidos.client.application.widgets"
+             xmlns:b="urn:import:org.gwtbootstrap3.client.ui"
+             xmlns:b.html="urn:import:org.gwtbootstrap3.client.ui.html"
+             xmlns:d="urn:import:com.spenego.Obidos.client.ui">
+
+<ui:with field='i18n' type='com.spenego.Obidos.client.i18n.ObidosMessages'/>
+<ui:style gss="true">
+.form-error-label{
+    color: red;
+}
+.info {
+	background-color:  #EEEEEE;
+	border-color: #2F79B9;
+}
+.margin-fix {
+	margin-top: 0 !important;
+}
+.newc-paragraph-font {
+    font-size: 13px;    
+}
+.margin {
+	margin: 5px;
+}
+.bottom-margin {
+	margin-bottom: 2px;
+}
+.message-label {
+	background-color: transparent;
+}
+
+.center-toolbar {
+	justify-content: center;
+	display: flex;
+}
+.center_fp {
+   display: flex;
+   justify-content: center;
+}
+</ui:style>
+
+<!--
+*********************************************************************
+This is the UI for creating a new Container.
+*********************************************************************
+-->
+
+<g:HTMLPanel ui:field="htmlPanel">
+	<b:Container addStyleNames="col-sm-12">
+		<b:Row>
+		   <b:BlockQuote addStyleNames="{style.info}" ui:field="helpBlockQuote" visible="false">
+				<b.html:Paragraph ui:field='newContainerDescParagraph' HTML="{i18n.createContainerHelp}" addStyleNames="{style.newc-paragraph-font}"/>
+			</b:BlockQuote>
+				<b:Panel type="PRIMARY">
+			        <m:ObidosPanelHeader ui:field="panelHeader" showBackButton="true" headerText="{i18n.createNewContainer}"/>
+					<b:PanelBody>
+						<g:HTMLPanel>
+							<b:Form type="HORIZONTAL">
+									 <!--  Language -->
+									<m:ObidosRowBottom2px ui:field="languageRow">
+										 <b:FormLabel for="languagel" b:id="languagel" addStyleNames="col-sm-4" HTML="{i18n.language}" />
+										 <g:FlowPanel addStyleNames="col-sm-4">
+											<b:ListBox b:id="languagelb" ui:field='languageListBox'>
+												<g:item>English</g:item>
+												<g:item>বাংলা</g:item>
+											</b:ListBox>
+										</g:FlowPanel>
+									</m:ObidosRowBottom2px>
+
+								    <b:Row>
+										<b:FormLabel for="forContainerName" ui:field='containerLabel' addStyleNames="col-sm-4" text="{i18n.name}"/>
+										<g:FlowPanel addStyleNames="col-sm-4">
+										  <m:ObidosInputGroup ui:field="containerNameInputGroup" readOnly="false" isSecure="false" placeHolder="{i18n.containerNamePlaceHolder}"/>
+										</g:FlowPanel>
+									</b:Row>
+
+								    <m:ObidosRowBottom2px>
+										<g:FlowPanel addStyleNames="{style.center_fp}">
+											<b:InlineRadio name="radio1" formValue="public" ui:field='publicContainerRadio' text="{i18n.shareableContainer}" value="false"/>
+											<b:InlineRadio name="radio1" formValue="private" ui:field='privateContainerRadio' text="{i18n.privateContainer}" value="false"/>
+										</g:FlowPanel>
+									</m:ObidosRowBottom2px>
+									
+									<m:ObidosMessageRow ui:field="messageRow"/>
+
+									<b:Row>
+										<m:ObidosButtonToolBar ui:field="buttonToolBarBottom">
+											<b:Button type="SUCCESS" ui:field='saveButton' text="{i18n.create}"/>
+											<b:Button type="PRIMARY" ui:field='grantPermissionsButton' text="{i18n.grantPermissions}" visible="false"/>
+                                            <b:Button type="INFO" ui:field='sharedWithUsersButton' text="{i18n.distributionList}" visible="false"/>
+										</m:ObidosButtonToolBar>
+									</b:Row>
+							</b:Form>
+						</g:HTMLPanel>
+					</b:PanelBody>
+				</b:Panel>
+		</b:Row>
+	</b:Container>
+</g:HTMLPanel>
+</ui:UiBinder>

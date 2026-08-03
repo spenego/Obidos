@@ -1,0 +1,299 @@
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	         xmlns:f='urn:import:org.vectomatic.file'
+             xmlns:g="urn:import:com.google.gwt.user.client.ui"
+             xmlns:b="urn:import:org.gwtbootstrap3.client.ui"
+             xmlns:b.html="urn:import:org.gwtbootstrap3.client.ui.html"
+             xmlns:b.gwt="urn:import:org.gwtbootstrap3.client.ui.gwt"
+             xmlns:m="urn:import:com.spenego.Obidos.client.application.widgets"
+             xmlns:select="urn:import:org.gwtbootstrap3.extras.select.client.ui"
+             xmlns:b3="urn:import:org.gwtbootstrap3.extras.toggleswitch.client.ui"
+             xmlns:d="urn:import:com.spenego.Obidos.client.ui">
+
+<ui:with field='i18n' type='com.spenego.Obidos.client.i18n.ObidosMessages'/>
+<ui:style gss="true">
+.margin-fix{
+    margin-top: 0 !important;
+}
+.paragraph-font {
+    font-size: 13px;    
+}
+.fp-bottom-margin {
+    margin-bottom: 5px;
+}
+.fp-auto-margin {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.fp-left-margin {
+    margin-left: 10px;
+}
+.fp-right-margin {
+    margin-right: 10px;
+}
+.info{
+    background-color:  #EEEEEE;
+    border-color: #2F79B9;
+}
+.sw-padding {
+    padding-left: 22px;
+}
+.sw-padding2 {
+    padding-left: 40px;
+}
+.readonly-font{
+	color: #000;
+	font-weight: bold;
+}
+.upload-padding {
+	padding-top: 7px !important;
+}
+.label-font {
+   font-size: small;
+   color: #CCCCCC;
+}
+.country-code-select {
+    width: 100% !important;
+}
+
+.full-width {
+    width: 100% !important;
+}
+
+.mobile-phone-container {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.mobile-phone-container .country-code-select,
+.mobile-phone-container .full-width {
+    width: 100% !important;
+}
+
+.mobile-phone-container .row {
+    margin-left: 0;
+    margin-right: 0;
+}
+.mobile-phone-container .country-code-select,
+.mobile-phone-container .full-width {
+    width: 100% !important;
+    min-width: 100%;
+}
+
+.mobile-phone-container .col-xs-5,
+.mobile-phone-container .col-sm-5 {
+    padding-right: 2px;
+}
+
+.mobile-phone-container .col-xs-7,
+.mobile-phone-container .col-sm-7 {
+    padding-left: 2px;
+}
+
+/* Ensure the select dropdown doesn't overflow */
+.mobile-phone-container .bootstrap-select {
+    width: 100% !important;
+}
+.for-sms-label {
+    line-height: 34px; /* Adjust this value to vertically align with the input field */
+    padding-left: 5px;
+}
+.customSelect button {
+    color: #000 !important;
+}
+</ui:style>
+<g:HTMLPanel ui:field="htmlPanel">
+	<b:Container addStyleNames="col-sm-12">
+		<b:Row>
+			<b:BlockQuote addStyleNames="{style.info}" ui:field="helpBlockQuote" visible="false">
+				<b.html:Paragraph ui:field='helpParagraph' addStyleNames='{style.paragraph-font}' HTML="{i18n.editSettingsHelp}"/>
+			</b:BlockQuote>
+				<b:Panel type="PRIMARY" ui:field="panel">
+				    <m:ObidosPanelHeader ui:field="panelHeader" showBackButton="false" headerText="{i18n.editProfile}"/>
+					<b:PanelBody>
+						<g:HTMLPanel>
+							<b:Form type="HORIZONTAL">
+								<b:FormGroup>
+								
+									<m:ObidosRow bottomMargin="2px">
+										<g:FlowPanel addStyleNames="col-sm-offset-4 col-sm-8">
+											<b:Image type="THUMBNAIL" ui:field="profilePreviewImage" url="128x128.png"/>
+										</g:FlowPanel>
+									</m:ObidosRow>
+
+									<m:ObidosRow bottomMargin="2px">
+										<g:FlowPanel addStyleNames="col-sm-offset-4 col-sm-2">
+										  <b:Button ui:field="uploadButton" size="SMALL" type="DEFAULT" text="{i18n.uploadProfilePic}"/>
+										</g:FlowPanel>
+										<g:FlowPanel addStyleNames="col-sm-5 {style.fp-bottom-margin}" ui:field="deleteProfileFlowPanel">
+										      <b:FormLabel addStyleNames="{style.fp-right-margin}" ui:field='deleteProfilePicLabel'  text="{i18n.deleteProfilePic}"/>
+    										  <b3:ToggleSwitch ui:field="deleteProfilePicSwitch" size="SMALL" onColor="SUCCESS" offColor="DANGER" onText="✓" offText="✗" value="false"/>
+										  </g:FlowPanel>
+									</m:ObidosRow>
+
+									<!--  create a invisible image to be  -->
+									<!--  used to determine the preview image size -->
+									<b:Row visible="false">
+									   <g:FlowPanel>
+    									   <b:Image ui:field="invisibleImage" visible="false"/>
+									   </g:FlowPanel>
+									</b:Row>
+									<m:ObidosRowBottom2px>
+										<b:FormLabel ui:field='fullnameLabel' addStyleNames="col-sm-4" text="{i18n.fullname}"/>
+										<g:FlowPanel addStyleNames="col-sm-5">
+											<m:ObidosTextBox ui:field="fullnameTextBox" addStyleNames='{style.readonly-font}' readOnly="true" placeholder="{i18n.fullname}" title="{i18n.onlyAdminCanChangeFullname}"/>
+										</g:FlowPanel>
+									</m:ObidosRowBottom2px>
+
+                                    <m:ObidosRowBottom2px>
+										<b:FormLabel ui:field='passwordExpiresLabel' addStyleNames="col-sm-4" text="{i18n.passwordWillExpireIn}"/>
+										<g:FlowPanel addStyleNames="col-sm-5">
+											<m:ObidosTextBox ui:field="passwordExpiresTextBox" b:id="expires" addStyleNames="{style.readonly-font}" readOnly="true"/>
+										</g:FlowPanel>
+    								</m:ObidosRowBottom2px>
+
+									<m:ObidosRowBottom2px>
+										<b:FormLabel ui:field='primaryEmailLabel' addStyleNames="col-sm-4" text="{i18n.primaryEmail}"/>
+										<g:FlowPanel addStyleNames="col-sm-5">
+											<m:ObidosTextBox ui:field="primaryEmailTextBox" addStyleNames='{style.readonly-font}' placeholder="{i18n.primaryEmail}" readOnly="true" title="{i18n.onlyAdminCanChangePrimaryEmail}"/>
+										</g:FlowPanel>
+									</m:ObidosRowBottom2px>
+
+									<m:ObidosRowBottom2px>
+										<b:FormLabel ui:field='secondaryEmailLabel' addStyleNames="col-sm-4" text="{i18n.secondaryEmail}"/>
+										<g:FlowPanel addStyleNames="col-sm-5">
+											<m:ObidosTextBox ui:field="secondaryEmailTextBox" placeholder="{i18n.secondaryEmail}"/>
+										</g:FlowPanel>
+									</m:ObidosRowBottom2px>
+
+									<m:ObidosRowBottom2px>
+										<b:FormLabel ui:field='primaryPhoneLabel' addStyleNames="col-sm-4" text="{i18n.primaryPhone}"/>
+										<g:FlowPanel addStyleNames="col-sm-5">
+											<m:ObidosTextBox ui:field="primaryPhoneTextBox" placeholder="{i18n.primaryPhone}"/>
+										</g:FlowPanel>
+									</m:ObidosRowBottom2px>
+
+                                    <!--  The following alignment is done by Claude Sonnet 3.5 -->
+                                    <!--  It took several attempts and uploading of screenshots  -->
+                                    <!--  but at the end it nailed it -->
+                                    <!--  I was skeptical at first because GWT is an old technology  -->
+                                    <!--  and we also use gwtbootstrap3 -->
+                                    <!--  Jun-29-2024 -->
+									<m:ObidosRowBottom2px>
+										<b:FormLabel ui:field='mobilePhoneLabel' addStyleNames="col-sm-4" HTML="{i18n.mobilePhone}"/>
+										<g:FlowPanel addStyleNames="col-sm-5">
+										  <b:Column size="XS_5 SM_5" paddingRight="2" paddingLeft="0">
+                                               <select:Select addStyleNames="{style.customSelect}" liveSearch="true" ui:field="countryCodeSelect" title="{i18n.countryCode}" showTick="true"></select:Select>
+                                          </b:Column>
+                                          <b:Column size="XS_7 SM_7" paddingLeft="2" paddingRight="0">
+											<m:ObidosTextBox ui:field="mobilePhoneTextBox" placeholder="{i18n.mobilePhoneSMS}"/>
+  										  </b:Column>
+										</g:FlowPanel>
+									</m:ObidosRowBottom2px>
+
+									<m:ObidosRowBottom2px>
+										<b:FormLabel ui:field='officeLabel' addStyleNames="col-sm-4" text="{i18n.office}"/>
+										<g:FlowPanel addStyleNames="col-sm-5">
+											<m:ObidosTextBox ui:field="officeTextBox" placeholder="{i18n.office}"/>
+										</g:FlowPanel>
+									</m:ObidosRowBottom2px>
+
+									<m:ObidosRowBottom2px>
+										<b:FormLabel ui:field='facebookLabel' addStyleNames="col-sm-4" text="{i18n.facebook}"/>
+										<g:FlowPanel addStyleNames="col-sm-5">
+											<m:ObidosTextBox ui:field="facebookTextBox" placeholder="{i18n.facebook}"/>
+										</g:FlowPanel>
+									</m:ObidosRowBottom2px>
+
+									<m:ObidosRowBottom2px>
+										<b:FormLabel ui:field='twitterLabel' addStyleNames="col-sm-4" text="{i18n.twitter}"/>
+										<g:FlowPanel addStyleNames="col-sm-5">
+											<m:ObidosTextBox ui:field="twitterTextBox" placeholder="{i18n.twitter}"/>
+										</g:FlowPanel>
+									</m:ObidosRowBottom2px>
+
+									<m:ObidosRowBottom2px>
+										<b:FormLabel ui:field="defaltPageLabel" addStyleNames="col-sm-4" text="{i18n.pageToViewAfterLogin}"/>
+										<g:FlowPanel addStyleNames="col-sm-5">
+										<!--  it is critical that text for options are same in UserSettingsPresenter.java initDefaultPageMap() -->
+											  <select:Select ui:field='selectPage'>
+												  <select:OptGroup label="{i18n.containers}">
+													<select:Option text="{i18n.listMyContainers}"/>
+													<select:Option text="{i18n.listContainersSharedWithMe}"/>
+												  </select:OptGroup>
+												  <select:OptGroup label="{i18n.items}">
+													<select:Option text="{i18n.listMyItems}"/>
+													<select:Option text="{i18n.listItemsSharedWithMe}"/>
+												  </select:OptGroup>
+												  <select:OptGroup label="{i18n.notes}">
+													<select:Option text="{i18n.listMyNotes}"/>
+													<select:Option text="{i18n.listNotesSharedWithMe}"/>
+												  </select:OptGroup>
+											</select:Select>
+										</g:FlowPanel>
+									</m:ObidosRowBottom2px>
+
+									<m:ObidosRowBottom2px>
+										<b:FormLabel ui:field='hideItemLabel' addStyleNames="col-sm-4" text="{i18n.hideViewItemInSeconds}"/>
+										<g:FlowPanel addStyleNames="col-sm-5">
+            								<m:ObidosIntegerTextBox ui:field="hideItemInSecondsTextBox" placeholder="{i18n.hideViewItemInSeconds}"/>
+										</g:FlowPanel>
+									</m:ObidosRowBottom2px>
+
+
+									<m:ObidosRowBottom2px>
+										<b:FormLabel ui:field="requiresTwoFAPasswordResetLabel" addStyleNames="col-sm-4" text="{i18n.twoFactorForPasswordReset}"/>
+										<g:FlowPanel addStyleNames="col-sm-1 {style.fp-bottom-margin}">
+											 <b3:ToggleSwitch ui:field="requiresTwoFAPasswordResetSwitch" size="SMALL" offColor="DANGER" onColor="SUCCESS" onText="✓" offText="✗" value="false" readOnly="true"/>
+										</g:FlowPanel>
+										<b:FormLabel ui:field="twoFAEnabledLabel" addStyleNames="col-sm-3" text="{i18n.twoFAEnabledLabel}"/>
+										<g:FlowPanel addStyleNames="col-sm-1 {style.fp-bottom-margin} {style.sw-padding}">
+											 <b3:ToggleSwitch ui:field="isTwoFAEnabledSwitch" size="SMALL" onColor="SUCCESS" offColor="DANGER" onText="✓" offText="✗" value="false" readOnly="true"/>
+										</g:FlowPanel>
+									</m:ObidosRowBottom2px>
+
+                                    <!-- issue 659 enable again 12/13/2020 -->
+                                    <!--  accept email notification  -->
+                                   	<m:ObidosRowBottom2px visible="true">
+										<b:FormLabel ui:field='acceptNotificationLabel' addStyleNames="col-sm-4" text="{i18n.acceptNotification}"/>
+										<g:FlowPanel addStyleNames="col-sm-1 {style.fp-bottom-margin}">
+    										 <b3:ToggleSwitch ui:field="acceptNotificationSwitch" size="SMALL" onColor="SUCCESS" offColor="DANGER" onText="✓" offText="✗" value="false"/>
+   										    <g:Label addStyleNames="{style.label-font}" ui:field="licenseLabel" visible="false"/>
+										</g:FlowPanel>
+										<b:FormLabel ui:field='acceptSmsNotificaitonLabel' addStyleNames="col-sm-3" text="{i18n.acceptSmsNotification}"/>
+										<g:FlowPanel addStyleNames="col-sm-1 {style.fp-bottom-margin} {style.sw-padding}">
+    										 <b3:ToggleSwitch ui:field="acceptSmsSwitch" size="SMALL" onColor="SUCCESS" offColor="DANGER" onText="✓" offText="✗" value="false"/>
+   										    <g:Label addStyleNames="{style.label-font}" ui:field="smsLicenseLabel" visible="false"/>
+										</g:FlowPanel>
+									</m:ObidosRowBottom2px>
+									<!-- high contrast theme -->
+									<!-- Large Text -->
+									<!--  hide in master, look at bootstrap3-theme to see how it works -->
+                                   	<m:ObidosRowBottom2px visible="false">
+										<b:FormLabel ui:field='highContrastLabel' addStyleNames="col-sm-4" text="High Contrast"/>
+										<g:FlowPanel addStyleNames="col-sm-1 {style.fp-bottom-margin}">
+    										 <b3:ToggleSwitch ui:field="highContrastSwitch" size="SMALL" onColor="SUCCESS" offColor="DANGER" onText="✓" offText="✗" value="false"/>
+										</g:FlowPanel>
+										<b:FormLabel ui:field='largeText' addStyleNames="col-sm-3" text="Larget Text"/>
+										<g:FlowPanel addStyleNames="col-sm-1 {style.fp-bottom-margin} {style.sw-padding}">
+    										 <b3:ToggleSwitch ui:field="largetTextSwitch" size="SMALL" onColor="SUCCESS" offColor="DANGER" onText="✓" offText="✗" value="false"/>
+										</g:FlowPanel>
+									</m:ObidosRowBottom2px>
+
+								   <m:ObidosMessageRow ui:field="messageRow"/>
+
+									<m:ObidosRowBottom2px>
+									   <m:ObidosButtonToolBar ui:field="buttonToolBarBottom">
+											<b:Button type="SUCCESS" ui:field='saveButton' text="{i18n.saveButtonTitle}"/>
+			        					    <m:ObidosResetButton ui:field='resetButton' />
+									   </m:ObidosButtonToolBar>
+									</m:ObidosRowBottom2px>
+								</b:FormGroup>
+
+							</b:Form>
+						</g:HTMLPanel>
+					</b:PanelBody>
+				</b:Panel>
+		</b:Row>
+	</b:Container>
+</g:HTMLPanel>
+</ui:UiBinder>

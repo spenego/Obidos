@@ -1,0 +1,283 @@
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:b="urn:import:org.gwtbootstrap3.client.ui"
+	xmlns:b.html="urn:import:org.gwtbootstrap3.client.ui.html"
+	xmlns:b.gwt="urn:import:org.gwtbootstrap3.client.ui.gwt"
+	xmlns:summer="urn:import:com.spenego.Obidos.client.application.widgets.summernote"
+	xmlns:m="urn:import:com.spenego.Obidos.client.application.widgets"
+	xmlns:b2="urn:import:org.gwtbootstrap3.extras.datepicker.client.ui"
+	xmlns:d="urn:import:com.spenego.Obidos.client.ui">
+
+	<ui:with field='i18n'
+		type='com.spenego.Obidos.client.i18n.ObidosMessages' />
+	<ui:style gss="true">
+	.form-error-label {
+		color: red;
+	}
+	
+	.form-green-color {
+		color: green;
+	}
+	
+	.message-info {
+		margin: 10px 0px;
+		padding: 12px;
+		color: #00529B;
+		background-color: #BDE5F8;
+		box-shadow: 1px 1px 3px #888;
+	}
+	
+	.x-info {
+		background-color: #EEEEEE;
+		border-color: #2F79B9;
+	}
+	
+	.margin-fix {
+		margin-top: 0 !important;
+	}
+	
+	.paragraph-font {
+		font-size: 13px;
+	}
+	
+	.margin {
+		margin: 5px;
+	}
+	
+	.input-group-addon {
+		margin: 0px !important;
+		padding: 0px !important;
+	}
+	
+	.mnote {
+		font-size: 10px !important;
+		height: 100px !important;
+		margin: 0 auto !important;
+		padding: 0px 6px !important;
+	}
+	
+	.center-toolbar {
+		justify-content: center;
+		display: flex;
+	}
+	
+	.bottom-margin {
+		margin-bottom: 3px;
+	}
+	
+	.message-label {
+		cursor: pointer;
+		background-color: transparent;
+	}
+    .readonly-font {
+        color: #000;
+        font-weight: bold;
+    }	
+	.message-label-bg-transparent {
+		cursor: pointer;
+		background-color: transparent;
+		color: green;
+	}
+	
+	.error-message-label-bg-transparent {
+		cursor: pointer;
+		background-color: transparent;
+		color: red;
+	}
+	
+	.spacer {
+		margin: 0;
+		padding: 0;
+		height: 1em;
+	}
+
+	.bold {
+		font-weight: bold;
+	}
+	.summernote-width {
+	   max-width: 95%;
+	   margin-left: 30px;
+	}
+	.top-margin {
+	   margin-top: 5px;
+	}
+	.utc-timebox {
+		display: block;
+		width: 120px;
+		height: 34px;
+		padding-top: 6px;
+		padding-bottom: 6px;
+		padding-right: 0px;
+		padding-left: 0px;
+		font-size: 14px;
+		font-weight: bold;
+		text-align: center;
+		line-height: 1.42857143;
+		color: #000;
+		background-color: #fff;
+		background-image: none;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+		box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+		-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+		-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+		transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
+	}
+	.no-left-margin {
+		padding-left: 0px;
+		margin-left: 1px;
+	}
+	.width-adjust {
+		width: 15.0% !important;
+	}
+	.no-right-margin {
+		padding-right: 0px;
+		margin-right: 1px;
+	}
+	.ro-font{
+		color: black;
+		font-weight:bold;
+	}
+    .upload-padding {
+       padding-top: 4px !important;
+       padding-left: 1px !important;
+    }
+	.center_fp {
+	   display: flex;
+	   justify-content: center;
+	}
+	.uhr {
+		border-bottom: 1px solid #ccc;
+		padding-bottom: 2px;
+		margin-bottom: 4px;
+	}
+	.zero_margin_bottom {
+	   margin-bottom: 0px;
+	   padding-bottom: 0px;
+	}
+	.sm_padding {
+    	padding-bottom: 0px !important;
+    	margin-bottom: 0px !important;
+	}
+	.eraser-left-margin {
+    	margin-left: 5px;
+	}
+
+
+.force-left-align > * {
+  float: right !important;
+  text-align: right !important;
+}
+	</ui:style>
+
+<!-- 
+************************************************
+This is the UI for creating a new Note 
+************************************************
+-->
+
+	<g:HTMLPanel ui:field="htmlPanel">
+		<b:Container addStyleNames="col-sm-12">
+			<b:Row>
+					<b:BlockQuote addStyleNames="{style.x-info}" ui:field='helpBlockQuote' visible="false">
+						<b.html:Paragraph ui:field='helpParagraph' addStyleNames='{style.paragraph-font}' HTML="{i18n.createNoteHelp}" />
+					</b:BlockQuote>
+					<b:Panel type="PRIMARY">
+    			        <m:ObidosPanelHeader ui:field="panelHeader" showBackButton="true" headerText="{i18n.createNote}"/>
+						<b:PanelBody>
+							<g:HTMLPanel>
+								<b:Form type="HORIZONTAL">
+									 <!--  Language -->
+									<m:ObidosRowBottom2px ui:field="languageRow">
+										 <b:FormLabel for="languagel" b:id="languagel" addStyleNames="col-sm-3" HTML="{i18n.language}" />
+										 <g:FlowPanel addStyleNames="col-sm-4">
+											<b:ListBox b:id="languagelb" ui:field='languageListBox'>
+												<g:item>English</g:item>
+												<g:item>বাংলা</g:item>
+											</b:ListBox>
+										</g:FlowPanel>
+									</m:ObidosRowBottom2px>
+
+									<b:Row>
+										<b:FormLabel for="noteName" ui:field='noteNameLabel' addStyleNames="col-sm-3" HTML="{i18n.noteNameLabelHtml}"  />
+										<g:FlowPanel addStyleNames="col-sm-4">
+											<b:InputGroup>
+												<b:InputGroupAddon ui:field='inputGroupAddon' icon="UNLOCK" title="{i18n.notEncrypted}" iconColor="{i18n.unlockColor}" />
+												<m:ObidosTextBox ui:field="noteNameTextBox" placeholder="{i18n.noteName}" b:id="notename" />
+											</b:InputGroup>
+										</g:FlowPanel>
+									</b:Row>
+
+									<b:Row>
+										<b:FormLabel for="sharedby" ui:field='sharedByNameLabel' addStyleNames="col-sm-3" text="{i18n.sharedByLabel}" visible="false" />
+										<g:FlowPanel ui:field='sharedByFlowPanel' addStyleNames="col-sm-4" visible="false">
+											<b:DropDown ui:field='ownerDropDown'>
+												<b:Button ui:field='ownerDropDownAnchor' dataToggle="DROPDOWN" text="UNKNOWN" />
+												<b:DropDownMenu>
+													<b:DropDownHeader ui:field='emailHeader' text="Email" />
+													<b:DropDownHeader ui:field='phoneHeader' text="Phone" />
+												</b:DropDownMenu>
+											</b:DropDown>
+										</g:FlowPanel>
+									</b:Row>
+
+
+									<b:Row>
+										<b.html:Br />
+										<b:FormLabel ui:field='noteContentLabel' addStyleNames="col-sm-3" HTML="{i18n.noteHtml}" visible="false" />
+										<g:FlowPanel addStyleNames="col-sm-3">
+											<b.html:Span addStyleNames="{style.bold}" ui:field='lockIconSpan' />
+										</g:FlowPanel>
+										<g:FlowPanel addStyleNames="col-sm-8">
+											<summer:Summernote ui:field='summerNote'/>
+										</g:FlowPanel>
+                                        <g:FlowPanel addStyleNames="col-sm-offset-3 col-sm-8">
+                                            <b:Button type="DEFAULT" ui:field='copyToClipboardBtton' dataLoadingText="✓" title="{i18n.copy}" size="EXTRA_SMALL" addStyleNames="pull-left" icon="COPY"/>
+                                            <b:Button type="DEFAULT" ui:field='clearButton' title="{i18n.clear}" size="EXTRA_SMALL" addStyleNames="pull-left {style.eraser-left-margin}" icon="ERASER"/>
+                                        </g:FlowPanel>
+									</b:Row>
+
+                                    <m:ObidosRowBottom2px>
+                                        <g:FlowPanel ui:field="radioButtonsFlowPanel" addStyleNames="col-sm-offset-3 col-sm-8">
+											<b:InlineRadio name="radio1" formValue="public" ui:field='publicNoteRadio' text="{i18n.shareable}" value="false" b:id="shareable"/>
+											<b:InlineRadio name="radio1"
+												formValue="private" ui:field='privateNoteRadio' text="{i18n.privateX}" value="false" b:id="private"/>
+										</g:FlowPanel>
+									</m:ObidosRowBottom2px>
+
+
+									<m:ObidosRow ui:field="expiresRow" bottomMargin="2px">
+										<b:FormLabel addStyleNames="col-sm-3" text="{i18n.shareExpirationDateOptional}" />
+										<g:FlowPanel addStyleNames="col-sm-2 {style.width-adjust} {style.no-right-margin}">
+											<b:InputGroup>
+												<b:InputGroupAddon icon="UNLOCK" title="{i18n.notEncrypted}" iconColor="{i18n.unlockColor}" iconPosition="LEFT" />
+												<b2:DatePicker ui:field="datePicker" addStyleNames="{style.ro-font}" highlightToday="true" autoClose="true" placeholder="{i18n.dateFormat}" position="TOP_LEFT" readOnly="false"/>
+											</b:InputGroup>
+										</g:FlowPanel>
+										<g:FlowPanel addStyleNames="col-sm-1 {style.no-left-margin} {style.no-right-margin}">
+												<m:ObidosTimeBox ui:field="timeBox" addStyleNames="{style.utc-timebox}"/>
+										</g:FlowPanel>
+									</m:ObidosRow>
+
+
+									
+									<m:ObidosMessageRow ui:field="messageRow"/>
+
+									<b:Row addStyleNames="{style.top-margin}">
+                                        <g:FlowPanel addStyleNames="col-sm-offset-3 col-sm-8">
+											<m:ObidosButtonToolBar ui:field="bottomToolBar">
+												<b:Button type="SUCCESS" ui:field='saveButton' text="{i18n.create}" b:id="create" />
+												<b:Button type="PRIMARY" ui:field='listNotesButton' text="{i18n.notes}" visible="false" />
+											</m:ObidosButtonToolBar>
+										</g:FlowPanel>
+									</b:Row>
+								</b:Form>
+							</g:HTMLPanel>
+						</b:PanelBody>
+					</b:Panel>
+			</b:Row>
+		</b:Container>
+	</g:HTMLPanel>
+
+</ui:UiBinder>

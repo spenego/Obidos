@@ -1,0 +1,197 @@
+/**
+ * Large font stylesheet for GWT Bootstrap 3 application
+ * This GSS file provides increased font sizes for improved accessibility
+ * Compatible with GWT ClientBundle/CssResource framework
+ */
+
+/* External declarations for Bootstrap classes that shouldn't be obfuscated */
+@external navbar, navbar-default, navbar-nav, navbar-brand, active, open;
+@external dropdown-menu, dropdown-menu, divider;
+@external panel, panel-heading, panel-default, panel-primary, panel-success;
+@external panel-info, panel-warning, panel-danger, panel-body, panel-title;
+@external btn, btn-primary, btn-default, btn-success, btn-info, btn-warning, btn-danger;
+@external alert, alert-success, alert-info, alert-warning, alert-danger;
+@external table-striped, table-hover, table, thead, tbody, tfoot, tr, th, td;
+@external form-control, form-group, checkbox, radio;
+@external label, label-default, label-primary, label-success, label-info, label-warning, label-danger;
+@external progress, progress-bar, progress-bar-success, progress-bar-info, progress-bar-warning, progress-bar-danger;
+@external list-group-item, list-group;
+@external nav-tabs, nav, nav-pills;
+@external modal-content, modal-header, modal-body, modal-footer, close, modal-title;
+@external popover, popover-title, popover-content, arrow, tooltip, tooltip-inner, tooltip-arrow;
+@external top, right, bottom, left;
+@external pagination, breadcrumb;
+@external input-group, input-group-addon, input-group-btn, badge;
+
+/* Root selector for large font mode */
+.largeText {
+  font-size: 18px !important;
+}
+
+/* Heading sizes */
+.largeText h1 {
+  font-size: 36px !important;
+}
+
+.largeText h2 {
+  font-size: 30px !important;
+}
+
+.largeText h3 {
+  font-size: 26px !important;
+}
+
+.largeText h4 {
+  font-size: 22px !important;
+}
+
+.largeText h5 {
+  font-size: 20px !important;
+}
+
+.largeText h6 {
+  font-size: 18px !important;
+}
+
+/* Navbar elements */
+.largeText .navbar-brand {
+  font-size: 22px !important;
+}
+
+.largeText .navbar-nav > li > a {
+  font-size: 18px !important;
+  padding-top: 15px !important;
+  padding-bottom: 15px !important;
+}
+
+/* Dropdown menus */
+.largeText .dropdown-menu > li > a {
+  font-size: 18px !important;
+  padding: 8px 20px !important;
+}
+
+.largeText .dropdown-menu {
+  min-width: 200px !important;
+}
+
+/* Buttons */
+.largeText .btn {
+  font-size: 18px !important;
+  padding: 8px 16px !important;
+  margin: 4px !important;
+}
+
+/* Labels and badges */
+.largeText .label {
+  font-size: 16px !important;
+  padding: 5px 10px !important;
+}
+
+.largeText .badge {
+  font-size: 16px !important;
+}
+
+/* Tables */
+.largeText .table {
+  font-size: 18px !important;
+}
+
+.largeText .table th,
+.largeText .table td {
+  padding: 10px !important;
+}
+
+/* Form elements */
+.largeText .form-control {
+  font-size: 18px !important;
+  height: auto !important;
+  padding: 10px 16px !important;
+}
+
+.largeText select.form-control {
+  height: 46px !important;
+}
+
+.largeText .input-group-addon {
+  font-size: 18px !important;
+  padding: 10px 16px !important;
+}
+
+.largeText .checkbox label,
+.largeText .radio label {
+  font-size: 18px !important;
+  line-height: 1.5 !important;
+}
+
+/* Progress bars */
+.largeText .progress {
+  height: 24px !important;
+}
+
+.largeText .progress-bar {
+  line-height: 24px !important;
+  font-size: 16px !important;
+}
+
+/* Alerts */
+.largeText .alert {
+  font-size: 18px !important;
+  padding: 15px 20px !important;
+}
+
+/* Panels */
+.largeText .panel-title {
+  font-size: 22px !important;
+}
+
+.largeText .panel-body {
+  font-size: 18px !important;
+}
+
+/* List groups */
+.largeText .list-group-item {
+  font-size: 18px !important;
+  padding: 15px 20px !important;
+}
+
+/* Modals */
+.largeText .modal-title {
+  font-size: 24px !important;
+}
+
+.largeText .modal-body {
+  font-size: 18px !important;
+}
+
+/* Pills and tabs */
+.largeText .nav-pills > li > a,
+.largeText .nav-tabs > li > a {
+  font-size: 18px !important;
+  padding: 12px 20px !important;
+}
+
+/* Pagination */
+.largeText .pagination > li > a {
+  font-size: 18px !important;
+  padding: 10px 16px !important;
+}
+
+/* Breadcrumbs */
+.largeText .breadcrumb {
+  font-size: 18px !important;
+}
+
+/* Increased spacing for better readability */
+.largeText p,
+.largeText div,
+.largeText li {
+  line-height: 1.5 !important;
+  margin-bottom: 12px !important;
+}
+
+/* Input groups */
+.largeText .input-group .form-control,
+.largeText .input-group-addon,
+.largeText .input-group-btn .btn {
+  height: 46px !important;
+}

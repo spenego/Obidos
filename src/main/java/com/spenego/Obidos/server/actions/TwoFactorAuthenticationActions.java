@@ -1,0 +1,26 @@
+/*
+ * Copyright (C) 2016 - 2026 Spenego Software LLC. All rights reserved.
+ *
+ * This file is part of Obidos from Spenego Software LLC
+ *
+ * Obidos is dual-licensed under a commercial license and the GNU
+ * Affero General Public License (AGPL) v3.0. For commercial licensing,
+ * contact Spenego Software LLC at https://spenego.com/contacts.html.
+ *
+ * For AGPL licensing terms, see the LICENSE file in the project root
+ * or <https://www.gnu.org/licenses/>.
+ */
+
+package com.spenego.Obidos.server.actions;
+
+import com.spenego.Obidos.server.model.User;
+import com.spenego.Obidos.server.security.PassphraseHash;
+import com.spenego.Obidos.shared.dto.TwoFactorDTO;
+
+public interface TwoFactorAuthenticationActions {
+	TwoFactorDTO create2FASecret(User user, PassphraseHash passphraseHash);
+	Void enable2FA(User user, byte[] codeBytes);
+	Void authenticate2FA(User user, byte[] codeBytes);
+	TwoFactorDTO decodeQRCodeImageDataUri(User user, String dataUri);
+	TwoFactorDTO generate2FACode(User user, String otpAuthUri);
+}

@@ -1,0 +1,127 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+    xmlns:b='urn:import:org.gwtbootstrap3.client.ui'
+    xmlns:g='urn:import:com.google.gwt.user.client.ui'
+	xmlns:m="urn:import:com.spenego.Obidos.client.application.widgets"
+    xmlns:b.html='urn:import:org.gwtbootstrap3.client.ui.html'> 
+
+   <ui:with field='i18n' type='com.spenego.Obidos.client.i18n.ObidosMessages'/>
+
+<ui:style gss="true">
+@def WELL_MARGIN 10px;
+@def LOGO_IMAGE_SIZE 70px;
+@def LOGO_IMAGE_RADIUS 50%;
+
+.form-well {
+    margin-top: WELL_MARGIN;
+    margin-left: WELL_MARGIN;
+    margin-right: WELL_MARGIN;
+}
+.form-title {
+    color: #666;
+    font-size: 18px;
+    font-weight: 400;
+    display: block;
+}
+.sign-in {
+    color: #666;
+}
+.form-login {
+    padding: 10px;
+    margin: 0 auto;
+}
+.logo-image {
+    width: LOGO_IMAGE_SIZE;
+    height: LOGO_IMAGE_SIZE;
+    -moz-border-radius: LOGO_IMAGE_RADIUS;
+    -webkit-border-radius: LOGO_IMAGE_RADIUS;
+    border-radius: LOGO_IMAGE_RADIUS; 
+}
+.logo-image2 {
+    width: 60%;
+    height: 60%;
+}
+.col-center {
+    float: none;
+    margin-right: auto;
+    margin-left: auto
+}
+.row-center {
+    text-align:center;
+}
+.form-error-label {
+	color: red;
+}
+.code-style {
+	color:#ccc;
+}
+.testing-x {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 1px dashed deeppink;
+}
+.forgot-password-anchor {
+    float: right;
+}
+.center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+.top-margin {
+	margin-top: 10% !important;
+}
+.bottom-margin {
+	margin-bottom: 5px !important;
+}	
+.left-right-margin {
+	margin-left: 1px !important;
+	margin-right: 1px !important;
+}
+    </ui:style>
+<!-- vertically centering breaks responsiveness, so I am not doing it for the time being -->    
+<g:HTMLPanel ui:field="htmlPanel">
+    <b:Container addStyleNames='{style.top-margin}'>
+        <b:Row addStyleNames='{style.row-center}'>
+            <b:Column size="SM_6 MD_4" offset="MD_4" addStyleNames='{style.col-center}'>
+                <b:Well addStyleNames='{style.form-well}'>
+                    <b:Image addStyleNames='{style.logo-image2}' url="SpenegoLogo.png"/>
+                    <g:HTMLPanel>
+                        <b.html:Br/>
+                        <g:HTML addStyleNames='{style.sign-in}' HTML="{i18n.pleaseSignIn}"/>
+                    </g:HTMLPanel>
+                    <b:Form addStyleNames='{style.form-login}'>
+                       <b:FormGroup>
+                       <b:Row addStyleNames='{style.bottom-margin} {style.left-right-margin}'>
+                           <b:InputGroup>
+                                <b:InputGroupAddon icon="USER"/>
+                                <m:ObidosTextBox ui:field='loginNameField' b:id="loginname" placeholder="{i18n.loginName}"/>
+                            </b:InputGroup>
+                       </b:Row>
+                       <b:Row addStyleNames='{style.left-right-margin}'>
+                            <b:InputGroup>
+                               <b:InputGroupAddon icon="LOCK"/>
+                               <b:Input type="PASSWORD" ui:field='passwordField' b:id="password" placeholder="{i18n.password}" allowBlank="false"/>
+                                <b:InputGroupButton>
+                                    <b:Button type="PRIMARY" icon="EYE" ui:field='showHidePasswordButton' b:id="hide" text="" />
+                                </b:InputGroupButton>
+                            </b:InputGroup>
+                           <b:FormLabel ui:field='formError' b:id="error" addStyleNames='{style.form-error-label}' HTML=""/>
+                       </b:Row>
+                       <b:Row addStyleNames='{style.left-right-margin}'>
+                           <b:Button type="PRIMARY" ui:field='signinButton' b:id="login" block="true" text="{i18n.signin}"/>
+                       </b:Row>
+                       </b:FormGroup>
+                    </b:Form>
+                    <b:Anchor ui:field="forgotPasswordAnchor" b:id="forgotpassword" text="{i18n.forgotLogin}"/>
+                </b:Well>
+            </b:Column>
+        </b:Row>
+    </b:Container>
+</g:HTMLPanel>
+    
+    
+</ui:UiBinder>

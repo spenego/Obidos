@@ -1,0 +1,12 @@
+{
+    "id": 524,
+    "contact": "Please contact support at xxx-xxx-xxxx if you have any questions.",
+    "footer": "Example Inc., Address, City, State/Region, Country.",
+    "hello": "Hi {{name}}",
+    "html_message": "{{owner_name}} has revoked sharing a secured item  and is no longer available to you. After login, please click on the notification bell for details.",
+    "product_name": "Obidos Digital Artifacts Management and Sharing Platform from Spenego",
+    "product_url": "https://spenego.com",
+    "subject": "A secured Item is no longer shared with you",
+    "text_message": "{{owner_name}} has revoked sharing a secured item  and is no longer available to you. After login, please click on the notification bell for details.",
+    "title": "Secure Item no longer shared with you"
+}

@@ -1,0 +1,431 @@
+/* Focus outline for accessibility */
+.highContrast :focus {
+  outline: 2px solid #66CCFF !important;
+}/**
+ * High contrast stylesheet for GWT Bootstrap 3 application
+ * This GSS file provides high contrast styling for improved accessibility
+ * Compatible with GWT ClientBundle/CssResource framework
+ */
+
+/* External declarations for Bootstrap classes that shouldn't be obfuscated */
+@external navbar, navbar-default, navbar-nav, navbar-brand, active, open;
+@external dropdown-menu, dropdown-menu, divider;
+@external panel, panel-heading, panel-default, panel-primary, panel-success;
+@external panel-info, panel-warning, panel-danger, panel-body, panel-title;
+@external btn, btn-primary, btn-default, btn-success, btn-info, btn-warning, btn-danger;
+@external alert, alert-success, alert-info, alert-warning, alert-danger;
+@external table-striped, table-hover, table, thead, tbody, tfoot, tr, th, td;
+@external form-control, form-group, checkbox, radio, control-label, form-label, form-horizontal;
+@external label, label-default, label-primary, label-success, label-info, label-warning, label-danger;
+@external progress, progress-bar, progress-bar-success, progress-bar-info, progress-bar-warning, progress-bar-danger;
+@external list-group-item, list-group;
+@external nav-tabs, nav, nav-pills;
+@external modal-content, modal-header, modal-body, modal-footer, close, modal-title;
+@external popover, popover-title, popover-content, arrow, tooltip, tooltip-inner, tooltip-arrow;
+@external top, right, bottom, left;
+@external gwt-Label;
+
+/* Root selector for high-contrast mode */
+.highContrast {
+  color: white !important;
+  background-color: black !important;
+}
+
+/* Navbar styles */
+.highContrast .navbar,
+.highContrast .navbar-default {
+  background-color: #000 !important;
+  background-image: none !important;
+  border-color: #fff !important;
+}
+
+.highContrast .navbar-default .navbar-nav > li > a,
+.highContrast .navbar-default .navbar-brand {
+  color: #fff !important;
+  text-shadow: none !important;
+}
+
+.highContrast .navbar-default .navbar-nav > .active > a,
+.highContrast .navbar-default .navbar-nav > .active > a:hover,
+.highContrast .navbar-default .navbar-nav > .active > a:focus {
+  background-color: #333 !important;
+  background-image: none !important;
+  color: #fff !important;
+}
+
+.highContrast .navbar-default .navbar-nav > .open > a,
+.highContrast .navbar-default .navbar-nav > .open > a:hover,
+.highContrast .navbar-default .navbar-nav > .open > a:focus {
+  background-color: #333 !important;
+  background-image: none !important;
+  color: #fff !important;
+}
+
+/* Dropdown styles */
+.highContrast .dropdown-menu {
+  background-color: #000 !important;
+  border-color: #fff !important;
+}
+
+.highContrast .dropdown-menu > li > a {
+  color: #fff !important;
+}
+
+.highContrast .dropdown-menu > li > a:hover,
+.highContrast .dropdown-menu > li > a:focus {
+  background-color: #D85F33  !important;
+  background-image: none !important;
+  color: #FFFFFF !important;
+}
+
+.highContrast .dropdown-menu .divider {
+  background-color: #555 !important;
+}
+
+/* Panel styles */
+.highContrast .panel {
+  background-color: #000 !important;
+  color: #fff !important;
+  border-color: #fff !important;
+}
+
+.highContrast .panel-heading {
+  background-color: #333 !important;
+  color: #fff !important;
+  border-color: #fff !important;
+  background-image: none !important;
+}
+
+.highContrast .panel-default > .panel-heading {
+  background-color: #333 !important;
+  color: #fff !important;
+}
+
+.highContrast .panel-primary > .panel-heading {
+  background-color: #0066FF !important;
+  color: #fff !important;
+}
+
+.highContrast .panel-success > .panel-heading {
+  background-color: #006600 !important;
+  color: #fff !important;
+}
+
+.highContrast .panel-info > .panel-heading {
+  background-color: #006699 !important;
+  color: #fff !important;
+}
+
+.highContrast .panel-warning > .panel-heading {
+  background-color: #CC6600 !important;
+  color: #fff !important;
+}
+
+.highContrast .panel-danger > .panel-heading {
+  background-color: #CC0000 !important;
+  color: #fff !important;
+}
+
+/* Button styles */
+.highContrast .btn-primary {
+  background-color: #0066FF !important;
+  border-color: #fff !important;
+  color: #fff !important;
+  background-image: none !important;
+}
+
+.highContrast .btn-default {
+  background-color: #333 !important;
+  color: #fff !important;
+  border-color: #fff !important;
+  background-image: none !important;
+}
+
+.highContrast .btn-success {
+  background-color: #006600 !important;
+  color: #fff !important;
+  border-color: #fff !important;
+  background-image: none !important;
+}
+
+.highContrast .btn-info {
+  background-color: #006699 !important;
+  color: #fff !important;
+  border-color: #fff !important;
+  background-image: none !important;
+}
+
+.highContrast .btn-warning {
+  background-color: #CC6600 !important;
+  color: #fff !important;
+  border-color: #fff !important;
+  background-image: none !important;
+}
+
+.highContrast .btn-danger {
+  background-color: #CC0000 !important;
+  color: #fff !important;
+  border-color: #fff !important;
+  background-image: none !important;
+}
+
+/* Alert styles */
+.highContrast .alert {
+  background-image: none !important;
+  border-width: 2px !important;
+}
+
+.highContrast .alert-success {
+  background-color: #006600 !important;
+  color: #fff !important;
+  border-color: #fff !important;
+}
+
+.highContrast .alert-info {
+  background-color: #006699 !important;
+  color: #fff !important;
+  border-color: #fff !important;
+}
+
+.highContrast .alert-warning {
+  background-color: #CC6600 !important;
+  color: #fff !important;
+  border-color: #fff !important;
+}
+
+.highContrast .alert-danger {
+  background-color: #CC0000 !important;
+  color: #fff !important;
+  border-color: #fff !important;
+}
+
+/* Table styles */
+.highContrast .table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: #222 !important;
+}
+
+.highContrast .table-hover > tbody > tr:hover {
+  background-color: #333 !important;
+}
+
+.highContrast .table > thead > tr > th,
+.highContrast .table > tbody > tr > th,
+.highContrast .table > tfoot > tr > th {
+  background-color: #333 !important;
+  color: #fff !important;
+  border-color: #555 !important;
+}
+
+.highContrast .table > thead > tr > td,
+.highContrast .table > tbody > tr > td,
+.highContrast .table > tfoot > tr > td {
+  border-color: #555 !important;
+}
+
+/* Form control styles */
+.highContrast .form-control {
+  background-color: #222 !important;
+  color: #fff !important;
+  border-color: #555 !important;
+}
+
+.highContrast input[type="text"],
+.highContrast input[type="password"],
+.highContrast input[type="email"],
+.highContrast input[type="number"],
+.highContrast input[type="tel"],
+.highContrast textarea,
+.highContrast select {
+  background-color: #222 !important;
+  color: #fff !important;
+  border-color: #555 !important;
+}
+
+/* Label styles */
+.highContrast .label {
+  border: 1px solid #fff !important;
+}
+
+.highContrast .label-default {
+  background-color: #333 !important;
+}
+
+.highContrast .label-primary {
+  background-color: #0066FF !important;
+}
+
+.highContrast .label-success {
+  background-color: #006600 !important;
+}
+
+.highContrast .label-info {
+  background-color: #006699 !important;
+}
+
+.highContrast .label-warning {
+  background-color: #CC6600 !important;
+}
+
+.highContrast .label-danger {
+  background-color: #CC0000 !important;
+}
+
+/* Progress bar styles */
+.highContrast .progress {
+  background-color: #222 !important;
+  border: 1px solid #555 !important;
+}
+
+.highContrast .progress-bar {
+  background-image: none !important;
+}
+
+.highContrast .progress-bar-success {
+  background-color: #006600 !important;
+}
+
+.highContrast .progress-bar-info {
+  background-color: #006699 !important;
+}
+
+.highContrast .progress-bar-warning {
+  background-color: #CC6600 !important;
+}
+
+.highContrast .progress-bar-danger {
+  background-color: #CC0000 !important;
+}
+
+/* List group styles */
+.highContrast .list-group-item {
+  background-color: #000 !important;
+  color: #fff !important;
+  border-color: #555 !important;
+}
+
+.highContrast .list-group-item.active,
+.highContrast .list-group-item.active:hover,
+.highContrast .list-group-item.active:focus {
+  background-color: #0066FF !important;
+  color: #fff !important;
+  border-color: #fff !important;
+  background-image: none !important;
+}
+
+/* Nav tabs styles */
+.highContrast .nav-tabs {
+  border-bottom-color: #555 !important;
+}
+
+.highContrast .nav-tabs > li > a {
+  color: #fff !important;
+  background-color: #000 !important;
+}
+
+.highContrast .nav-tabs > li.active > a,
+.highContrast .nav-tabs > li.active > a:hover,
+.highContrast .nav-tabs > li.active > a:focus {
+  color: #fff !important;
+  background-color: #333 !important;
+  border-color: #555 !important;
+}
+
+/* Modal styles */
+.highContrast .modal-content {
+  background-color: #000 !important;
+  color: #fff !important;
+  border-color: #fff !important;
+}
+
+.highContrast .modal-header,
+.highContrast .modal-footer {
+  border-color: #555 !important;
+}
+
+.highContrast .close {
+  color: #fff !important;
+  text-shadow: none !important;
+  opacity: 0.8 !important;
+}
+
+/* Popover styles */
+.highContrast .popover {
+  background-color: #000 !important;
+  border-color: #fff !important;
+}
+
+.highContrast .popover-title {
+  background-color: #333 !important;
+  color: #fff !important;
+  border-color: #555 !important;
+}
+
+.highContrast .popover-content {
+  color: #fff !important;
+}
+
+.highContrast .popover.top > .arrow:after {
+  border-top-color: #000 !important;
+}
+
+.highContrast .popover.right > .arrow:after {
+  border-right-color: #000 !important;
+}
+
+.highContrast .popover.bottom > .arrow:after {
+  border-bottom-color: #000 !important;
+}
+
+.highContrast .popover.left > .arrow:after {
+  border-left-color: #000 !important;
+}
+
+/* Tooltip styles */
+.highContrast .tooltip-inner {
+  background-color: #fff !important;
+  color: #000 !important;
+}
+
+.highContrast .tooltip.top .tooltip-arrow {
+  border-top-color: #fff !important;
+}
+
+.highContrast .tooltip.right .tooltip-arrow {
+  border-right-color: #fff !important;
+}
+
+.highContrast .tooltip.bottom .tooltip-arrow {
+  border-bottom-color: #fff !important;
+}
+
+.highContrast .tooltip.left .tooltip-arrow {
+  border-left-color: #fff !important;
+}
+
+/* Form label styles */
+.highContrast .form-group label,
+.highContrast .control-label,
+.highContrast .form-horizontal .control-label,
+.highContrast .gwt-Label,
+.highContrast label {
+  color: #fff !important;
+  text-shadow: none !important;
+}
+
+/* Additional specific styles for your custom components */
+.highContrast [class*="col-"] label,
+.highContrast [class*="col-"] .gwt-Label,
+.highContrast [class*="col-"] .form-label {
+  color: #fff !important;
+}
+
+/* Link styles */
+.highContrast a {
+  color: #3399FF !important;
+  text-decoration: none !important;
+}
+
+.highContrast a:hover,
+.highContrast a:focus {
+  color: #66CCFF !important;
+}

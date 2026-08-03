@@ -1,0 +1,147 @@
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:b.gwt="urn:import:org.gwtbootstrap3.client.ui.gwt"
+	xmlns:b="urn:import:org.gwtbootstrap3.client.ui"
+	xmlns:b.html="urn:import:org.gwtbootstrap3.client.ui.html"
+	xmlns:c="urn:import:com.google.gwt.user.cellview.client"
+	xmlns:m="urn:import:com.spenego.Obidos.client.application.widgets"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+
+<ui:with field='i18n' type='com.spenego.Obidos.client.i18n.ObidosMessages'/>
+<ui:style gss="true">
+.form-error-label {
+	color: red;
+}
+.help-bq {
+    background-color:  #EEEEEE;
+    border-color: #2F79B9;
+}
+.help-paragraph-font {
+    font-size: 13px;    
+}
+.margin-fix {
+    margin-top: 0 !important;
+}
+
+.cont-message-error {
+	margin: 10px 0px;
+	padding: 12px;
+	color: #D8000C;
+	background-color: #FFBABA;
+	box-shadow: 1px 1px 3px #888;
+}
+
+.cont-message-info {
+	margin: 10px 0px;
+	padding: 12px;
+	color: #00529B;
+	background-color: #BDE5F8;
+	box-shadow: 1px 1px 3px #888;
+}
+
+.containerDataGridCell td div {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.ro-font {
+	color: black;
+	font-weight: bold;
+}
+.bottom-margin {
+	margin-bottom: 5px;
+}
+</ui:style>
+
+	<!-- Unfortunately we can not use DockLayout, because it requires the parent 
+		to use RootLayoutPanel and I can not make gwtp do that at this time. If fire 
+		RootLaoutPanelEvent from the presenter it works but it takes over the entire 
+		screen and Navbar disappears! -->
+<g:HTMLPanel>
+<b:Container>
+	   <b:BlockQuote addStyleNames="{style.help-bq}" ui:field='helpBlockQuote' visible="false">
+			<b.html:Paragraph ui:field='helpParagraph' addStyleNames='{style.help-paragraph-font}' HTML="{i18n.selectAContainerHelp}"/>
+		</b:BlockQuote>
+	<b:Panel type="PRIMARY">
+		<m:ObidosHelpButton addStyleNames="pull-right" ui:field="helpButton" />
+		<b:PanelHeader>
+			<b:Heading ui:field='panelHeading' size="H3" text="{i18n.selectAContainer}"/>
+		</b:PanelHeader>
+		<b:PanelBody>
+			<b:Form type="HORIZONTAL">
+			         <b:Row>
+						 <m:ObidosButtonToolBar ui:field="buttonToolBar">
+							<b:Button ui:field='takeOwnershipButton' type="SUCCESS" text="{i18n.takeOwnership}"/>
+							<b:Button ui:field='viewButton' type="PRIMARY" text="{i18n.viewItem}"/>
+<!--
+							<b:Button ui:field='helpButton' type="INFO" text="{i18n.helpButtonTitle}"/>
+-->
+						 </m:ObidosButtonToolBar>
+			         </b:Row>
+			         
+			         <m:ObidosMessageRow ui:field="messageRow"/>
+
+					<b:Row>
+						<b:FormLabel for="forItemName" ui:field='itemNameLabel' addStyleNames="col-sm-4" text="{i18n.itemNameLabel}" />
+						<g:FlowPanel addStyleNames="col-sm-4">
+							<b:InputGroup>
+								<b:InputGroupAddon icon="UNLOCK" iconColor="{i18n.unlockColor}" iconPosition="RIGHT" title="{i18n.notEncrypted}" />
+								<m:ObidosTextBox ui:field="itemNameTextBox" readOnly="true" addStyleNames='{style.ro-font}'/>
+							</b:InputGroup>
+						</g:FlowPanel>
+					</b:Row>
+
+
+					<b:Row ui:field='sharedByRow'>
+						<b:FormLabel for="sharedByName" ui:field='sharedByNameLabel' addStyleNames="col-sm-4" text="{i18n.sharedByLabel}"/>
+						<g:FlowPanel addStyleNames="col-sm-4">
+							<b:DropDown ui:field='ownerDropDown'>
+								<b:Button ui:field='ownerDropDownAnchor' dataToggle="DROPDOWN" text="UNKNOWN" />
+								<b:DropDownMenu>
+									<b:DropDownHeader ui:field='emailHeader' text="Email" />
+									<b:DropDownHeader ui:field='phoneHeader' text="Phone" />
+								</b:DropDownMenu>
+							</b:DropDown>
+						</g:FlowPanel>
+					</b:Row>
+
+					<b:Row ui:field='sharedOnRow'>
+						<b:FormLabel for="sharedOn" ui:field='sharedOnLabel' addStyleNames="col-sm-4" text="{i18n.sharedOnLabel}" visible="true" />
+						<g:FlowPanel addStyleNames="col-sm-4 {style.bottom-margin}">
+							<b:InputGroup ui:field='sharedOnInputGroup'>
+								<b:InputGroupAddon icon="UNLOCK" iconColor="{i18n.unlockColor}" iconPosition="RIGHT" title="{i18n.notEncrypted}" />
+								<m:ObidosTextBox ui:field="sharedOnTextBox" readOnly="true" addStyleNames='{style.ro-font}'/>
+							</b:InputGroup>
+						</g:FlowPanel>
+					</b:Row>
+
+					<m:ObidosRow bottomMargin="2px">
+						<b:FormLabel for="forSearchName" addStyleNames="col-sm-4" text="{i18n.searchContainerName}"/>
+						<g:FlowPanel addStyleNames="col-sm-4">
+							<b:InputGroup>
+								<m:ObidosTextBox ui:field='searchTextBox' placeholder="{i18n.searchContainerName}"/>
+								<b:InputGroupButton>
+									<b:Button ui:field="searchButton" type="PRIMARY" icon="SEARCH" />
+								</b:InputGroupButton>
+							</b:InputGroup>
+						</g:FlowPanel>
+					</m:ObidosRow>
+			</b:Form>
+
+			<g:HTMLPanel>
+				<b.gwt:DataGrid bordered="true"
+					addStyleNames='{style.containerDataGridCell}' condensed="true" striped="true" hover="true" width="100%" ui:field="dataGrid" />
+				<g:HTMLPanel ui:field="htmlPanel">
+					<table style="width:100%">
+						<tr>
+							<td align='center'>
+								<c:SimplePager ui:field='pager' />
+							</td>
+						</tr>
+					</table>
+				</g:HTMLPanel>
+			</g:HTMLPanel>
+		</b:PanelBody>
+	</b:Panel>
+</b:Container>
+</g:HTMLPanel>
+</ui:UiBinder>

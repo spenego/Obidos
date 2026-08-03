@@ -1,0 +1,239 @@
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:b="urn:import:org.gwtbootstrap3.client.ui"
+	xmlns:b.html="urn:import:org.gwtbootstrap3.client.ui.html"
+	xmlns:m="urn:import:com.spenego.Obidos.client.application.widgets"
+	xmlns:b3="urn:import:org.gwtbootstrap3.extras.toggleswitch.client.ui"
+	xmlns:d="urn:import:com.spenego.Obidos.client.ui">
+
+	<ui:with field='i18n' type='com.spenego.Obidos.client.i18n.ObidosMessages' />
+	<ui:style gss="true">
+	.new-admin-panel-header {
+		background-color: #222 !important;
+	}
+	
+	.help-bq {
+		background-color: #EEEEEE;
+		border-color: #2F79B9;
+	}
+	
+	.eauhr {
+		border-bottom: 1px solid #ccc;
+		padding-bottom: 10px;
+		margin-bottom: 10px;
+	}
+	
+	.fp-bottom-margin {
+		margin-bottom: 5px;
+	}
+	
+	.help-paragraph-font {
+		font-size: 13px;
+	}
+	
+	.form-error-label {
+		color: red;
+	}
+	.bottom-margin {
+	   margin-bottom: 2px;
+	}
+	</ui:style>
+
+	<g:HTMLPanel>
+		<b:Container addStyleNames="col-sm-12">
+			<b:BlockQuote addStyleNames="{style.help-bq}" ui:field='helpBlockQuote' visible="false">
+				<b.html:Paragraph ui:field='helpParagraph' addStyleNames='{style.help-paragraph-font}' HTML="{i18n.editAdminHelp}" />
+			</b:BlockQuote>
+
+			<b:Row>
+					<b:Panel type="PRIMARY">
+						<m:ObidosPanelHeader addStyleNames="{style.new-admin-panel-header}" ui:field="panelHeader" showBackButton="true" headerText="{i18n.editAdmin}" />
+						<b:PanelBody>
+							<g:HTMLPanel>
+								<b:Form type="HORIZONTAL">
+								<m:ObidosRow bottomMargin="2px">
+									<g:FlowPanel addStyleNames="col-sm-offset-4 col-sm-8">
+										<b:Image type="THUMBNAIL" ui:field="profilePreviewImage" url="128x128.png"/>
+									</g:FlowPanel>
+								</m:ObidosRow>
+
+								<m:ObidosRow bottomMargin="2px">
+									<g:FlowPanel addStyleNames="col-sm-offset-4 col-sm-8">
+									  <b:Button ui:field="uploadButton" size="SMALL" type="PRIMARY" text="{i18n.uploadProfilePic}"/>
+									</g:FlowPanel>
+								</m:ObidosRow>
+
+									<!--  create a invisible image to be  -->
+									<!--  used to determine the preview image size -->
+									<b:Row visible="false">
+									   <g:FlowPanel>
+    									   <b:Image ui:field="invisibleImage" visible="false"/>
+									   </g:FlowPanel>
+									</b:Row>
+
+									<b:Row ui:field="usernameRow" addStyleNames="{style.bottom-margin}">
+										<b:FormLabel ui:field="adminUsernameLabel" addStyleNames="col-sm-4" HTML="{i18n.adminUsername}" />
+										<g:FlowPanel addStyleNames="col-sm-4">
+											<m:ObidosTextBox ui:field="adminUsernameTextBox" placeholder="{i18n.adminUsernameRequried}" />
+										</g:FlowPanel>
+									</b:Row>
+
+									<b:Row ui:field="passwordRow" addStyleNames="{style.bottom-margin}">
+										<b:FormLabel ui:field="passwordLabel" addStyleNames="col-sm-4"
+											HTML="{i18n.changePassword}" />
+										<g:FlowPanel addStyleNames="col-sm-4" ui:field='passwordFlowPanel'>
+											<b:InputGroup ui:field='changePassworinputGroup'>
+												<m:ObidosPasswordBox ui:field="passwordBox" placeholder="{i18n.changeAdminPassword}" />
+												<b:InputGroupButton
+													ui:field="passwordChangeInputGroupButton">
+													<b:Button type="INFO" icon="EYE" ui:field='showHidePasswordButton'
+														text="" />
+												</b:InputGroupButton>
+											</b:InputGroup>
+										</g:FlowPanel>
+									</b:Row>
+
+									<b:Row ui:field="mustChangePasswordRow" addStyleNames="{style.bottom-margin}" visible="false">
+										<g:FlowPanel ui:field="mustChangePasswordFp" addStyleNames="col-sm-offset-4 col-sm-4">
+											<b:FormLabel ui:field="mustChangePasswordLabel" HTML="{i18n.adminMustChangePassword}" />
+										</g:FlowPanel>
+									</b:Row>
+
+									<b:Row addStyleNames="{style.bottom-margin}">
+										<b:FormLabel ui:field="adminFullnameLabel" addStyleNames="col-sm-4"
+											HTML="{i18n.adminFullname}" />
+										<g:FlowPanel addStyleNames="col-sm-4">
+											<m:ObidosTextBox ui:field="adminFullnameTextBox" placeholder="{i18n.adminFullnameRequired}" />
+										</g:FlowPanel>
+									</b:Row>
+
+
+									<b:Row addStyleNames="{style.bottom-margin}">
+										<b:FormLabel ui:field="emailLabel" addStyleNames="col-sm-4"
+											HTML="{i18n.primaryEmailAddress}" />
+										<g:FlowPanel addStyleNames="col-sm-4">
+											<m:ObidosTextBox ui:field="emailTextBox" placeholder="{i18n.adminEmailRequried}" />
+										</g:FlowPanel>
+									</b:Row>
+
+									<b:Row addStyleNames="{style.bottom-margin}">
+										<b:FormLabel ui:field="phoneLabel" addStyleNames="col-sm-4"
+											HTML="{i18n.adminPrimaryPhone}" />
+										<g:FlowPanel addStyleNames="col-sm-4 {style.fp-bottom-margin}">
+											<m:ObidosTextBox ui:field="phoneTextBox" placeholder="{i18n.adminPhoreRequired}" />
+										</g:FlowPanel>
+									</b:Row>
+
+									<b:Row ui:field="rootAdminRow" addStyleNames="{style.bottom-margin}">
+										<b:FormLabel ui:field="prompteToRootAdminLabel" addStyleNames="col-sm-4" text="{i18n.promoteToRootAdmin}" />
+										<g:FlowPanel addStyleNames="col-sm-2 {style.fp-bottom-margin}">
+											<b3:ToggleSwitch ui:field='promoteToRootAdminSwitch' onColor="SUCCESS" offColor="DANGER" size="SMALL" onText="✓" offText="✗" value="false" />
+										</g:FlowPanel>
+											<b:FormLabel ui:field='deleteProfilePicLabel' addStyleNames="col-sm-2" text="{i18n.deleteProfilePic}"/>
+											<g:FlowPanel addStyleNames="col-sm-2 {style.fp-bottom-margin}" ui:field="deleteProfileFlowPanel">
+												 <b3:ToggleSwitch ui:field="deleteProfilePicSwitch" size="SMALL" onColor="SUCCESS" offColor="DANGER" onText="✓" offText="✗" value="false"/>
+											</g:FlowPanel>
+									</b:Row>
+
+									<!-- Capabilities -->
+									<b:Row ui:field="capabilitiesRow" addStyleNames="{style.bottom-margin}">
+	                                   <b:Row>
+											<g:FlowPanel addStyleNames="col-sm-offset-1 col-sm-7"> <b:FormLabel text="{i18n.adminsCapababilites}"/>
+											</g:FlowPanel>
+										</b:Row>
+
+                                        <b:Row>
+											<g:FlowPanel addStyleNames="col-sm-offset-1 col-sm-8"> <b:Row addStyleNames="{style.eauhr}" />
+											</g:FlowPanel>
+										</b:Row>
+
+									<!--
+										<b:Row>
+											<g:FlowPanel addStyleNames="col-sm-offset-5 col-sm-4">
+												<b:FormLabel ui:field='capabilitiesLabel' text="{i18n.adminsCapababilites}" />
+											</g:FlowPanel>
+										</b:Row>
+
+										<b:Row addStyleNames="{style.bottom-margin}">
+											<g:FlowPanel addStyleNames="col-sm-offset-1 col-sm-10"> <b:Row addStyleNames="{style.eauhr}" />
+											</g:FlowPanel>
+										</b:Row>
+										-->
+										<b:Row>
+											<b:FormLabel ui:field="createUserLabel" addStyleNames="col-sm-4" text="{i18n.canCreateUser}" />
+											<g:FlowPanel addStyleNames="col-sm-2 {style.fp-bottom-margin}">
+												<b3:ToggleSwitch ui:field='createUserSwitch' size="SMALL" onColor="SUCCESS" offColor="DANGER" onText="✓" offText="✗" value="true" />
+											</g:FlowPanel>
+											<b:FormLabel ui:field="createAdminLabel" addStyleNames="col-sm-2" text="{i18n.canCreateAdmin}" />
+											<g:FlowPanel addStyleNames="col-sm-2 {style.fp-bottom-margin}">
+												<b3:ToggleSwitch ui:field='createAdminSwitch' size="SMALL" onColor="SUCCESS" offColor="DANGER" onText="✓" offText="✗" value="true" />
+											</g:FlowPanel>
+										</b:Row>
+										<b:Row>
+											<b:FormLabel ui:field="deleteUserLabel" addStyleNames="col-sm-4"
+												text="{i18n.canDeleteUser}" />
+											<g:FlowPanel addStyleNames="col-sm-2 {style.fp-bottom-margin}">
+												<b3:ToggleSwitch ui:field='deleteUserSwitch' size="SMALL" onColor="SUCCESS" offColor="DANGER" onText="✓" offText="✗" value="true" />
+											</g:FlowPanel>
+											<b:FormLabel ui:field="deleteAdminLabel" addStyleNames="col-sm-2" text="{i18n.canDeleteAdmin}" />
+											<g:FlowPanel addStyleNames="col-sm-2 {style.fp-bottom-margin}">
+												<b3:ToggleSwitch ui:field='deleteAdminSwitch' size="SMALL" onColor="SUCCESS" offColor="DANGER" onText="✓" offText="✗" value="true" />
+											</g:FlowPanel>
+										</b:Row>
+										<b:Row>
+											<b:FormLabel ui:field="lockUserLabel" addStyleNames="col-sm-4"
+												text="{i18n.canLockUser}" />
+											<g:FlowPanel addStyleNames="col-sm-2 {style.fp-bottom-margin}">
+												<b3:ToggleSwitch ui:field='lockUserSwitch' size="SMALL" onColor="SUCCESS" offColor="DANGER" onText="✓" offText="✗" value="true" />
+											</g:FlowPanel>
+											<b:FormLabel ui:field="lockAdminLabel" addStyleNames="col-sm-2"
+												text="{i18n.canLockAdmin}" />
+											<g:FlowPanel addStyleNames="col-sm-2 {style.fp-bottom-margin}">
+												<b3:ToggleSwitch ui:field='lockAdminSwitch' size="SMALL" onColor="SUCCESS" offColor="DANGER" onText="✓" offText="✗" value="true" />
+											</g:FlowPanel>
+										</b:Row>
+										<b:Row>
+											<b:FormLabel ui:field="changeUserCredentialsLabel" addStyleNames="col-sm-4" text="{i18n.canChangeUserCredentials}" />
+											<g:FlowPanel addStyleNames="col-sm-1 {style.fp-bottom-margin}">
+												<b3:ToggleSwitch ui:field='changeUserCredentialsSwitch' size="SMALL" onColor="SUCCESS" offColor="DANGER" onText="✓" offText="✗" value="true" />
+											</g:FlowPanel>
+											<b:FormLabel ui:field="changeAdminCredentialsLabel" addStyleNames="col-sm-3" text="{i18n.canChangeAdminCredentials}" />
+											<g:FlowPanel addStyleNames="col-sm-2 {style.fp-bottom-margin}">
+												<b3:ToggleSwitch ui:field='changeAdminCredentialsSwitch' size="SMALL" onColor="SUCCESS" offColor="DANGER" onText="✓" offText="✗" value="true" />
+											</g:FlowPanel>
+										</b:Row>
+
+										<b:Row>
+											<b:FormLabel ui:field="modifyEmailTemplatesLabel" addStyleNames="col-sm-4" text="{i18n.canModifyEmailTemplates}" />
+											<g:FlowPanel addStyleNames="col-sm-1 {style.fp-bottom-margin}">
+												<b3:ToggleSwitch ui:field='modifyEmailTemplatesSwitch' size="SMALL" onColor="SUCCESS" offColor="DANGER" onText="✓" offText="✗" value="true" />
+											</g:FlowPanel>
+											<b:FormLabel ui:field="changeSystemSettingsLabel" addStyleNames="col-sm-3" text="{i18n.canChangeSystemSettings}" />
+											<g:FlowPanel addStyleNames="col-sm-2 {style.fp-bottom-margin}">
+												<b3:ToggleSwitch ui:field='changeSystemSettingSwitch' size="SMALL" onColor="SUCCESS" offColor="DANGER" onText="✓" offText="✗" value="true" />
+											</g:FlowPanel>
+										</b:Row>
+									</b:Row>
+
+									<b:FormGroup>
+									</b:FormGroup>
+
+									<m:ObidosMessageRow ui:field="messageRow" />
+
+									<m:ObidosRowTop2px>
+										<m:ObidosButtonToolBar ui:field="buttonToolBarBottom">
+											<b:Button type="SUCCESS" ui:field='saveButton' text="{i18n.updateAdmin}" />
+											<!-- <b:Button type="PRIMARY" ui:field='resetButton' text="{i18n.resetButtonTitle}"/> -->
+											<m:ObidosResetButton ui:field='resetButton' />
+											<b:Button type="PRIMARY" ui:field='listAdminsButton' text="{i18n.activeAdmins}" visible="false" />
+										</m:ObidosButtonToolBar>
+									</m:ObidosRowTop2px>
+								</b:Form>
+							</g:HTMLPanel>
+						</b:PanelBody>
+					</b:Panel>
+			</b:Row>
+		</b:Container>
+	</g:HTMLPanel>
+
+</ui:UiBinder>

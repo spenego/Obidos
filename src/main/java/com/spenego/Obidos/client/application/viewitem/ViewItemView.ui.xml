@@ -1,0 +1,338 @@
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+
+	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:b="urn:import:org.gwtbootstrap3.client.ui"
+	xmlns:b.html="urn:import:org.gwtbootstrap3.client.ui.html"
+	xmlns:b.gwt="urn:import:org.gwtbootstrap3.client.ui.gwt"
+	xmlns:m="urn:import:com.spenego.Obidos.client.application.widgets"
+	xmlns:d="urn:import:com.spenego.Obidos.client.ui">
+
+	<ui:with field='i18n' type='com.spenego.Obidos.client.i18n.ObidosMessages' />
+
+	<ui:style gss="true">
+	.item-message-info {
+		margin: 10px 0px;
+		padding: 12px;
+		color: #00529B;
+		background-color: #BDE5F8;
+		box-shadow: 1px 1px 3px #888;
+	}
+	
+	.form-error-label {
+		color: red;
+	}
+	
+	.anchor-align {
+		margin-top: 10px;
+	}
+	
+	.item-ginfo {
+		background-color: #EEEEEE;
+		border-color: #2F79B9;
+	}
+	
+	.margin-fix {
+		margin-top: 0 !important;
+	}
+	
+	.item-paragraph-font {
+		font-size: 13px;
+	}
+	
+	.item-margin {
+		margin: 5px;
+	}
+	
+	.ro-font {
+		color: black;
+		font-weight: bold;
+	}
+	
+	.container-name {
+		color: #00f;
+		font-weight: bold;
+		cursor: pointer;
+	}
+	
+	.dropdown-top-margin {
+		margin-top: 20px !important;
+	}
+	
+	.disabledInput {
+		color: #000000 !important;
+		background-color: #ffffff !important;
+	}
+	
+	.vprogressbar {
+		height: 7px !important;
+	}
+	
+	.bottom-margin {
+		margin-bottom: 2px;
+	}
+	
+	.toolbar-margin {
+		margin-left: -15px;
+	}
+	
+	.center-toolbar {
+		justify-content: center;
+		display: flex;
+	}
+
+	.anchor-style {
+	   padding: 3px 20px;
+	}
+	.utc-timebox {
+		display: block;
+		width: 120px;
+		height: 34px;
+		padding-top: 6px;
+		padding-bottom: 6px;
+		padding-right: 0px;
+		padding-left: 0px;
+		font-size: 14px;
+		font-weight: bold;
+		text-align: center;
+		line-height: 1.42857143;
+		color: #000;
+		background-color: #fff;
+		background-image: none;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+		box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+		-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+		-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+		transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
+	}
+	.no-left-margin {
+		padding-left: 0px;
+		margin-left: 1px;
+	}
+	.width-adjust {
+		width: 15.0% !important;
+	}
+	.no-right-margin {
+		padding-right: 0px;
+		margin-right: 1px;
+	}
+	.ro-font{
+		color: black;
+		font-weight:bold;
+	}
+	.lock-icon {
+	   color: green !important;
+	}
+	.info_label {
+	   margin-left: -20px;
+	   font-size: 12px;
+	   weight: bold;
+	   color: #9900ff !important;
+	}
+	.button-dropdown-color {
+	   color: #9900ff !important;
+	   font-weight: bold;
+	}
+	</ui:style>
+
+<!--  text-decoration: underline; -->
+
+	<!-- ********************************************************************* This is the UI 
+		for viewing a Note or Item. ********************************************************************* -->
+
+	<g:HTMLPanel ui:field="htmlPanel">
+		<b:Container addStyleNames="col-sm-12">
+			<b:Row>
+			<b:BlockQuote addStyleNames="{style.item-ginfo}" ui:field='helpBlockQuote' visible="false">
+				<b.html:Paragraph ui:field='helpParagraph' addStyleNames='{style.item-paragraph-font}' HTML="{i18n.viewItemHelp}" />
+			</b:BlockQuote>
+
+					<b:Panel type="PRIMARY">
+				        <m:ObidosPanelHeader ui:field="panelHeader" showBackButton="true" headerText="{i18n.viewItem}"/>
+						<b:PanelBody>
+							<g:HTMLPanel>
+								<b:Form type="HORIZONTAL">
+                                  <b:Row>
+                                        <m:ObidosButtonToolBar ui:field="buttonToolBar">
+                                            <b:Button type="DANGER" ui:field='showHideButton' block="false" icon="EYE_SLASH" iconPosition="LEFT" text="{i18n.hide}" />
+                                            <b:Button type="SUCCESS" ui:field='takeOwnershipButton' block="false" text="{i18n.takeOwnership}" />
+                                            <b:Button type="PRIMARY" ui:field='editButton' block="false" icon="EDIT" text="{i18n.edit}" visible="false"/>
+                                            <b:Button type="PRIMARY" ui:field='listUsers' block="false" text="{i18n.distributionList}" visible="true"/>
+                                        </m:ObidosButtonToolBar>
+                                    </b:Row>
+
+									<b:Row ui:field="contentRow">
+										<b:Row ui:field="hideItemCheckBoxRow">
+											<b:FormLabel ui:field='hideItemLabel' addStyleNames="col-sm-4" text="{i18n.hideItemTimer}" />
+											<g:FlowPanel addStyleNames="col-sm-8">
+												<b:CheckBox ui:field="hideItemCheckBox" text="{i18n.off}" />
+											</g:FlowPanel>
+											<g:FlowPanel addStyleNames="col-sm-offset-4 col-sm-4">
+												<b:Progress ui:field='progress' addStyleNames='{style.vprogressbar}'>
+													<b:ProgressBar ui:field='progressbar' type="SUCCESS" percent="100" />
+												</b:Progress>
+											</g:FlowPanel>
+										</b:Row>
+										
+
+
+										<b:FormGroup ui:field='mainFormGroup'>
+											<!-- Bug 75 new container name row starts -->
+											<!--  use purple label at the right side -->
+											<!--  new container name row -->
+											<m:ObidosRowBottom2px ui:field="containerNameRowNew" visible="true">
+												<b:FormLabel ui:field='containerNameLabelNew' addStyleNames="col-sm-4" text="{i18n.containerNameLabel}" />
+												<g:FlowPanel addStyleNames="col-sm-4">
+													<b:InputGroup ui:field='containerNameInputGroupNew'>
+														<b:InputGroupAddon icon="UNLOCK" iconColor="{i18n.unlockColor}" iconPosition="RIGHT" title="{i18n.notEncrypted}" />
+														<m:ObidosTextBox ui:field="containerNameTextBoxNew" title="{i18n.listItemsInThisContainer}" addStyleNames='{style.container-name}' readOnly="true" />
+													</b:InputGroup>
+												</g:FlowPanel>
+    											<g:FlowPanel addStyleNames="col-sm-4">
+												    <b:FormLabel ui:field='containerShareableLabel' addStyleNames='{style.info_label}' HTML="" />
+												</g:FlowPanel>
+											</m:ObidosRowBottom2px>
+											<!-- Bug 75 new container name row ends -->
+
+                                            <!--  container shared with me -->
+											<m:ObidosRowBottom2px ui:field="containerSharedWithMeNameRow" visible="false">
+												<b:FormLabel ui:field='containerSharedWithMeNameLabel' addStyleNames="col-sm-4" text="{i18n.containerNameLabel}" />
+												<g:FlowPanel addStyleNames="col-sm-5">
+													<b:InputGroup ui:field='containerSharedWithMeNameInputGroup'>
+														<b:InputGroupAddon icon="UNLOCK" iconColor="{i18n.unlockColor}" iconPosition="LEFT" title="{i18n.notEncrypted}" />
+														<m:ObidosTextBox ui:field="containerSharedWithMeNameTextBox" addStyleNames='{style.ro-font}' readOnly="true" />
+        												<m:ObidosInputGroupAddon ui:field="containerSharedWithMeTypeAddon"/>
+													</b:InputGroup>
+												</g:FlowPanel>
+											</m:ObidosRowBottom2px>
+											
+											<!-- Bug 75 starts -->
+                                            <m:ObidosRowBottom2px>
+												<b:FormLabel for="forItemName" ui:field='itemNameLabelNew' addStyleNames="col-sm-4" text="{i18n.item}"/>
+												<g:FlowPanel ui:field='itemFlowPanelNew' addStyleNames="col-sm-4">
+													<b:InputGroup>
+														<b:InputGroupAddon icon="UNLOCK" iconColor="{i18n.unlockColor}" iconPosition="RIGHT" title="{i18n.notEncrypted}" />
+														<m:ObidosTextBox ui:field="itemNameTextBoxNew" readOnly="true" addStyleNames='{style.ro-font}' />
+													</b:InputGroup>
+												</g:FlowPanel>
+    											<g:FlowPanel addStyleNames="col-sm-4">
+												    <b:FormLabel ui:field='itemShareableLabel' addStyleNames='{style.info_label}' HTML="" />
+												</g:FlowPanel>
+											</m:ObidosRowBottom2px>
+											<!-- Bug 75 ends -->
+
+                                            <m:ObidosRowBottom2px>
+												<b:FormLabel for="forCreatedAt" ui:field='createdAtLabel' addStyleNames="col-sm-4" text="{i18n.createdAt}"/>
+												<g:FlowPanel ui:field='createdAtFlowPanel' addStyleNames="col-sm-4">
+													<b:InputGroup>
+														<b:InputGroupAddon icon="UNLOCK" iconColor="{i18n.unlockColor}" iconPosition="RIGHT" title="{i18n.notEncrypted}" />
+														<m:ObidosTextBox ui:field="createdAtTextBox" readOnly="true" addStyleNames='{style.ro-font}' />
+													</b:InputGroup>
+												</g:FlowPanel>
+											</m:ObidosRowBottom2px>
+
+                                            <m:ObidosRowBottom2px ui:field="updatedAtRow">
+												<b:FormLabel for="forUpdatedAt" ui:field='updatedAtLabel' addStyleNames="col-sm-4" text="{i18n.updatedAt}"/>
+												<g:FlowPanel ui:field='updatedAtFlowPanel' addStyleNames="col-sm-4">
+													<b:InputGroup>
+														<b:InputGroupAddon icon="UNLOCK" iconColor="{i18n.unlockColor}" iconPosition="RIGHT" title="{i18n.notEncrypted}" />
+														<m:ObidosTextBox ui:field="updatedAtTextBox" readOnly="true" addStyleNames='{style.ro-font}' />
+													</b:InputGroup>
+												</g:FlowPanel>
+											</m:ObidosRowBottom2px>
+
+
+
+                                            <!-- owner -->
+											<b:Row ui:field='sharedByRow' addStyleNames="{style.bottom-margin}">
+												<b:FormLabel for="sharedByName" ui:field='sharedByNameLabel' addStyleNames="col-sm-4" text="{i18n.sharedByLabel}" />
+												<g:FlowPanel addStyleNames="col-sm-4">
+													<b:DropDown ui:field='ownerDropDown'>
+														<b:Button ui:field='ownerDropDownAnchor' addStyleNames="{style.button-dropdown-color}" dataToggle="DROPDOWN" text="UNKNOWN" />
+														<b:DropDownMenu>
+													        <b:Anchor ui:field="emailAnchor" addStyleNames="{style.anchor-style}" text="{i18n.email}"/>
+													        <b.html:Br/>
+													        <b:Anchor ui:field="phoneAnchor" addStyleNames="{style.anchor-style}" text="{i18n.phone}"/>
+													        <b:Divider/>
+													        <b:AnchorListItem icon="USER" ui:field="ownerDetails" text="{i18n.ownerDetails}"/>
+														</b:DropDownMenu>
+													</b:DropDown>
+												</g:FlowPanel>
+											</b:Row>
+
+											<b:Row ui:field='sharedOnRow' addStyleNames="{style.bottom-margin}">
+												<b:FormLabel for="sharedOn" ui:field='sharedOnLabel' addStyleNames="col-sm-4" text="{i18n.sharedOnLabel}" visible="true" />
+												<g:FlowPanel addStyleNames="col-sm-4">
+													<b:InputGroup ui:field='sharedOnInputGroup'>
+														<b:InputGroupAddon icon="UNLOCK" iconColor="{i18n.unlockColor}" iconPosition="RIGHT" title="{i18n.notEncrypted}" />
+														<m:ObidosTextBox ui:field="sharedOnTextBox" readOnly="true" addStyleNames='{style.ro-font}' />
+													</b:InputGroup>
+												</g:FlowPanel>
+											</b:Row>
+										</b:FormGroup>
+
+										<b:FormGroup ui:field='formGroup'>
+										</b:FormGroup>
+
+										<m:ObidosRow ui:field="expiresRow" bottomMargin="2px">
+											<b:FormLabel addStyleNames="col-sm-4" text="{i18n.shareExpirationDateOptional}" />
+											<g:FlowPanel addStyleNames="col-sm-2 {style.width-adjust} {style.no-right-margin}">
+												<b:InputGroup>
+													<b:InputGroupAddon icon="UNLOCK" title="{i18n.notEncrypted}" iconColor="{i18n.unlockColor}" iconPosition="LEFT" />
+													<m:ObidosTextBox ui:field="expiresTextBox" readOnly="true" addStyleNames='{style.ro-font}' />
+												</b:InputGroup>
+											</g:FlowPanel>
+											<g:FlowPanel addStyleNames="col-sm-1 {style.no-left-margin} {style.no-right-margin}">
+													<m:ObidosTextBox ui:field="timeTextBox" addStyleNames="{style.utc-timebox}" readOnly="true"/>
+											</g:FlowPanel>
+										</m:ObidosRow>
+										
+    									<m:ObidosMessageRow ui:field="messageRow"/>
+    									
+    									<!--  file upload pending -->
+    									<b:Row ui:field='fileUploadPendingRow' visible="false">
+											<m:ObidosRowBottom2px>
+												<g:FlowPanel addStyleNames="col-sm-offset-4 col-sm-4">
+													<b:Label ui:field="pendingTimerLabel" text="0" type="DEFAULT" />
+												</g:FlowPanel>
+											</m:ObidosRowBottom2px>
+											<m:ObidosRowBottom2px visible="true">
+												<b:FormLabel addStyleNames="col-sm-4" text="{i18n.fileUploadStatus}"/>
+												<g:FlowPanel addStyleNames="col-sm-4">
+													<m:ObidosInputGroup ui:field="pendinFileUploadInputGroup" readOnly="true" isSecure="false" placeHolder="" />
+												</g:FlowPanel>
+											</m:ObidosRowBottom2px>
+										</b:Row>
+
+										<!--  Download file -->
+										<m:ObidosRowBottom2px ui:field='fileDownloadRow' visible="false">
+											<b:FormLabel addStyleNames="col-sm-4" text="{i18n.downloadDocument}"/>
+											<g:FlowPanel addStyleNames="col-sm-4">
+											 <b.html:Span>
+											     <b:Icon type="LOCK" addStyleNames="{style.lock-icon}" title="{i18n.encryptedFileToolTip}"/>
+												 <b:Button ui:field='fileDowloadButton' type="LINK" icon="DOWNLOAD" text="{i18n.downloadDocument}"/>
+												 <g:Label text="{i18n.downloadHelpMessage}"/>
+											 </b.html:Span>
+											 </g:FlowPanel>
+                                        </m:ObidosRowBottom2px>
+
+										<!--  align the button -->
+ 										<m:ObidosRowBottom2px ui:field='show2FACodeButtonRow' visible="true">
+											<g:FlowPanel addStyleNames="text-center">
+											     <b:Button type="SUCCESS" ui:field="show2FACodeButton" text="{i18n.twoFAAuthenticator}"/>
+											</g:FlowPanel>
+										</m:ObidosRowBottom2px>
+                                       
+
+									</b:Row>
+									<!-- invisible FormPanel to Download POST request -->
+									<g:FormPanel ui:field='formPanel' visible='false'/>
+								</b:Form>
+							</g:HTMLPanel>
+						</b:PanelBody>
+					</b:Panel>
+			</b:Row>
+		</b:Container>
+	</g:HTMLPanel>
+</ui:UiBinder>

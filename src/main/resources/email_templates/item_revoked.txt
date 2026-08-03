@@ -1,0 +1,11 @@
+                 {{product_name}}
+                 
+{{name}},
+
+{{text_message}}
+
+{{contact}}
+
+{{comment}}
+
+{{footer}}

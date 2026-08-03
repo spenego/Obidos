@@ -1,0 +1,12 @@
+{
+    "id":525,
+    "contact": "Please contact support at xxx-xxx-xxxx if you have any questions.",
+    "footer": "Example Inc., Address, City, State/Region, Country.",
+    "hello": "Hi {{name}}",
+    "html_message": "{{owner_name}} has deleted an secured item shared you with you.. After login, please click on the notification bell for details.",
+    "product_name": "Obidos Digital Artifacts Management and Sharing Platform from Spenego",
+    "product_url": "https://spenego.com",
+    "subject": "A secured shared Item is deleted by owner",
+    "text_message": "{{owner_name}} has deleted an secured item shared you with you.. After login, please click on the notification bell for details.",
+    "title": "A shared item is deleted by the owner"
+}

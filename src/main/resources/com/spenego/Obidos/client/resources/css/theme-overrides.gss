@@ -1,0 +1,15 @@
+/**
+ * Theme overrides for Bootstrap components
+ * These styles will override default Bootstrap styles regardless of theme
+ */
+
+@external dropdown-menu, li, a, hover, focus;
+
+/* Override dropdown menu hover/focus colors for all themes */
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
+    background-color: #337ab7 !important; /* Bootstrap primary blue */
+    color: white !important;
+}
+
+/* Additional overrides can be added here as needed */

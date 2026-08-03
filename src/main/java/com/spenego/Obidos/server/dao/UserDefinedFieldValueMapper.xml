@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   Copyright (c) 2016, 2018, Spenego. All rights reserved.
+   SPENEGO PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+   Original dtd available at: "http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+ -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
+<mapper namespace="com.spenego.Obidos.server.dao.UserDefinedFieldValueMapper">
+	<resultMap id="BaseResultMap" type="com.spenego.Obidos.server.model.UserDefinedFieldValue">
+		<id column="xxx" jdbcType="BIGINT" property="id" />
+		<result column="user_defined_type_value_id"	jdbcType="BIGINT"	property="userDefinedTypeValueId" />
+		<result column="user_defined_field_id"		jdbcType="BIGINT"	property="userDefinedFieldId" />
+		<result column="document_id"				jdbcType="BIGINT"	property="documentId" />
+		<result column="blob_value"					jdbcType="VARCHAR"	property="blobValue" />
+		<result column="name"						jdbcType="VARCHAR"	property="name" />
+		<result column="type"						jdbcType="BIGINT"	property="type" />
+		<result column="position"					jdbcType="INTEGER"	property="position" />
+		<result column="encryption_mode"			jdbcType="TINYINT"	property="encryptionMode" />
+		<result column="created_at"					jdbcType="TIMESTAMP" property="createdAt" />
+		<result column="updated_at"					jdbcType="TIMESTAMP" property="updatedAt" />
+		<result column="version"					jdbcType="INTEGER"	property="version" />
+	</resultMap>
+
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" prefixOverrides="and" suffix=")">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" prefixOverrides="and" suffix=")">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+
+	<sql id="Base_Column_List">
+		udfv.id as xxx, udf.name as name, udf.type as type, udf.position as position, user_defined_type_value_id, user_defined_field_id, udb.value as blob_value,
+		udfv.document_id, udb.encryption_mode as encryption_mode, udfv.created_at as created_at, udfv.updated_at as updated_at, udfv.version as version
+	</sql>
+
+	<select id="selectByExample" parameterType="com.spenego.Obidos.server.model.UserDefinedFieldValueExample" resultMap="BaseResultMap">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from user_defined_field_values udfv
+			join user_defined_fields udf on udf.id = udfv.user_defined_field_id
+			left join user_defined_blobs udb on udfv.blob_value_id = udb.id
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+
+	<select id="selectByItemExample" parameterType="com.spenego.Obidos.server.model.UserDefinedFieldValueExample" resultMap="BaseResultMap">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		udfv.id as xxx, udf.position as position, user_defined_field_id, user_defined_type_value_id, udfv.document_id
+		from user_defined_field_values udfv
+			join user_defined_fields udf on udf.id = udfv.user_defined_field_id
+			join user_defined_type_values udtv on udtv.id = udfv.user_defined_type_value_id
+			join item_assignments ia on ia.id = udtv.item_assignment_id
+			join items i on i.id = ia.item_id
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from user_defined_field_values udfv
+		join user_defined_fields udf on udf.id = udfv.user_defined_field_id
+		left join user_defined_blobs udb on udfv.blob_value_id = udb.id
+		where udfv.id = #{id,jdbcType=BIGINT}
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from user_defined_field_values
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.spenego.Obidos.server.model.UserDefinedFieldValueExample">
+		delete from user_defined_field_values
+		<if test="_parameter != null"> <include refid="Example_Where_Clause" /> </if>
+	</delete>
+
+	<insert id="insert" parameterType="com.spenego.Obidos.server.model.UserDefinedFieldValue">
+		insert into user_defined_field_values (id, user_defined_type_value_id, user_defined_field_id, blob_value_id, document_id, created_at, updated_at, version)
+		values (#{id,jdbcType=BIGINT}, #{userDefinedTypeValueId,jdbcType=BIGINT}, #{userDefinedFieldId,jdbcType=BIGINT},
+		#{blobValueId,jdbcType=BIGINT}, #{documentId,jdbcType=BIGINT},
+		#{createdAt,jdbcType=TIMESTAMP}, #{updatedAt,jdbcType=TIMESTAMP}, #{version,jdbcType=INTEGER})
+	</insert>
+
+	<insert id="insertSelective" parameterType="com.spenego.Obidos.server.model.UserDefinedFieldValue">
+		insert into user_defined_field_values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="userDefinedTypeValueId != null">user_defined_type_value_id,</if>
+			<if test="userDefinedFieldId != null">user_defined_field_id,</if>
+			<if test="blobValueId != null">blob_value_id,</if>
+			<if test="documentId != null">document_id,</if>
+			<if test="createdAt != null">created_at,</if>
+			<if test="updatedAt != null">updated_at,</if>
+			<if test="version != null">version,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">						#{id,jdbcType=BIGINT}, </if>
+			<if test="userDefinedTypeValueId != null">	#{userDefinedTypeValueId,jdbcType=BIGINT}, </if>
+			<if test="userDefinedFieldId != null">		#{userDefinedFieldId,jdbcType=BIGINT}, </if>
+			<if test="blobValueId != null">				#{blobValueId,jdbcType=BIGINT}, </if>
+			<if test="createdAt != null">				#{createdAt,jdbcType=TIMESTAMP}, </if>
+			<if test="updatedAt != null">				#{updatedAt,jdbcType=TIMESTAMP}, </if>
+			<if test="version != null">					#{version,jdbcType=INTEGER}, </if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.spenego.Obidos.server.model.UserDefinedFieldValueExample" resultType="java.lang.Integer">
+		select count(*) from user_defined_field_values udfv
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update user_defined_field_values udfv
+		<set>
+			<if test="r.id != null">						id = #{r.id,jdbcType=BIGINT}, </if>
+			<if test="r.userDefinedTypeValueId != null">	user_defined_type_value_id = #{r.userDefinedTypeValueId,jdbcType=BIGINT}, </if>
+			<if test="r.userDefinedFieldId != null">		user_defined_field_id = #{r.userDefinedFieldId,jdbcType=BIGINT}, </if>
+			<if test="r.blobValueId != null">				blob_value_id = #{r.blobValueId,jdbcType=BIGINT}, </if>
+			<if test="r.documentId != null">				document_id = #{r.documentId,jdbcType=BIGINT}, </if>
+			<if test="r.createdAt != null">				created_at = #{r.createdAt,jdbcType=TIMESTAMP}, </if>
+			<if test="r.updatedAt != null">				updated_at = #{r.updatedAt,jdbcType=TIMESTAMP}, </if>
+			<if test="r.version != null">					version = #{r.version,jdbcType=INTEGER}, </if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update user_defined_field_values udfv
+		set id = #{r.id,jdbcType=BIGINT},
+			user_defined_type_value_id = #{r.userDefinedTypeValueId,jdbcType=BIGINT},
+			user_defined_field_id = #{r.userDefinedFieldId,jdbcType=BIGINT},
+			blob_value_id = #{r.blobValueId,jdbcType=BIGINT},
+			document_id = #{r.documentId,jdbcType=BIGINT},
+			created_at = #{r.createdAt,jdbcType=TIMESTAMP},
+			updated_at = #{r.updatedAt,jdbcType=TIMESTAMP},
+			version = #{r.version,jdbcType=INTEGER}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.spenego.Obidos.server.model.UserDefinedFieldValue">
+		update user_defined_field_values udfv
+		<set>
+			<if test="userDefinedTypeValueId != null">	user_defined_type_value_id = #{userDefinedTypeValueId,jdbcType=BIGINT}, </if>
+			<if test="userDefinedFieldId != null">		user_defined_field_id = #{userDefinedFieldId,jdbcType=BIGINT}, </if>
+			<if test="blobValueId != null">				blob_value_id = #{blobValueId,jdbcType=BIGINT}, </if>
+			<if test="documentId != null">				documentId = #{documentId,jdbcType=BIGINT}, </if>
+			<if test="createdAt != null">				created_at = #{createdAt,jdbcType=TIMESTAMP}, </if>
+			<if test="updatedAt != null">				updated_at = #{updatedAt,jdbcType=TIMESTAMP}, </if>
+			<if test="version != null">					version = #{version,jdbcType=INTEGER}, </if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.spenego.Obidos.server.model.UserDefinedFieldValue">
+		update user_defined_field_values udfv
+		set user_defined_type_value_id = #{userDefinedTypeValueId,jdbcType=BIGINT},
+			user_defined_field_id = #{userDefinedFieldId,jdbcType=BIGINT},
+			blob_value_id = #{blobValueId,jdbcType=BIGINT},
+			created_at = #{createdAt,jdbcType=TIMESTAMP},
+			updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+			version = #{version,jdbcType=INTEGER}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+</mapper>

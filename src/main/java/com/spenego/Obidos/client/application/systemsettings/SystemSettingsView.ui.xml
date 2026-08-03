@@ -1,0 +1,279 @@
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+             xmlns:g="urn:import:com.google.gwt.user.client.ui"
+             xmlns:b="urn:import:org.gwtbootstrap3.client.ui"
+             xmlns:b.html="urn:import:org.gwtbootstrap3.client.ui.html"
+             xmlns:b.gwt="urn:import:org.gwtbootstrap3.client.ui.gwt"
+             xmlns:m="urn:import:com.spenego.Obidos.client.application.widgets"
+             xmlns:select="urn:import:org.gwtbootstrap3.extras.select.client.ui"
+             xmlns:b3="urn:import:org.gwtbootstrap3.extras.toggleswitch.client.ui"
+             xmlns:d="urn:import:com.spenego.Obidos.client.ui">
+
+<ui:with field='i18n' type='com.spenego.Obidos.client.i18n.ObidosMessages'/>
+<ui:style gss="true">
+.margin-fix{
+    margin-top: 0 !important;
+}
+.paragraph-font {
+    font-size: 13px;    
+}
+.fp-bottom-margin {
+    margin-bottom: 5px;
+}
+.top-margin {
+	margin-top: 2%;
+}
+.info{
+    background-color:  #EEEEEE;
+    border-color: #2F79B9;
+}
+.readonly-font{
+	color: black;
+	font-weight: bold;
+}
+.admin-panel-header {
+	background-color: #222 !important;
+}
+
+.shr{
+	border-bottom: 1px solid #ccc;
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+}
+.warning-label {
+	color: #9900ff;
+	font-size: 12px;
+	margin-left: -20px;
+}
+.center-label {
+   text-align: center;
+}
+.strength_label {
+   margin-left: -20px;
+   weight: bold;
+   color: #9900ff;
+}
+
+</ui:style>
+<g:HTMLPanel ui:field="htmlPanel">
+	<b:Container addStyleNames="col-sm-12">
+		<b:Row>
+			<b:BlockQuote addStyleNames="{style.info}" ui:field="helpBlockQuote" visible="false">
+				<b.html:Paragraph ui:field='helpParagraph' addStyleNames='{style.paragraph-font}' HTML="{i18n.systemSettingsHelp}"/>
+			</b:BlockQuote>
+				<b:Panel type="PRIMARY">
+					<m:ObidosPanelHeader ui:field="panelHeader" addStyleNames="{style.admin-panel-header}" showBackButton="false" headerText="{i18n.systemSettings}"/>
+					<b:PanelBody>
+						<g:HTMLPanel>
+							<b:Form type="HORIZONTAL">
+								   <m:ObidosRowBottom2px>
+										<b:FormLabel addStyleNames="col-sm-4" text="{i18n.httpSchemeLabel}"/>
+										<g:FlowPanel addStyleNames="col-sm-4">
+											<m:ObidosReadonlyTextBox ui:field="httpSchemeTextBox" placeholder="{i18n.httpSchemeValue}"/>
+										</g:FlowPanel>
+								   </m:ObidosRowBottom2px>
+
+								   <m:ObidosRowBottom2px>
+										<b:FormLabel ui:field="fqdnLabel" addStyleNames="col-sm-4" text="{i18n.httpsFqdn}"/>
+										<g:FlowPanel addStyleNames="col-sm-4">
+											<m:ObidosTextBox ui:field="httpFqdnTextBox" placeholder="{i18n.exampleDotCom}"/>
+										</g:FlowPanel>
+								   </m:ObidosRowBottom2px>
+
+								   <m:ObidosRowBottom2px>
+										<b:FormLabel ui:field="portLabel" addStyleNames="col-sm-4" text="{i18n.httpsPortLabel}"/>
+										<g:FlowPanel addStyleNames="col-sm-4">
+											<m:ObidosIntegerTextBox ui:field="httpsPortBox"/>
+										</g:FlowPanel>
+								   </m:ObidosRowBottom2px>
+
+
+								   <m:ObidosRowBottom2px>
+										<b:FormLabel ui:field='twoFAIssuerLabel' addStyleNames="col-sm-4" text="{i18n.twoFAIssuer}"/>
+										<g:FlowPanel addStyleNames="col-sm-4">
+											<m:ObidosTextBox ui:field="twoFAIssuerTextBox" placeholder="{i18n.twoFAIssuer}"/>
+										</g:FlowPanel>
+ 								   </m:ObidosRowBottom2px>
+
+								   <m:ObidosRowBottom2px>
+										<b:FormLabel ui:field="dateFormatLabel" addStyleNames="col-sm-4" text="{i18n.dateFormatLabel}"/>
+										<g:FlowPanel addStyleNames="col-sm-4">
+										  <select:Select ui:field="dateFormatSelect" title="{i18n.dateFormatLabel}" showTick="true">
+                                                <select:Option text="{i18n.dateFormatmmddyyyy}"/>
+                                                <select:Option text="{i18n.dateFormatddmmyyyy}"/>
+                                                <select:Option text="{i18n.dateFormatyyyymmdd}"/>
+										  </select:Select>
+										</g:FlowPanel>
+ 								   </m:ObidosRowBottom2px>
+
+								   <m:ObidosRowBottom2px>
+										<b:FormLabel ui:field='documentDirLabel' addStyleNames="col-sm-4" text="{i18n.documentDirectory}"/>
+										<g:FlowPanel addStyleNames="col-sm-4">
+											<m:ObidosTextBox ui:field="documentDirTextBox" placeholder="{i18n.documentDirectory}"/>
+										</g:FlowPanel>
+ 								   </m:ObidosRowBottom2px>
+
+
+                                <!--  Password policy -->
+    							<b:Row visible="true">
+									<b:Row>
+										<g:FlowPanel addStyleNames="{style.center-label}">
+											<b:FormLabel text="{i18n.passwordComplexity}"/>
+										</g:FlowPanel>
+									</b:Row>
+
+									<b:Row visible="false">
+										<g:FlowPanel addStyleNames="col-sm-offset-3 col-sm-5">
+											<b:Row addStyleNames="{style.shr}"/>
+										</g:FlowPanel>
+									</b:Row>
+
+									<m:ObidosRowBottom2px>
+										<b:FormLabel ui:field='minPasswordLengthLabel' addStyleNames="col-sm-4" text="{i18n.minimumLength}"/>
+										<g:FlowPanel addStyleNames="col-sm-4">
+											<m:ObidosIntegerTextBox ui:field="pwMinLengthTextBox" placeholder="{i18n.minimumPasswordLength}"/>
+										</g:FlowPanel>
+										<g:FlowPanel addStyleNames="col-sm-4">
+											<b:FormLabel ui:field='passwordLengthWarningLabel' addStyleNames="{style.warning-label}" visible="false"/>
+										</g:FlowPanel>
+									</m:ObidosRowBottom2px>
+
+                                    <m:ObidosRowBottom2px>
+										<b:FormLabel b:id="passwordStrengthLabel" addStyleNames="col-sm-4" HTML="{i18n.passwordStrength}"/>
+										<g:FlowPanel addStyleNames="col-sm-4">
+											<b:ListBox b:id="passwordStrengthList" ui:field='passwordStrengthList'/>
+										</g:FlowPanel>
+                                   </m:ObidosRowBottom2px>
+
+								   <m:ObidosRowBottom2px>
+										<b:FormLabel ui:field='minPasswordEntropyLabel' addStyleNames="col-sm-4" text="{i18n.minimumPasswordEntropy}"/>
+										<g:FlowPanel addStyleNames="col-sm-4">
+										  <m:ObidosIntegerTextBox ui:field="minPasswordEntropyTextBox" placeholder="{i18n.minimumPasswordEntropy}"/>
+										</g:FlowPanel>
+										<g:FlowPanel addStyleNames="col-sm-4">
+											<b:FormLabel ui:field='passwordEntropyLengthWarningLabel' addStyleNames="{style.warning-label}" visible="false"/>
+										</g:FlowPanel>
+ 								   </m:ObidosRowBottom2px>
+
+									<m:ObidosRowBottom2px>
+										<b:FormLabel ui:field='minPasswordLowercaseLabel' addStyleNames="col-sm-4" text="{i18n.minimumLowercaseCharacters}"/>
+										<g:FlowPanel addStyleNames="col-sm-4">
+											<m:ObidosIntegerTextBox ui:field="minimumLowercaseTextBox" placeholder="{i18n.minimumLowercaseCharacters}"/>
+										</g:FlowPanel>
+									</m:ObidosRowBottom2px>
+
+									<m:ObidosRowBottom2px>
+										<b:FormLabel ui:field='minPasswordUppercaseLabel' addStyleNames="col-sm-4" text="{i18n.minimumUppercaseCharacters}"/>
+										<g:FlowPanel addStyleNames="col-sm-4">
+											<m:ObidosIntegerTextBox ui:field="minimumUppercaseTextBox" placeholder="{i18n.minimumUppercaseCharacters}"/>
+										</g:FlowPanel>
+									</m:ObidosRowBottom2px>
+
+									<m:ObidosRowBottom2px>
+										<b:FormLabel ui:field='minPasswordNumericCharLabel' addStyleNames="col-sm-4" text="{i18n.minimumNumericCharacters}"/>
+										<g:FlowPanel addStyleNames="col-sm-4">
+											<m:ObidosIntegerTextBox ui:field="minimumNumericTextBox" placeholder="{i18n.minimumNumericCharacters}"/>
+										</g:FlowPanel>
+									</m:ObidosRowBottom2px>
+
+									<m:ObidosRowBottom2px>
+										<b:FormLabel ui:field='minPasswordSpecialCharLabel' addStyleNames="col-sm-4" text="{i18n.minimumSpecialCharacters}"/>
+										<g:FlowPanel addStyleNames="col-sm-4">
+											<m:ObidosIntegerTextBox ui:field="minimumSpecialTextBox" placeholder="{i18n.minimumSpecialCharacters}"/>
+										</g:FlowPanel>
+									</m:ObidosRowBottom2px>
+
+
+								   <m:ObidosRowBottom2px>
+										<b:FormLabel ui:field="maxPasswordAgetLabel" addStyleNames="col-sm-4" text="{i18n.maxPasswordAgeInDays}"/>
+										<g:FlowPanel addStyleNames="col-sm-4">
+										  <m:ObidosIntegerTextBox ui:field="maxPasswordAgeTextBox" placeholder="{i18n.maxPasswordAgeInDays}"/>
+										</g:FlowPanel>
+ 								   </m:ObidosRowBottom2px>
+
+								</b:Row>
+
+                                <!--  Passphrase policy -->
+    							<m:ObidosRowBottom3px>
+									<b:Row>
+										<g:FlowPanel addStyleNames="{style.center-label}">
+											<b:FormLabel text="{i18n.passphraseComplexity}"/>
+										</g:FlowPanel>
+									</b:Row>
+									<b:Row visible="false">
+										<g:FlowPanel addStyleNames="col-sm-offset-3 col-sm-5">
+											<b:Row addStyleNames="{style.shr}"/>
+										</g:FlowPanel>
+									</b:Row>
+
+									<m:ObidosRowBottom2px>
+										<b:FormLabel ui:field='minLengthPPLabel' addStyleNames="col-sm-4" text="{i18n.minimumLength}"/>
+										<g:FlowPanel addStyleNames="col-sm-4">
+											<m:ObidosIntegerTextBox ui:field="mininumPPLengthTextBox" placeholder="{i18n.minimumPassphraseLength}"/>
+										</g:FlowPanel>
+										<g:FlowPanel addStyleNames="col-sm-4">
+											<b:FormLabel ui:field='passphraseLengthWarningLabel' addStyleNames="{style.warning-label}" visible="false"/>
+										</g:FlowPanel>
+								   </m:ObidosRowBottom2px>
+								   
+                                   <m:ObidosRowBottom2px>
+										<b:FormLabel b:id="passphraseStrengthLabel" addStyleNames="col-sm-4" HTML="{i18n.passphraseStrength}"/>
+										<g:FlowPanel addStyleNames="col-sm-4">
+											<b:ListBox b:id="passphraseStrengthList" ui:field='passphraseStrengthList'/>
+										</g:FlowPanel>
+                                   </m:ObidosRowBottom2px>
+
+
+								   <m:ObidosRowBottom2px>
+										<b:FormLabel ui:field='minPPEntropyLabel' addStyleNames="col-sm-4" text="{i18n.minimumPassphraseEntropy}"/>
+										<g:FlowPanel addStyleNames="col-sm-4">
+										  <m:ObidosIntegerTextBox ui:field="minPassphraseEntropyTextBox" placeholder="{i18n.minimumPassphraseEntropy}"/>
+										</g:FlowPanel>
+										<g:FlowPanel addStyleNames="col-sm-4">
+											<b:FormLabel ui:field='passphraseEntropyLengthWarningLabel' addStyleNames="{style.warning-label}" visible="false"/>
+										</g:FlowPanel>
+ 								   </m:ObidosRowBottom2px>
+
+									<m:ObidosRowBottom2px>
+										<b:FormLabel ui:field='minLowerPPLabel' addStyleNames="col-sm-4" text="{i18n.minimumLowercaseCharacters}"/>
+										<g:FlowPanel addStyleNames="col-sm-4">
+											<m:ObidosIntegerTextBox ui:field="minimumPPLowercaseTextBox" placeholder="{i18n.minimumLowercaseCharacters}"/>
+										</g:FlowPanel>
+									</m:ObidosRowBottom2px>
+									<m:ObidosRowBottom2px>
+										<b:FormLabel ui:field='minUpperPPLabel' addStyleNames="col-sm-4" text="{i18n.minimumUppercaseCharacters}"/>
+										<g:FlowPanel addStyleNames="col-sm-4">
+											<m:ObidosIntegerTextBox ui:field="minimumPPUppercaseTextBox" placeholder="{i18n.minimumUppercaseCharacters}"/>
+										</g:FlowPanel>
+									</m:ObidosRowBottom2px>
+
+									<m:ObidosRowBottom2px>
+										<b:FormLabel ui:field='minNumberPPLabel' addStyleNames="col-sm-4" text="{i18n.minimumNumericCharacters}"/>
+										<g:FlowPanel addStyleNames="col-sm-4">
+											<m:ObidosIntegerTextBox ui:field="minimumPPNumericTextBox" placeholder="{i18n.minimumNumericCharacters}"/>
+										</g:FlowPanel>
+									</m:ObidosRowBottom2px>
+
+									<m:ObidosRowBottom2px>
+										<b:FormLabel ui:field='minSpecialPPLabel' addStyleNames="col-sm-4" text="{i18n.minimumSpecialCharacters}"/>
+										<g:FlowPanel addStyleNames="col-sm-4">
+											<m:ObidosIntegerTextBox ui:field="minimumPPSpecialTextBox" placeholder="{i18n.minimumSpecialCharacters}"/>
+										</g:FlowPanel>
+									</m:ObidosRowBottom2px>
+								</m:ObidosRowBottom3px>
+
+							   <m:ObidosMessageRow ui:field="messageRow"/>
+
+                                <m:ObidosRowBottom2px>
+								   <m:ObidosButtonToolBar ui:field="buttonToolBarBottom">
+										<b:Button type="SUCCESS" ui:field='saveButton' text="{i18n.update}"/>
+										<m:ObidosResetButton ui:field='resetButton' />
+								   </m:ObidosButtonToolBar>
+								   </m:ObidosRowBottom2px>
+							</b:Form>
+						</g:HTMLPanel>
+					</b:PanelBody>
+				</b:Panel>
+		</b:Row>
+	</b:Container>
+</g:HTMLPanel>
+</ui:UiBinder>

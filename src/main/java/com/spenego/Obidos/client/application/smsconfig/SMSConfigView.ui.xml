@@ -1,0 +1,231 @@
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:b="urn:import:org.gwtbootstrap3.client.ui"
+	xmlns:m="urn:import:com.spenego.Obidos.client.application.widgets"
+	xmlns:b.html="urn:import:org.gwtbootstrap3.client.ui.html"
+    xmlns:select="urn:import:org.gwtbootstrap3.extras.select.client.ui"
+	xmlns:d="urn:import:com.spenego.Obidos.client.ui">
+
+	<ui:with field='i18n' type='com.spenego.Obidos.client.i18n.ObidosMessages' />
+
+	<ui:style gss="true">
+	.info {
+		background-color: #EEEEEE;
+		border-color: #2F79B9;
+	}
+	
+	.form-error-label {
+		color: red;
+	}
+	
+	.margin-fix {
+		margin-top: 0 !important;
+	}
+	
+	.paragraph-font {
+		font-size: 13px;
+	}
+	
+	.panel-header-bg-color {
+		background-color: #222 !important;
+	}
+	
+	.suhr {
+		border-bottom: 1px solid #ccc;
+		padding-bottom: 10px;
+		margin-bottom: 10px;
+	}
+	
+	.center-label {
+		text-align: center;
+	}
+	.left-label {
+		text-align: left;
+	}
+
+	.warning {
+	   color: red;
+	}
+	.provider {
+	   color: #9900ff;
+	}
+	.button-toolbar {
+	   margin-left: 85px !important;
+	}
+	.customSelect button {
+		color: #000 !important;
+	}
+	</ui:style>
+
+	<g:HTMLPanel ui:field="htmlPanel">
+		<b:Container addStyleNames="col-sm-12">
+			<b:Row>
+			<b:BlockQuote addStyleNames="{style.info}" ui:field="helpBlockQuote" visible="false">
+				<b.html:Paragraph ui:field='helpParagraph' addStyleNames='{style.paragraph-font}' HTML="{i18n.twilioHelp}" />
+			</b:BlockQuote>
+				<b:Panel type="PRIMARY">
+					<m:ObidosPanelHeader
+						addStyleNames="{style.panel-header-bg-color}" ui:field="panelHeader" showBackButton="false" headerText="{i18n.smsSettings}" />
+					<b:PanelBody>
+						<g:HTMLPanel>
+							<b:Form type="HORIZONTAL">
+							<b:Row>
+								<m:ObidosRowBottom2px>
+									<b:FormLabel for="smsProviderLabel" b:id="smsProvier" addStyleNames="col-sm-4" HTML="{i18n.smsProvider}" />
+									<g:FlowPanel addStyleNames="col-sm-5">
+										<b:ListBox b:id="smsProviderLb" ui:field='smsProviderListBox'>
+											<g:item>Twilio</g:item>
+											<!--
+											<g:item>Vonage</g:item>
+											-->
+										</b:ListBox>
+									</g:FlowPanel>
+								</m:ObidosRowBottom2px>
+							</b:Row>
+							
+								<b:Row ui:field='twilioRow'>
+									<b:Row>
+										<g:FlowPanel addStyleNames="{style.center-label}">
+											<b:FormLabel addStyleNames="{style.provider}" text="{i18n.twilio}" />
+										</g:FlowPanel>
+									</b:Row>
+
+									<m:ObidosRowBottom2px>
+										<b:FormLabel for="accountSidId" ui:field='accountSidLabel' addStyleNames="col-sm-4" HTML="{i18n.twilioAccountSid}" />
+										<g:FlowPanel addStyleNames="col-sm-5">
+									   	   <m:ObidosTextBox ui:field="sidTextBox" placeholder="{i18n.twilioAccountSid}" allowBlank="false" />
+										</g:FlowPanel>
+									</m:ObidosRowBottom2px>
+
+									<m:ObidosRowBottom2px>
+										<b:FormLabel ui:field='authTokenLab' for="authToken" addStyleNames="col-sm-4" HTML="{i18n.twilioAuthToken}" />
+										<g:FlowPanel addStyleNames="col-sm-5">
+											<b:InputGroup>
+												<m:ObidosPasswordBox ui:field="authTokenSecretBox" placeholder="{i18n.twilioAuthToken}" />
+												<b:InputGroupButton>
+													<b:Button type="INFO" icon="EYE" ui:field='showAuthTokenButton' text="" />
+												</b:InputGroupButton>
+										  </b:InputGroup>
+										</g:FlowPanel>
+									</m:ObidosRowBottom2px>
+
+									<m:ObidosRowBottom2px>
+										<b:FormLabel ui:field="phoneNumberLabel" addStyleNames="col-sm-4" HTML="{i18n.twilioPhoneNumber}" />
+										<g:FlowPanel addStyleNames="col-sm-5">
+											<b:InputGroup>
+    											<m:ObidosPasswordBox ui:field="twilioPhoneNumberTextBox" placeholder="{i18n.twilioPhoneNumber}" allowBlank="false" />
+												<b:InputGroupButton>
+													<b:Button type="INFO" icon="EYE" ui:field='showTwilioPhoneNumberButton' text="" />
+												</b:InputGroupButton>
+											</b:InputGroup>
+										</g:FlowPanel>
+									</m:ObidosRowBottom2px>
+
+    								<m:ObidosMessageRow ui:field="messageRowTwilio" />
+
+									<m:ObidosRowBottom2px>
+										<m:ObidosButtonToolBar ui:field="buttonToolBarBottom" addStyleNames="{style.button-toolbar}">
+											<b:Button type="SUCCESS" ui:field='saveButtonTwilio' text="{i18n.update}"/>
+											<m:ObidosResetButton ui:field='resetButtonTwilio' />
+											<b:Button type="DANGER" ui:field='deleteButtonTwilio' text="{i18n.delete}" />
+										</m:ObidosButtonToolBar>
+									</m:ObidosRowBottom2px>
+
+								</b:Row>
+								
+								<!--  Vonage -->
+								<b:Row ui:field='vonageRow' visible="false">
+									<b:Row>
+										<g:FlowPanel addStyleNames="{style.center-label}">
+											<b:FormLabel addStyleNames="{style.provider}" text="{i18n.vonage}" />
+										</g:FlowPanel>
+									</b:Row>
+
+									<m:ObidosRowBottom2px>
+										<b:FormLabel for="apiSecret" ui:field='apiSecretLabel' addStyleNames="col-sm-4" HTML="{i18n.vonageApiSecret}"/>
+										<g:FlowPanel addStyleNames="col-sm-4">
+									   	   <m:ObidosTextBox ui:field="apiSecretTextBox" placeholder="{i18n.vonageApiSecret}" allowBlank="false" />
+										</g:FlowPanel>
+									</m:ObidosRowBottom2px>
+
+									<m:ObidosRowBottom2px>
+										<b:FormLabel for="apiKeyLabel" addStyleNames="col-sm-4" HTML="{i18n.vonageApiKey}" />
+										<g:FlowPanel addStyleNames="col-sm-4">
+											<m:ObidosTextBox ui:field="apiKeyTextBox" placeholder="{i18n.vonageApiKey}"/>
+										</g:FlowPanel>
+									</m:ObidosRowBottom2px>
+
+									<m:ObidosRowBottom2px>
+										<b:FormLabel addStyleNames="col-sm-4" HTML="{i18n.vonagePhoneNumber}" />
+										<g:FlowPanel addStyleNames="col-sm-4">
+											<m:ObidosTextBox ui:field="vonagePhoneNumberTextBox" placeholder="{i18n.vonagePhoneNumber}" allowBlank="false" />
+										</g:FlowPanel>
+									</m:ObidosRowBottom2px>
+
+    								<m:ObidosMessageRow ui:field="messageRowVonage" />
+
+									<m:ObidosButtonToolBar ui:field="buttonToolBarBottomVonage" addStyleNames="center">
+										<b:Button type="SUCCESS" ui:field='saveButtonVonage' text="{i18n.update}" />
+										<m:ObidosResetButton ui:field='resetButtonVonage' />
+										<b:Button type="DANGER" ui:field='deleteButtonVonage' text="{i18n.delete}" />
+									</m:ObidosButtonToolBar>
+
+								</b:Row>
+
+
+								<!-- send test sms -->
+								<b:Row>
+									<b:Row>
+										<g:FlowPanel addStyleNames="{style.center-label}">
+											<b:FormLabel text="{i18n.sendaTestSms}" />
+										</g:FlowPanel>
+									</b:Row>
+
+                                    <!--
+									<m:ObidosRowBottom2px>
+										<b:FormLabel for="toPhoneNumber" addStyleNames="col-sm-4" text="{i18n.phoneNumber}" />
+										<g:FlowPanel addStyleNames="col-sm-5">
+											<m:ObidosTextBox ui:field='toPhoneNumebrTextBox' placeholder="+11233454567" />
+										</g:FlowPanel>
+									</m:ObidosRowBottom2px>
+									-->
+
+									<m:ObidosRowBottom2px>
+										<b:FormLabel for="toPhoneNumber" ui:field='mobilePhoneLabel' addStyleNames="col-sm-4" HTML="{i18n.mobilePhone}"/>
+										<g:FlowPanel addStyleNames="col-sm-5">
+										  <b:Column size="XS_5 SM_5" paddingRight="2" paddingLeft="0">
+                                               <select:Select addStyleNames="{style.customSelect}" liveSearch="true" ui:field="countryCodeSelect" title="{i18n.countryCode}" showTick="true"></select:Select>
+                                          </b:Column>
+                                          <b:Column size="XS_7 SM_7" paddingLeft="2" paddingRight="0">
+											<m:E164PhoneTextBox ui:field="toPhoneNumberTextBox" placeholder="{i18n.mobilePhoneSMS}"/>
+  										  </b:Column>
+										</g:FlowPanel>
+									</m:ObidosRowBottom2px>
+
+									<m:ObidosRowBottom2px>
+										<b:FormLabel for="smsMessage" addStyleNames="col-sm-4" text="{i18n.smsMessage}" />
+										<g:FlowPanel addStyleNames="col-sm-5">
+											<m:ObidosTextBox ui:field='smsTextBox' placeholder="{i18n.smsMessage}" />
+										</g:FlowPanel>
+									</m:ObidosRowBottom2px>
+
+									<b:Row>
+										<g:FlowPanel addStyleNames="{style.center-label} {style.warning}">
+    									   <b.html:Small text="{i18n.smsCostWarning}"/>
+									   </g:FlowPanel>
+								   </b:Row>
+
+    								<m:ObidosMessageRow ui:field="messageRowSendSms" />
+
+									<m:ObidosButtonToolBar ui:field="testSmsBar" addStyleNames="{style.button-toolbar}">
+										<b:Button type="PRIMARY" ui:field='testSendSmsButton' text="{i18n.sendTestSms}" />
+									</m:ObidosButtonToolBar>
+								</b:Row>
+							</b:Form>
+						</g:HTMLPanel>
+					</b:PanelBody>
+				</b:Panel>
+			</b:Row>
+		</b:Container>
+	</g:HTMLPanel>
+</ui:UiBinder>

@@ -1,0 +1,405 @@
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:b="urn:import:org.gwtbootstrap3.client.ui"
+	xmlns:h="urn:import:com.google.gwt.canvas.client"
+	xmlns:b.html="urn:import:org.gwtbootstrap3.client.ui.html"
+	xmlns:b.gwt="urn:import:org.gwtbootstrap3.client.ui.gwt"
+	xmlns:f='urn:import:org.vectomatic.file' xmlns:v='urn:import:org.vectomatic.dnd'
+	xmlns:m="urn:import:com.spenego.Obidos.client.application.widgets"
+	xmlns:b2="urn:import:org.gwtbootstrap3.extras.datepicker.client.ui"
+    xmlns:b3="urn:import:org.gwtbootstrap3.extras.toggleswitch.client.ui"
+    xmlns:u="urn:import:org.wisepersist.gwt.uploader.client"
+	xmlns:d="urn:import:com.spenego.Obidos.client.ui">
+
+<ui:with field='i18n' type='com.spenego.Obidos.client.i18n.ObidosMessages'/>
+<ui:style gss="true">
+
+.form-error-label{
+    color: red;
+}
+.ff-item-message-info{
+    margin: 10px 0px;
+    padding:12px;
+    color: #00529B;
+    background-color: #BDE5F8;
+    box-shadow:1px 1px 3px #888;
+}
+.ff-item-ginfo {
+    background-color:  #EEEEEE;
+    border-color: #2F79B9;
+}
+.margin-fix {
+    margin-top: 0 !important;
+}
+.ff-item-paragraph-font {
+    font-size: 13px;    
+}
+.bold-font {
+    font-weight:bold !important;
+}
+.ff-field-label-align{
+	text-align:left !important;
+}
+.ff-item-margin {
+    margin: 5px;
+}
+.ro-font{
+	color: black;
+	font-weight:bold;
+}
+.uhr {
+	border-bottom: 1px solid #ccc;
+	padding-bottom: 2px;
+	margin-bottom: 4px;
+}
+.doublespacer {
+	margin:0; 
+	padding:0; 
+	height:2em; 
+}
+
+.center-toolbar {
+	justify-content: center;
+	display: flex;
+}
+
+.fp-bottom-margin {
+	margin-bottom: 5px;
+}
+.utc-timebox {
+	display: block;
+	width: 120px;
+	height: 34px;
+	padding-top: 6px;
+	padding-bottom: 6px;
+	padding-right: 0px;
+	padding-left: 0px;
+	font-size: 14px;
+	font-weight: bold;
+	text-align: center;
+	line-height: 1.42857143;
+	color: #000;
+	background-color: #fff;
+	background-image: none;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+	-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
+}
+.no-left-margin {
+	padding-left: 0px;
+	margin-left: 0px;
+}
+.width-adjust {
+	width: 14.0% !important;
+}
+.no-right-margin {
+	padding-right: 0px;
+	margin-right: 0px;
+}
+.left-margin {
+	padding-left: 2px;
+	margin-left: 2px;
+}
+.upload-padding {
+   padding-top: 4px !important;
+   padding-left: 1px !important;
+}
+.bottom-margin {
+	margin-bottom: 3px;
+}
+.top-margin {
+    margin-top: 3px;
+}
+.totp-textbox {
+    font-family: monospace;
+    margin-left: 4px;
+}
+.totp-row {
+    margin-top: 10px;
+}
+.checkmark-label {
+    color: #58B957;
+	font-weight:bold;
+	margin-left: 5px;
+}
+.cross-label {
+    color: #ff0000;
+	font-weight:bold;
+	margin-left: 5px;
+}
+.code-textbox {
+   font-weight: bold;
+   color: black;
+   cursor: default !important;
+   font-size: 30px;
+}
+.blink-me {
+	animation: blinker 1s linear infinite;
+}
+.btn-margin {
+    margin-left: 5px;
+}
+.center_fp {
+   display: flex;
+   justify-content: center;
+}
+.file_chosen {
+   padding-left: 0px;
+   margin-left: 0px;
+}
+.info_label {
+   margin-left: -20px;
+   font-size: 12px;
+   weight: bold;
+   color: #9900ff !important;
+}
+</ui:style>
+
+<g:HTMLPanel ui:field="htmlPanel">
+	<b:Container addStyleNames="col-sm-12">
+	   <b:BlockQuote addStyleNames="{style.ff-item-ginfo}" ui:field='helpBlockQuote' visible="false">
+		  <b:Heading addStyleNames="{style.margin-fix}" ui:field='heading' size="H4" text="{i18n.adhocItem}" visible="false" />
+			<b.html:Paragraph ui:field='helpParagraph' addStyleNames='{style.ff-item-paragraph-font}' HTML="{i18n.adhocItemHelp}"/>
+		</b:BlockQuote>
+		<b.gwt:HTMLPanel addStyleNames='{style.ff-item-message-info}' ui:field='messageHtmlPanel' visible="false">
+			<b.html:Span ui:field="messageSpan"/>
+		</b.gwt:HTMLPanel>
+		<b:Row>
+				<b:Panel type="PRIMARY">
+			        <m:ObidosPanelHeader ui:field="panelHeader" showBackButton="true" headerText="{i18n.addItemToContainerButton}"/>
+					<b:PanelBody>
+						<g:HTMLPanel>
+							<b:Form type="HORIZONTAL">
+							<b:Row>
+									 <!--  Language -->
+									<m:ObidosRowBottom2px ui:field="languageRow">
+										 <b:FormLabel for="languagel" b:id="languagel" addStyleNames="col-sm-4" HTML="Language" />
+										 <g:FlowPanel addStyleNames="col-sm-4">
+											<b:ListBox b:id="languagelb" ui:field='languageListBox'>
+												<g:item>English</g:item>
+												<g:item>বাংলা</g:item>
+											</b:ListBox>
+										</g:FlowPanel>
+									</m:ObidosRowBottom2px>
+
+							         <m:ObidosRowTop2px>
+										<b:FormLabel for="forContainerName" ui:field='containerNameLabel' addStyleNames="col-sm-4" text="{i18n.containerNameLabel}"/>
+										<g:FlowPanel addStyleNames="col-sm-4">
+											<b:InputGroup>
+												<b:InputGroupAddon icon="UNLOCK" title="{i18n.notEncrypted}" iconColor="red" iconPosition="LEFT"/>
+												<m:ObidosTextBox ui:field="containerNameTextBox" placeholder="Container Name" addStyleNames='{style.ro-font}' readOnly="true"/>
+											</b:InputGroup>
+										</g:FlowPanel>
+										<g:FlowPanel addStyleNames="col-sm-4">
+											<b:FormLabel ui:field='containerShareableLabel' addStyleNames='{style.info_label}' HTML="" />
+										</g:FlowPanel>
+									</m:ObidosRowTop2px>
+									
+									<m:ObidosRowTop2px>
+										<b:FormLabel for="forItemName" ui:field='itemNameLabel' addStyleNames="col-sm-4" text="{i18n.itemNameLabel}"/>
+										<g:FlowPanel addStyleNames="col-sm-4">
+											<b:InputGroup>
+												<b:InputGroupAddon icon="UNLOCK" title="{i18n.notEncrypted}" iconColor="red" iconPosition="LEFT"/>
+												<m:ObidosTextBox ui:field="itemNameTextBox" placeholder="{i18n.itemNameLabel}"/>
+											</b:InputGroup>
+										</g:FlowPanel>
+									</m:ObidosRowTop2px>
+		          					<b.html:Br/>
+
+                                    <b:Row>
+										<b:FormLabel for="forNameAndType" addStyleNames="col-sm-offset-2 col-sm-3 {style.ff-field-label-align}" text="{i18n.itemLabels}"/>
+										<b:FormLabel for="forNameAndType" addStyleNames="col-sm-3 {style.ff-field-label-align}" text="{i18n.itemValues}"/>
+										<b:FormLabel for="forNameAndType" addStyleNames="col-sm-2 {style.ff-field-label-align}" text="{i18n.displayOrder}"/>
+							        </b:Row>
+							        
+							        <!-- first row -->
+									<m:ObidosAdhocItemRow ui:field="firstRow" icon="PLUS"/>
+                                </b:Row>
+							   
+							    <b:FormGroup ui:field='formGroup'>
+							    </b:FormGroup>
+
+								<b:FormGroup>
+									<!--  upload file -->
+									<m:ObidosRowBottom2px>
+										<b:FormLabel addStyleNames="col-sm-4" text="{i18n.addAttachment}"/>
+										<g:FlowPanel addStyleNames="col-sm-4 {style.fp-bottom-margin}">
+											<b3:ToggleSwitch ui:field='addAttachmentSwitch' size="SMALL" onText="✓" offText="✗" onColor="SUCCESS" offColor="DANGER" value="false" />
+										</g:FlowPanel>
+									</m:ObidosRowBottom2px>
+
+									<m:ObidosRowBottom2px ui:field='uploadRow' addStyleNames="col-sm-offset-1" visible="false">
+										<b:FormLabel addStyleNames="col-sm-4" text="{i18n.selectFile}"/>
+										<!--  new HTML5 with progress bar -->
+										<g:FlowPanel addStyleNames="col-sm-4">
+											<g:FormPanel ui:field='uploadFormPanelWise'>
+											    <u:Uploader ui:field='wiseUploader'/>
+											 </g:FormPanel>
+										</g:FlowPanel>
+										<g:FlowPanel addStyleNames="col-sm-offset-4 col-sm-8">
+											 <b.html:Span ui:field='fileChosenSpan' addStyleNames="{style.file_chosen}" text="{i18n.noFileChosen}"/>
+										</g:FlowPanel>
+									</m:ObidosRowBottom2px>
+
+									<b:Row>
+										<g:FlowPanel addStyleNames="col-sm-offset-2 col-sm-8">
+											<b:Row addStyleNames="{style.uhr}" />
+										</g:FlowPanel>
+									</b:Row>
+
+                                    <!--  QR Code starts -->
+									<m:ObidosRowBottom2px>
+										<b:FormLabel addStyleNames="col-sm-4" text="{i18n.add2FAInfo}"/>
+										<g:FlowPanel addStyleNames="col-sm-4 {style.fp-bottom-margin}">
+											<b3:ToggleSwitch ui:field='add2FASwitch' size="SMALL" onText="✓" offText="✗" onColor="SUCCESS" offColor="DANGER" value="false" />
+										</g:FlowPanel>
+									</m:ObidosRowBottom2px>
+
+                                    <b:Row ui:field='qrCodeInfoRow' visible="false" addStyleNames="col-sm-offset-1">
+										<b:Row visible="false">
+											<g:FlowPanel addStyleNames="col-sm-offset-4 col-sm-7">
+												<b:Row addStyleNames="{style.uhr}" />
+											</g:FlowPanel>
+										</b:Row>
+										
+										<!--  upload 2FA QR Code Image -->
+										<m:ObidosRowBottom2px ui:field='qrCodeUploadRow'>
+											<b:FormLabel addStyleNames="col-sm-4" text="{i18n.selectQRCodeImageFile}"/>
+												<g:FlowPanel addStyleNames="col-sm-8">
+												<f:FileUploadExt ui:field="qrCodefileUploadHTML5" addStyleNames="{style.upload-padding}" />
+												</g:FlowPanel>
+										</m:ObidosRowBottom2px>
+
+										<!-- QR Code Image -->
+										<m:ObidosRowBottom2px ui:field='qrCodeImageRow'>
+											<g:FlowPanel addStyleNames="col-sm-offset-4 col-sm-7">
+												<b:Image type="THUMBNAIL" ui:field="qrCodeImage" url="128x128.png" title="QR Code Image Placeholder"/>
+												<b:FormLabel ui:field="checkMarkLabel" addStyleNames="{style.checkmark-label}" text="✓" visible="false"/>
+												<b:FormLabel ui:field="crossLabel" addStyleNames="{style.cross-label}" text="✗" visible="true"/>
+												<!-- ✓ -->
+											</g:FlowPanel>
+
+											<m:ObidosRowBottom2px ui:field='qrCodeThumbnailImageRow'>
+												<g:FlowPanel addStyleNames="col-sm-offset-4 col-sm-7" visible="false">
+													<b:Image type="THUMBNAIL" ui:field="qrCodeResizerImage" url="128x128.png"/>
+												</g:FlowPanel>
+											</m:ObidosRowBottom2px>
+
+    										<m:ObidosRowBottom2px>
+												<g:FlowPanel addStyleNames="col-sm-offset-4 col-sm-7">
+												   <b:Button type="DANGER" width="130px" size="EXTRA_SMALL" ui:field='qrCodeResetButton' addStyleNames="{style.btn-margin}" text="CLEAR" visible="true" />
+												   <b:Button type="PRIMARY" width="130px" size="EXTRA_SMALL" addStyleNames="{style.btn-margin}" ui:field='show2FACodeButton' text="Show 2FA Code" visible="false" />
+												</g:FlowPanel>
+											</m:ObidosRowBottom2px>
+
+											<m:ObidosRowBottom2px ui:field='totpUriRow' addStyleNames="{style.top-margin}" visible="true">
+												<b:FormLabel addStyleNames="col-sm-4" text="TOTP OtpAuth URI" />
+												<g:FlowPanel addStyleNames="col-sm-7">
+													 <m:ObidosTextBox ui:field="totpUriTextBox" addStyleNames='{style.totp-textbox}' readOnly="true" />
+												</g:FlowPanel>
+											</m:ObidosRowBottom2px>
+										</m:ObidosRowBottom2px>
+
+										<!-- Canvas for resizing big image -->
+										<b:Row visible="false">
+											<g:FlowPanel addStyleNames="col-sm-offset-4 col-sm-8">
+												<g:SimplePanel ui:field="simplePanel">
+													<h:Canvas ui:field="qrCodeCanvas" />
+												</g:SimplePanel>
+											</g:FlowPanel>
+										</b:Row>
+
+										
+										<!-- Enter QR Code info manually -->
+										<b:Row addStyleNames="{style.bottom-margin}" ui:field="qrCodeManualEntryRow" visible="true">
+											<g:FlowPanel addStyleNames="col-sm-offset-4 col-sm-8">
+												<b:CheckBox ui:field="qrCodeManualCheckBox" text="{i18n.enter2FAQRCodeInfoManually}"/>
+											</g:FlowPanel>
+										</b:Row>
+										
+										<!--  Issuer -->
+										<b:Row ui:field="qrCodeManualTextBoxesRow" visible="false">
+											<b:Row addStyleNames="{style.bottom-margin}" visible="true">
+												<b:FormLabel addStyleNames="col-sm-4" HTML="{i18n.twoFAissuer}"/>
+												<g:FlowPanel addStyleNames="col-sm-4">
+													<b:TextBox ui:field="issuerTextBox" placeholder="Example Co" />
+												</g:FlowPanel>
+											</b:Row>
+
+											<!-- Account -->
+											<b:Row addStyleNames="{style.bottom-margin}" visible="true">
+												<b:FormLabel addStyleNames="col-sm-4" HTML="{i18n.twoFAAccount}"/>
+												<g:FlowPanel addStyleNames="col-sm-4">
+													<b:TextBox ui:field="accountTextBox" placeholder="jdoe@example.com" />
+												</g:FlowPanel>
+											</b:Row>
+
+											<!-- Secret -->
+											<b:Row addStyleNames="{style.bottom-margin}" visible="true">
+												<b:FormLabel addStyleNames="col-sm-4" HTML="{i18n.twoFASecret}" />
+												<g:FlowPanel addStyleNames="col-sm-4">
+													<b:TextBox ui:field="secretTextBox" placeholder="6XNEULU6H6LWLFRX2TIE3YNYL4MKAJXR" />
+												</g:FlowPanel>
+											</b:Row>
+
+											<b:Row>
+												<g:FlowPanel addStyleNames="col-sm-offset-4 col-sm-7" visible="true">
+													<b:Button type="PRIMARY" size="EXTRA_SMALL" ui:field='genURIButton' text="Generate TOTP URI" />
+												</g:FlowPanel>
+											</b:Row>
+
+										</b:Row>
+									</b:Row>
+
+
+									<b:Row>
+										<g:FlowPanel addStyleNames="col-sm-offset-2 col-sm-8">
+											<b:Row addStyleNames="{style.uhr}" />
+										</g:FlowPanel>
+									</b:Row>
+
+
+                                    <m:ObidosRowBottom2px>
+										<g:FlowPanel addStyleNames="{style.center_fp}">
+											<b:InlineRadio name="radio1" formValue="public" ui:field='publicItemRadio' text="{i18n.shareableItem}" value="false"/>
+											<b:InlineRadio name="radio1" formValue="private" ui:field='privateItemRadio' text="{i18n.privateItem}" value="false"/>
+										</g:FlowPanel>
+									</m:ObidosRowBottom2px>
+
+
+									<m:ObidosRow ui:field="expiresRow" bottomMargin="2px">
+										<b:FormLabel addStyleNames="col-sm-4" text="{i18n.shareExpirationDateOptional}" />
+										<g:FlowPanel addStyleNames="col-sm-2 {style.width-adjust} {style.no-right-margin}">
+											<b:InputGroup>
+												<b:InputGroupAddon icon="UNLOCK" title="{i18n.notEncrypted}" iconColor="{i18n.unlockColor}" iconPosition="LEFT" />
+												<b2:DatePicker ui:field="datePicker" addStyleNames="{style.ro-font}" highlightToday="true" autoClose="true" placeholder="{i18n.dateFormat}" position="TOP_LEFT" readOnly="false"/>
+											</b:InputGroup>
+										</g:FlowPanel>
+										<g:FlowPanel addStyleNames="col-sm-1 {style.left-margin} {style.no-right-margin}">
+											<m:ObidosTimeBox ui:field="timeBox" addStyleNames="{style.utc-timebox}"/>
+										</g:FlowPanel>
+									</m:ObidosRow>
+
+
+									<m:ObidosMessageRow ui:field="messageRow"/>
+
+										<b:Row>
+											<m:ObidosButtonToolBar ui:field="buttonToolBarBottom">
+												<b:Button type="SUCCESS" ui:field='saveButton' text="{i18n.create}" />
+    											<b:Button type="PRIMARY" ui:field='listButton' text="{i18n.listContainers}" visible="false" />
+    											<b:Button type="PRIMARY" ui:field='listItemsButton' text="{i18n.items}" visible="false" />
+											</m:ObidosButtonToolBar>
+										</b:Row>
+								</b:FormGroup>
+							</b:Form>
+						</g:HTMLPanel>
+					</b:PanelBody>
+				</b:Panel>
+		</b:Row>
+	</b:Container>
+</g:HTMLPanel>
+</ui:UiBinder>

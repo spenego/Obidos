@@ -1,0 +1,15 @@
+{
+    "title": "Spenego Obidos Privacy Management and Sharing",
+    "subject": "A Spenego Obidos account is created for you",
+    "hello": "Hi {{name}}",
+    "contact": "Please contact support at xxx-xxx-xxxx if you have any questions.",
+    "footer": "Example Inc., Copyright 2018, All Rights Reserved 42 Maple Ave Exton, PA 19341 USA",
+    "html": {
+        "message": "A Spenego Obidos account is created for you. Please talk to your Administrator for initial login credentials.Please click on the button below to sign in.",
+        "button_title": "Sign in and Change Password",
+        "help": "If you are having trouble with the button above, copy and paste the URL below into your web browser."
+    },
+    "text": {
+        "message": "An Spenego Obidos account is created for you. Please copy and paste the URL below to sign in with the Login Name and Password set by your asministrator."
+    }
+}

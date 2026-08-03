@@ -1,0 +1,15 @@
+                 {{product_name}}
+                 
+Hi {{name}},
+We received a request to reset your passphrase. Click the button below to 
+reset your passphrase. Please copy and paste the link below into your web 
+browser to reset your passphrase.
+
+{{action_url}}
+
+If you did not request to reset your passphrase, please 
+ignore this email and the link will expire on its own.
+
+Thanks!
+
+

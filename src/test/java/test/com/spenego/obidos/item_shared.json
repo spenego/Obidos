@@ -1,0 +1,15 @@
+{
+    "title": "Spenego Obidos Privacy Management and Sharing",
+    "subject": "A secured Item is shared with you",
+    "hello": "Hi {{name}}",
+    "contact": "Please contact support at xxx-xxx-xxxx if you have any questions.",
+    "footer": "Example Inc., Copyright 2018, All Rights Reserved 42 Maple Ave Exton, PA 19341 USA",
+    "html": {
+        "message": "A secured item is shared with you. Click the button below to view the item and the information about the the person who shared the item with you. The click will work only if you are logged into the system.  If you are not logged in to the application, you can copy and paste the URL shown below to your browser after you log in.",
+        "button_title": "View Shared Item",
+        "help": "If you are having trouble with the button above, copy and paste the URL below into your web browser."
+    },
+    "text": {
+        "message": "A secured item is shared with you. Plese copy and paste the URL below into your web browser. It will only work if you are already logged into the appliacation. If you are not logged in to the application, you can copy and paste the URL shown below to your browser after you log in."
+    }
+}

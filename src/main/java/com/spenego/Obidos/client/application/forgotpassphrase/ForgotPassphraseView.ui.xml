@@ -1,0 +1,249 @@
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:b="urn:import:org.gwtbootstrap3.client.ui"
+	xmlns:b.html="urn:import:org.gwtbootstrap3.client.ui.html"
+	xmlns:m="urn:import:com.spenego.Obidos.client.application.widgets"
+    xmlns:b3="urn:import:org.gwtbootstrap3.extras.toggleswitch.client.ui"
+	xmlns:d="urn:import:com.spenego.Obidos.client.ui">
+
+<ui:with field='i18n' type='com.spenego.Obidos.client.i18n.ObidosMessages' />
+
+<ui:style gss="true">
+.xhr {
+	border-bottom: 1px solid #ccc;
+	padding-bottom: 2px;
+	margin-bottom: 2px;
+}
+
+.xdanger {
+	background-color: #fcf2f2;
+	border-color: #dFb5b4;
+}
+
+.margin-fix {
+	margin-top: 0 !important;
+}
+
+.margin {
+	margin: 5px;
+}
+
+.form-error-label {
+	color: red;
+}
+.top-margin {
+	margin-top: 5px;
+}
+.progress-margin {
+	margin-bottom: 0px !important;
+}
+
+.progress-height {
+	font-size: 0.9em;
+	line-height: 1 !important;
+}
+.progress-left-padding {
+	padding-left: 0px !important;
+}
+.panel-header-bg {
+	background-color: #ff0000 !important;
+}
+</ui:style>
+
+	<g:HTMLPanel ui:field="htmlPanel">
+		<b:Container addStyleNames="col-sm-12">
+			<b:Row>
+			<b:BlockQuote addStyleNames="{style.xdanger}">
+				<b.html:Paragraph ui:field='passwordResetParagraph' HTML="{i18n.forgotPassphraseMessage}" />
+			</b:BlockQuote>
+
+					<b:Panel type="PRIMARY">
+    					<m:ObidosPanelHeader ui:field="panelHeader" addStyleNames="{style.panel-header-bg}" showBackButton="false" headerText="{i18n.forgotPassphraseRegenerateKeyPair}"/>
+						<b:PanelBody>
+							<g:HTMLPanel>
+								<b:Form type="HORIZONTAL">
+
+									<b:FormGroup>
+										<b:Row>
+											<g:FlowPanel addStyleNames="col-sm-offset-2 col-sm-8">
+												<b.html:Strong text="{i18n.keyPairSuggestionsForStringPassphrase}" />
+												<b:ListGroup>
+													<b:ListGroupItem HTML="{i18n.keyPairStrongPassphraseHelp1}" type="DEFAULT" />
+													<b:ListGroupItem HTML="{i18n.keyPairStrongPassphraseHelp2}" type="DEFAULT" />
+													<b:ListGroupItem HTML="{i18n.keyPairStrongPassphraseHelp3}" type="DEFAULT" />
+													<b:ListGroupItem HTML="{i18n.resetPasswordStrongPasswordHelp5}" type="DEFAULT"/>
+												</b:ListGroup>
+											</g:FlowPanel>
+										</b:Row>
+
+										<m:ObidosRowBottom2px>
+											<g:FlowPanel addStyleNames="col-sm-offset-4 col-sm-4">
+												<b:Label ui:field="ncharsLabel" text="0" type="DEFAULT" />
+											</g:FlowPanel>
+										</m:ObidosRowBottom2px>
+
+                                        <m:ObidosRowBottom2px>
+											<b:FormLabel for="forPassphrase" addStyleNames="col-sm-4" text="{i18n.keyPairEnterPassphraseLabel}" />
+											<g:FlowPanel addStyleNames="col-sm-4">
+												<b:InputGroup>
+													<m:ObidosPasswordBox ui:field="passphraseBox" placeholder="{i18n.keyPairPlaceHolder}" />
+													<b:InputGroupButton>
+														<b:Button type="INFO" icon="EYE" ui:field='showHidePassphraseButton' text="" />
+													</b:InputGroupButton>
+												</b:InputGroup>
+											</g:FlowPanel>
+											<g:FlowPanel addStyleNames="col-sm-4 {style.progress-left-padding}">
+    											<g:Label ui:field='passphraseStrengthLabel' addStyleNames="pl-0 ml-0 {style.progress-height}" text="{i18n.passphraseStrength}" />
+	       										<b:Progress addStyleNames="pl-0 ml-0 {style.progress-margin}" ui:field='passphraseStrengthProgress'>
+												    <b:ProgressBar ui:field='passphraseStrengthBar' type="DANGER" percent="25" text="{i18n.weak}" />
+											     </b:Progress>
+										     </g:FlowPanel>
+										</m:ObidosRowBottom2px>
+
+
+                                        <m:ObidosRowBottom2px>
+											<b:FormLabel for="forConfirmPassphrase" addStyleNames="col-sm-4" text="{i18n.keyPairConfirmPassphraseLabel}" />
+											<g:FlowPanel addStyleNames="col-sm-4">
+												<b:InputGroup>
+													<m:ObidosPasswordBox ui:field="confirmPassphraseBox" placeholder="{i18n.keyPairConfirmPassphrasePlaceHolder}" allowBlank="false" />
+													<b:InputGroupButton>
+														<b:Button type="INFO" icon="EYE" ui:field='showConfirmPassphraseButton' text="" />
+													</b:InputGroupButton>
+												   </b:InputGroup>
+											</g:FlowPanel>
+										</m:ObidosRowBottom2px>
+										
+                                        <m:ObidosRowBottom2px>
+											<b:FormLabel for="forConfirmPassphrase" addStyleNames="col-sm-4" text="{i18n.currentPassword}"/>
+											<g:FlowPanel addStyleNames="col-sm-4">
+												<b:InputGroup>
+														<m:ObidosPasswordBox ui:field="currentPasswordBox" placeholder="{i18n.currentPassword}"/>
+														<b:InputGroupButton>
+															<b:Button type="INFO" icon="EYE" ui:field='showCurrentPasswordButton' text="" />
+														</b:InputGroupButton>
+												</b:InputGroup>
+											</g:FlowPanel>
+										</m:ObidosRowBottom2px>
+
+										<!-- 2FA stuff  -->
+										<b:Row ui:field="twofarow">
+											<g:FlowPanel ui:field='require2faFp' addStyleNames="col-sm-12 {style.top-margin}">
+											     <m:ObidosRowBottom3px>
+													<b:FormLabel ui:field="requiresTwoFAPasswordResetLabel" addStyleNames="col-sm-4" text="{i18n.requires2FA}"/>
+													<g:FlowPanel addStyleNames="col-sm-4">
+        												<b3:ToggleSwitch ui:field='requiresTwoFAPasswordResetSwitch' size="SMALL"  onText="✓" offText="✗" onColor="SUCCESS" offColor="DANGER" value="false" readOnly="true"/>
+													</g:FlowPanel>
+												</m:ObidosRowBottom3px>
+
+                                                <b:Row ui:field="twofaCodeRow">
+													<b:Row>
+														<g:FlowPanel ui:field="badge1Flow" addStyleNames="col-sm-offset-4 col-sm-8 {style.top-margin}">
+															<g:HTMLPanel>
+																<g:HTML HTML="{i18n.getVerificationCode}"/>
+															</g:HTMLPanel>
+														</g:FlowPanel>
+													</b:Row>
+
+													<b:Row>
+														<b:FormLabel for="forPassword" addStyleNames="col-sm-4" text="{i18n.enterVaidationCodeLabel}"/>
+														<g:FlowPanel addStyleNames="col-sm-4">
+														   <m:ObidosTextBox ui:field='twofaCodeBox' placeholder="{i18n.enterValidationCodeFromGoogleAuthenticator}"/>
+														</g:FlowPanel>
+													</b:Row>
+												</b:Row>
+											</g:FlowPanel>
+										</b:Row>
+
+										<m:ObidosMessageRow ui:field="messageRow"/>
+
+										<b:Row>
+											 <m:ObidosButtonToolBar ui:field="buttonToolBar">
+												<b:Button type="SUCCESS" ui:field='genKeypairButton' text="{i18n.keyPairGenerateAndSaveButtonTitle}" />
+											 </m:ObidosButtonToolBar>
+										 </b:Row>
+									</b:FormGroup>
+
+<!--  I hate this thing, hide it  -->
+									<b:Row addStyleNames="{style.xhr}" visible="false">
+
+										<b:Panel type="INFO">
+											<b:PanelBody>
+												<b:Row>
+													<b:FormGroup>
+														<g:FlowPanel addStyleNames="col-sm-offset-2">
+															<b:Button type="INFO" ui:field='genCollapseButton' icon="ARROW_DOWN" iconPosition="RIGHT" dataToggle="COLLAPSE" dataTarget="#genCollapse" text="{i18n.keyPairHelpGenerateButtonTitle}" />
+														</g:FlowPanel>
+													</b:FormGroup>
+												</b:Row>
+
+												<b:Row>
+													<b:Collapse ui:field="genCollapse" b:id="genCollapse" toggle="false">
+														<b:FormGroup>
+															<b:Row>
+																<b:FormLabel for="formGeneratedPassphrase" addStyleNames="col-sm-2" text="{i18n.keyPairGeneratePassphraseButtonLabel}" />
+																<g:FlowPanel addStyleNames="col-sm-6">
+																	<b:Well size="SMALL">
+																		<b.html:Span ui:field="generatedPassPhraseSpan" text="." />
+																	</b:Well>
+																</g:FlowPanel>
+															</b:Row>
+
+															<b:Row>
+																<b:FormLabel for="formLanguage" addStyleNames="col-sm-2" text="{i18n.keyPairLanguageLabel}" />
+																<g:FlowPanel addStyleNames="col-sm-6">
+																	<b:ListBox ui:field="languageListBox" b:id="formLanguage">
+																		<g:item text="{i18n.keyPairLanguageEnglish}" />
+																		<g:item text="{i18n.keyPairLanguageGerman}" />
+																	</b:ListBox>
+																</g:FlowPanel>
+															</b:Row>
+
+															<b:Row>
+																<b:FormLabel addStyleNames="col-sm-2" text="{i18n.keyPairNumberOfWordsLabel}" />
+																<g:FlowPanel addStyleNames="col-sm-6">
+																	<b:ListBox ui:field="numberOfWordsListBox" b:id="nwordsListBox">
+																		<g:item>6</g:item>
+																		<g:item>7</g:item>
+																		<g:item>8</g:item>
+																		<g:item>9</g:item>
+																		<g:item>10</g:item>
+																	</b:ListBox>
+																</g:FlowPanel>
+															</b:Row>
+															<b:Row>
+																<g:FlowPanel addStyleNames="col-sm-offset-2 col-sm-4">
+																	<b:InlineCheckBox ui:field="uppercaseCheckBox" text="{i18n.keyPairUpperChaseWords}" />
+																	<b:InlineCheckBox ui:field="noSpacesCheckBox" text="{i18n.keyPairUpperNoSpaces}" />
+																	<b:InlineCheckBox ui:field="addSpecialCharCheckBox" text="{i18n.keyPairAddSpecialChar}" value="true" />
+																</g:FlowPanel>
+															</b:Row>
+															<b:Row>
+															     <m:ObidosButtonToolBar ui:field="buttonToolBar2">
+																	<b:Button type="SUCCESS" ui:field="genStrongPassPhraseButton" text="{i18n.keyPairHelpGenerateStrongPassphraseButtonTitle}" />
+															     </m:ObidosButtonToolBar>
+															</b:Row>
+														</b:FormGroup>
+													</b:Collapse>
+												</b:Row>
+											</b:PanelBody>
+										</b:Panel>
+									</b:Row>
+
+										<b:Row>
+											<g:FlowPanel addStyleNames="col-sm-offset-2 col-sm-8">
+												<b.html:Strong HTML="{i18n.passphraseRequirementsLabel}"/>
+												<b:ListGroup ui:field='passphraseRequirementListGroup'/>
+											</g:FlowPanel>
+										</b:Row>
+								</b:Form>
+							</g:HTMLPanel>
+						</b:PanelBody>
+						<b:PanelFooter visible="false">
+							<b.html:Strong text="{i18n.keyPairPanelFooterTitle}" />
+						</b:PanelFooter>
+					</b:Panel>
+			</b:Row>
+		</b:Container>
+	</g:HTMLPanel>
+
+</ui:UiBinder>

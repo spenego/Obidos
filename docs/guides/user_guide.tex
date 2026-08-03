@@ -1,0 +1,118 @@
+% I use VSCode with LaTex Workshop which shows PDF preview at the right side. There are some other UIs
+% TextWorkshop on Windows, TexMaker on Mac. But I use VSCode.
+% To generate PDF: pdflatext user_guide.tex
+% Copyright (c) Spenego Software LLC
+
+% This is a LaTex document. We are using LaTex because writing documents should be fun.
+%
+% Some resources about LaTex:
+%   https://www.youtube.com/watch?v=mfRmmZ_84Mw
+%   https://www.youtube.com/watch?v=SoDv0qhyysQ
+    
+% LaTex Distributions (for details look at: https://lukesmith.xyz/latex)
+%   Linux/Ubuntu: texlive-full (https://www.tug.org/texlive/)
+%                 sudo apt-get install texlive-full
+%            Mac: MacTex (https://tug.org/mactex/)
+%        Windows: MikTeX (https://miktex.org/download/#collapse264)
+
+
+
+% Template is taken from:
+% Ref: https://github.com/petevieira/latex-docs/blob/master/templates/user-manual-template.tex
+% For changing font etc:
+% https://tex.stackexchange.com/questions/153168/how-to-set-document-font-to-times-new-roman-by-command
+
+\documentclass[openany,12pt,twoside]{book}
+%\setlength{\parskip}{1em}
+\setcounter{tocdepth}{4}
+\setcounter{secnumdepth}{4}
+
+    \usepackage{float}
+    \usepackage{color}
+    \usepackage{fontawesome}
+    \usepackage{graphicx}
+    \usepackage{titlesec}
+    \usepackage{titlepic}
+    \usepackage{appendix}
+    \usepackage{amsmath}
+    \usepackage{hyperref}
+    \usepackage[
+         a4paper,
+         textwidth=175mm,
+         textheight=225mm,
+         heightrounded,
+         ]{geometry}
+    % Use Times Roman like font.
+    \usepackage{times}
+    \usepackage{hyperref}
+    \usepackage{fancyhdr}
+    \include{common/hyperlink_style}
+
+    \titleformat{\chapter}[display]
+        {\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}
+    \titlespacing*{\chapter}{0pt}{0pt}{40pt}
+
+    \newcommand\tab[1][1cm]{\hspace*{#1}}
+
+    \definecolor{myblue}{rgb}{0.22,0.45,0.70}
+    \definecolor{mygreen}{rgb}{.0,.5,.0}
+    \definecolor{mygray}{gray}{.50}
+    \definecolor{orange}{rgb}{1.0,0.55,0.0}
+    \definecolor{red}{rgb}{1.0,0.0,0.0}
+    \definecolor{mybase}{rgb}{0.22,0.45,0.7}
+
+    % -------------------------------------------------------------------------------------
+    % BEGIN DOCUMENT
+    % -------------------------------------------------------------------------------------
+    \begin{document}
+    \begin{titlepage}
+    \title{Obidos User Guide}
+    \author{https://spenego.com}
+    \titlepic{\includegraphics[width=40mm]{logo.png}}
+    \end{titlepage}
+    \maketitle
+    
+    % -------------------------------------------------------------------------------------
+    % TABLE OF CONTENTS
+    % -------------------------------------------------------------------------------------
+    \include{common/toc_style}
+    \newpage
+    
+    % -------------------------------------------------------------------------------------
+    % INTRODUCTION
+    % -------------------------------------------------------------------------------------
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[CE,CO]{\date{\copyright\ Spenego Software LLC}}
+\fancyfoot[RE,RO]{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0.5pt}
+
+   \include{common/whatis}
+
+    % -------------------------------------------------------------------------------------
+    % INCLUDE All the chapters
+    % -------------------------------------------------------------------------------------
+   \include{user/logging_in}
+   \include{common/password_strength}
+   \include{user/preferences}
+   \include{user/general}
+   \include{user/notes}
+   \include{user/containers}
+   \include{user/items}
+   \include{user/templates}
+   \include{user/groups}
+   \include{user/history}
+   \begin{appendices}
+       \include{user/authenticator}
+   \end{appendices}
+
+    % -------------------------------------------------------------------------------------
+    % REFERENCES
+    % -------------------------------------------------------------------------------------
+    %\bibliography{}
+    
+    % -------------------------------------------------------------------------------------
+    % END DOCUMENT
+    % -------------------------------------------------------------------------------------
+    \end{document}

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   Copyright (c) 2016, 2018, Spenego. All rights reserved.
+   SPENEGO PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+   Original dtd available at: "http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+ -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
+<mapper namespace="com.spenego.Obidos.server.dao.SystemConfigMapper">
+	<resultMap id="BaseResultMap" type="com.spenego.Obidos.server.model.SystemConfig">
+		<id column="id"									jdbcType="BIGINT"			property="id" />
+		<result column="session_timeout_seconds"		jdbcType="INTEGER"			property="sessionTimeoutSeconds" />
+		<result column="use_security_clearances"		jdbcType="BIT"				property="useSecurityClearances" />
+		<result column="fqdn"							jdbcType="VARCHAR"			property="fqdn" />
+		<result column="date_format"					jdbcType="VARCHAR"			property="dateFormat" />
+		<result column="admin_email"					jdbcType="VARCHAR"			property="adminEmail" />
+		<result column="two_factor_auth_issuer"			jdbcType="VARCHAR"			property="twoFactorAuthIssuer" />
+		<result column="scheme"							jdbcType="VARCHAR"			property="scheme" />
+		<result column="context_path"					jdbcType="VARCHAR"			property="contextPath" />
+		<result column="document_storage_directory"		jdbcType="VARCHAR"			property="documentStorageDirectory" />
+		<result column="created_at"						jdbcType="TIMESTAMP"		property="createdAt" />
+		<result column="updated_at"						jdbcType="TIMESTAMP"		property="updatedAt" />
+		<result column="version"						jdbcType="INTEGER"			property="version" />
+		<result column="memory_wipe_delay"				jdbcType="INTEGER"			property="memoryWipeDelay" />
+		<result column="server_port"					jdbcType="INTEGER"			property="serverPort" />
+		<result column="license"						jdbcType="VARCHAR"			property="license" />
+		<result column="license_public_key"				jdbcType="LONGVARBINARY"	property="licensePublicKey" />
+		<result column="sms_key"						jdbcType="LONGVARBINARY"	property="smsKey" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+			id, use_security_clearances, session_timeout_seconds, session_timeout_seconds, fqdn, date_format,
+			admin_email, two_factor_auth_issuer, scheme, context_path, document_storage_directory, created_at,
+			updated_at, version, memory_wipe_delay, server_port, license, license_public_key, sms_key
+	</sql>
+
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from system_config
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.spenego.Obidos.server.model.SystemConfig">
+		update system_config
+		<set>
+			<if test="fqdn != null">						fqdn						= #{fqdn,						jdbcType=VARCHAR}, </if>
+			<if test="dateFormat != null">					date_format					= #{dateFormat,					jdbcType=VARCHAR}, </if>
+			<if test="scheme != null">						scheme						= #{scheme,						jdbcType=VARCHAR}, </if>
+			<if test="contextPath != null">					context_path				= #{contextPath,				jdbcType=VARCHAR}, </if>
+			<if test="documentStorageDirectory != null">	document_storage_directory	= #{documentStorageDirectory,	jdbcType=VARCHAR}, </if>
+			<if test="useSecurityClearances != null">		use_security_clearances		= #{useSecurityClearances,		jdbcType=BIT}, </if>
+			<if test="sessionTimeoutSeconds != null">		session_timeout_seconds		= #{sessionTimeoutSeconds,		jdbcType=INTEGER}, </if>
+			<if test="adminEmail != null">					admin_email					= #{adminEmail,					jdbcType=VARCHAR}, </if>
+			<if test="twoFactorAuthIssuer != null">			two_factor_auth_issuer		= #{twoFactorAuthIssuer,		jdbcType=VARCHAR}, </if>
+			<if test="createdAt != null">					created_at					= #{createdAt,					jdbcType=TIMESTAMP}, </if>
+			<if test="updatedAt != null">					updated_at					= #{updatedAt,					jdbcType=TIMESTAMP}, </if>
+			<if test="version != null">						version						= #{version,					jdbcType=INTEGER}, </if>
+			<if test="memoryWipeDelay != null">				memory_wipe_delay			= #{memoryWipeDelay,			jdbcType=INTEGER}, </if>
+			<if test="serverPort != null">					server_port					= #{serverPort,					jdbcType=INTEGER}, </if>
+			<if test="license != null">						license						= #{license,					jdbcType=VARCHAR}, </if>
+			<if test="licensePublicKey != null">			license_public_key			= #{licensePublicKey,			jdbcType=LONGVARBINARY}, </if>
+			<if test="smsKey != null">						sms_key						= #{smsKey,						jdbcType=LONGVARBINARY}, </if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+
+	<update id="updateByPrimaryKey" parameterType="com.spenego.Obidos.server.model.SystemConfig">
+		update system_config
+			set fqdn 					= #{fqdn,						jdbcType=VARCHAR},
+			date_format					= #{dateFormat,					jdbcType=VARCHAR},
+			use_security_clearances		= #{useSecurityClearances,		jdbcType=BIT},
+			session_timeout_seconds		= #{sessionTimeoutSeconds,		jdbcType=INTEGER},
+			admin_email					= #{adminEmail,					jdbcType=VARCHAR},
+			two_factor_auth_issuer		= #{twoFactorAuthIssuer,		jdbcType=VARCHAR},
+			scheme						= #{scheme,						jdbcType=VARCHAR},
+			context_path				= #{contextPath,				jdbcType=VARCHAR},
+			document_storage_directory	= #{documentStorageDirectory,	jdbcType=VARCHAR},
+			created_at					= #{createdAt,					jdbcType=TIMESTAMP},
+			updated_at					= #{updatedAt,					jdbcType=TIMESTAMP},
+			version						= #{version,					jdbcType=INTEGER},
+			memory_wipe_delay			= #{memoryWipeDelay,			jdbcType=INTEGER},
+			server_port					= #{serverPort,					jdbcType=INTEGER},
+			license						= #{license,					jdbcType=VARCHAR},
+			license_public_key			= #{licensePublicKey,			jdbcType=LONGVARBINARY}
+			sms_key						= #{smsKey,						jdbcType=LONGVARBINARY}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+
+	<insert id="insert" parameterType="com.spenego.Obidos.server.model.SystemConfig">
+		insert into system_config (id, use_security_clearances,
+		fqdn, date_format, session_timeout_seconds, admin_email, two_factor_auth_issuer, memory_wipe_delay,
+		scheme, context_path, document_storage_directory, server_port, license, license_public_key, sms_key, created_at, version)
+		values (#{id,				jdbcType=BIGINT},
+	   	#{useSecurityClearances,	jdbcType=BIT},
+		#{fqdn,						jdbcType=VARCHAR},
+		#{dateFormat,				jdbcType=VARCHAR},
+	   	#{sessionTimeoutSeconds,	jdbcType=INTEGER},
+		#{adminEmail,				jdbcType=VARCHAR},
+		#{twoFactorAuthIssuer,		jdbcType=VARCHAR},
+	   	#{memoryWipeDelay,			jdbcType=INTEGER},
+		#{scheme,					jdbcType=VARCHAR},
+		#{contextPath,				jdbcType=VARCHAR},
+		#{documentStorageDirectory,	jdbcType=VARCHAR},
+	   	#{serverPort,				jdbcType=INTEGER},
+		#{license,					jdbcType=VARCHAR},
+	   	#{licensePublicKey,			jdbcType=LONGVARBINARY},
+	   	#{smsKey,					jdbcType=LONGVARBINARY},
+		#{createdAt,				jdbcType=TIMESTAMP},
+	   	#{version,					jdbcType=INTEGER})
+	</insert>
+</mapper>

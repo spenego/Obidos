@@ -1,0 +1,111 @@
+#!/usr/bin/env bash
+#
+# This script will install and configure mariadb locally for Obidos dev environment.
+#
+
+if [[ $EUID -ne 0 ]]; then
+   echo "This script must be run as root. Aborting ....."
+   exit 1
+fi
+
+readonly INSTALL_DIR=/usr/local/spenego
+readonly MARIADB_PACKAGE_NAME="mariadb-server"
+readonly MARIADB_SERVICE_NAME="mariadb"
+
+#====================================================================
+Initialize() {
+
+    source /etc/os-release
+    OS=$ID
+    OS_VERSION=$VERSION_ID
+    if [[ "$OS/$OS_VERSION" != "ubuntu/24.04" ]]; then
+       echo "This script must be run on Ubuntu 24.04. Aborting ....."
+       exit 1
+    fi
+
+    mkdir -p "${INSTALL_DIR}/obidos"
+    chown -R nobody: ${INSTALL_DIR}
+    chmod -R go+rx ${INSTALL_DIR}
+}
+
+#====================================================================
+# Return a JDBC parameter
+#====================================================================
+get() {
+    key="$1"
+    awk -F\| '{
+    for (i = 0; ++i <= NF;)
+    print $i
+    }' <<<"$DECRYPT_DBPASS"|grep $key|awk -F: '{print $2}'
+}
+
+#====================================================================
+# Create JDBC xml file and populate variables
+#====================================================================
+
+DecryptDbPass() {
+    DECRYPT_DBPASS=`./GenObidosJdbc_linux`
+    HOST=$(get hostname)
+    PORT=$(get port)
+    DBNAME=$(get dbname)
+    DBUSER=$(get username)
+    PASSWORD=$(get password)
+}
+
+########################################################################
+
+package_is_installed() {
+    local -r package="$1"
+    s=$(dpkg -s "${package}" 2>&1)
+    echo "${s}" |grep -q 'Status: install ok installed'
+}
+
+mariadbIsInstalled() {
+    package_is_installed ${MARIADB_PACKAGE_NAME}
+}
+
+########################################################################
+
+InstallMariadb() {
+    apt update
+    apt install -y curl
+    curl -LsSO https://r.mariadb.com/downloads/mariadb_repo_setup
+    bash mariadb_repo_setup --mariadb-server-version=11.4
+    apt install ${MARIADB_PACKAGE_NAME} -y
+    if mariadbIsInstalled ; then
+        echo "Mariadb Server installed successfully."
+        systemctl enable ${MARIADB_SERVICE_NAME}
+        systemctl restart ${MARIADB_SERVICE_NAME}
+    else
+        echo "Mariadb was not installed."
+    fi
+}
+
+InitializeDatabase() {
+    echo "Initializing database ..."
+    echo "DB User is : $DBUSER ..."
+    echo "CREATE DATABASE $DBNAME CHARACTER SET UTF8"
+    mariadb -uroot -e "GRANT ALL PRIVILEGES ON *.* TO '$DBUSER'@'$HOST' identified by '$PASSWORD'"
+    echo "Loading obidos database schema"
+    mariadb -uroot < ./init_db.sql
+    mariadb -uroot < ./local.sql
+    echo " -------- Done --------"
+}
+
+CheckInstallation() {
+    if  package_is_installed "$MARIADB_PACKAGE_NAME" ; then
+        echo "$MARIADB_PACKAGE_NAME is already installed, continuing ..."
+    fi
+}
+
+Install() {
+    Initialize "$@"
+    CheckInstallation
+    DecryptDbPass
+    InstallMariadb
+    InitializeDatabase
+}
+
+########################################################################
+ 
+Install

@@ -1,0 +1,130 @@
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+             xmlns:g="urn:import:com.google.gwt.user.client.ui"
+             xmlns:b="urn:import:org.gwtbootstrap3.client.ui"
+             xmlns:b.html="urn:import:org.gwtbootstrap3.client.ui.html"
+             xmlns:b.gwt="urn:import:org.gwtbootstrap3.client.ui.gwt"
+             xmlns:m="urn:import:com.spenego.Obidos.client.application.widgets"
+             xmlns:select="urn:import:org.gwtbootstrap3.extras.select.client.ui"
+             xmlns:b3="urn:import:org.gwtbootstrap3.extras.toggleswitch.client.ui"
+             xmlns:d="urn:import:com.spenego.Obidos.client.ui">
+
+<ui:with field='i18n' type='com.spenego.Obidos.client.i18n.ObidosMessages'/>
+<ui:style gss="true">
+.margin-fix{
+    margin-top: 0 !important;
+}
+.paragraph-font {
+    font-size: 13px;    
+}
+.fp-bottom-margin {
+    margin-bottom: 5px;
+}
+.top-margin {
+	margin-top: 2%;
+}
+.info{
+    background-color:  #EEEEEE;
+    border-color: #2F79B9;
+}
+.readonly-font{
+	color: black;
+	font-weight: bold;
+}
+.admin-panel-header {
+	background-color: #222 !important;
+}
+.shr{
+	border-bottom: 1px solid #ccc;
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+}
+.textarea-size {
+	height: 250px !important;
+}
+.terms-style {
+	font-family: monospace;
+	font-size: small
+}
+</ui:style>
+<g:HTMLPanel ui:field="htmlPanel">
+    <b:Container addStyleNames="col-sm-12">
+		<b:Row>
+			<b:BlockQuote addStyleNames="{style.info}" ui:field="helpBlockQuote" visible="false">
+				<b.html:Paragraph ui:field='helpParagraph' addStyleNames='{style.paragraph-font}' HTML="{i18n.licenseInfoHelp}"/>
+			</b:BlockQuote>
+				<b:Panel type="PRIMARY">
+					<m:ObidosPanelHeader ui:field="panelHeader" showBackButton="false" headerText="{i18n.currentLicense}"/>
+					<b:PanelBody>
+						<g:HTMLPanel>
+							<b:Form type="HORIZONTAL">
+								   <m:ObidosMessageRow ui:field="messageRow"/>
+
+                                    <m:ObidosRowBottom2px>
+										<b:FormLabel addStyleNames="col-sm-2" text="{i18n.companyName}"/>
+										<g:FlowPanel addStyleNames="col-sm-4">
+										  <m:ObidosTextBox ui:field="companyTextBox" addStyleNames="{style.readonly-font}" readOnly="true"/>
+										</g:FlowPanel>
+										<b:FormLabel addStyleNames="col-sm-2" text="{i18n.customerId}"/>
+										<g:FlowPanel addStyleNames="col-sm-4">
+										  <m:ObidosTextBox ui:field="customerIdTextBox" addStyleNames="{style.readonly-font}" readOnly="true"/>
+										</g:FlowPanel>
+									</m:ObidosRowBottom2px>
+
+                                    <m:ObidosRowBottom2px>
+										<b:FormLabel addStyleNames="col-sm-2" text="{i18n.companyEmail}"/>
+										<g:FlowPanel addStyleNames="col-sm-4">
+										  <m:ObidosTextBox ui:field="emailTextBox" addStyleNames="{style.readonly-font}" readOnly="true"/>
+										</g:FlowPanel>
+										<b:FormLabel addStyleNames="col-sm-2" text="{i18n.signedOn}"/>
+										<g:FlowPanel addStyleNames="col-sm-4">
+										  <m:ObidosTextBox ui:field="signedOnTextBox" addStyleNames="{style.readonly-font}" readOnly="true"/>
+										</g:FlowPanel>
+									</m:ObidosRowBottom2px>
+									
+                                   <m:ObidosRowBottom2px>
+										<b:FormLabel ui:field="expireLabel" addStyleNames="col-sm-2" text="{i18n.expiresOn}"/>
+										<g:FlowPanel addStyleNames="col-sm-4">
+										  <m:ObidosTextBox ui:field="expiresTextBox" addStyleNames="{style.readonly-font}" readOnly="true"/>
+										</g:FlowPanel>
+										<b:FormLabel addStyleNames="col-sm-2" text="{i18n.maxUsers}"/>
+										<g:FlowPanel addStyleNames="col-sm-4">
+										  <m:ObidosTextBox ui:field="maxUsersTextBox" addStyleNames="{style.readonly-font}" readOnly="true"/>
+										</g:FlowPanel>
+									</m:ObidosRowBottom2px>
+
+									
+                                   <m:ObidosRowBottom2px ui:field="expiresInRow">
+										<b:FormLabel addStyleNames="col-sm-2" text="{i18n.expiresIn}"/>
+										<g:FlowPanel addStyleNames="col-sm-4">
+										  <m:ObidosTextBox ui:field="expiresInDaysTextBox" addStyleNames="{style.readonly-font}" readOnly="true"/>
+										</g:FlowPanel>
+									</m:ObidosRowBottom2px>
+
+										<m:ObidosRowBottom2px>
+											<b:FormLabel addStyleNames="col-sm-2" text="{i18n.licenseTerms}"/>
+											<g:FlowPanel addStyleNames="col-sm-9">
+												<b:BlockQuote ui:field="termsBlockQuote">
+												  <b.html:Paragraph ui:field="licenseTermsPara" addStyleNames="{style.terms-style}"/>
+												</b:BlockQuote>
+											</g:FlowPanel>
+										</m:ObidosRowBottom2px>
+										<m:ObidosRowBottom2px>
+											<g:FlowPanel addStyleNames="col-sm-offset-2 col-sm-9">
+											 <g:HTML ui:field='yourLicenseHtml' text="Enterprise Edition"/>
+											</g:FlowPanel>
+										</m:ObidosRowBottom2px>
+
+
+                                    <m:ObidosRowBottom2px>
+                                        <g:FlowPanel addStyleNames="col-sm-12">
+                                            <g:HTML ui:field="featuresHTML"/>
+                                        </g:FlowPanel>
+                                    </m:ObidosRowBottom2px>
+							</b:Form>
+						</g:HTMLPanel>
+					</b:PanelBody>
+				</b:Panel>
+		</b:Row>
+	</b:Container>
+</g:HTMLPanel>
+</ui:UiBinder>

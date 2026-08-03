@@ -1,0 +1,191 @@
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:b="urn:import:org.gwtbootstrap3.client.ui"
+	xmlns:b.html="urn:import:org.gwtbootstrap3.client.ui.html"
+	xmlns:b.gwt="urn:import:org.gwtbootstrap3.client.ui.gwt"
+	xmlns:m="urn:import:com.spenego.Obidos.client.application.widgets"
+	xmlns:b3="urn:import:org.gwtbootstrap3.extras.toggleswitch.client.ui"
+	xmlns:d="urn:import:com.spenego.Obidos.client.ui">
+
+	<ui:with field='i18n'
+		type='com.spenego.Obidos.client.i18n.ObidosMessages' />
+
+	<ui:style gss="true">
+	.notif-info {
+		background-color: #EEEEEE;
+		border-color: #2F79B9;
+	}
+	
+	.mustChangePasswordLabel {
+		color: #9900ff;
+	}
+	
+	.notif-panel-header {
+		background-color: #222222 !important;
+	}
+	
+	.notif-uhr {
+		border-bottom: 1px solid #ccc;
+		padding-bottom: 10px;
+		margin-bottom: 10px;
+	}
+	
+	.form-error-label {
+		color: red;
+	}
+	
+	.margin-fix {
+		margin-top: 0 !important;
+	}
+	
+	.notif-paragraph-font {
+		font-size: 13px;
+	}
+	
+	.bottom-margin {
+		margin-bottom: 2px;
+	}
+	
+	.text-area {
+		height: 100px !important;
+	}
+	.x-hr{
+		border-bottom: 1px solid #ccc;
+		padding-bottom: 10px;
+		margin-bottom: 10px;
+	}
+	.buttontoolbar-margin {
+	   margin-left: 300px;
+	}
+	</ui:style>
+	<!-- .text-area { font-family : monospace !important; color: red; height: 
+		100px !important; } -->
+	<g:HTMLPanel ui:field="htmlPanel">
+		<b:Container addStyleNames="col-sm-12">
+			<b:Row>
+				<b:BlockQuote addStyleNames="{style.notif-info}" ui:field="helpBlockQuote" visible="false">
+					<b.html:Paragraph ui:field='helpParagraph' addStyleNames='{style.notif-paragraph-font}' HTML="TODO" />
+				</b:BlockQuote>
+					<b:Panel type="PRIMARY" ui:field="panel">
+        				<m:ObidosPanelHeader ui:field="panelHeader" showBackButton="true" headerText="{i18n.editNotificationTemplate}"/>
+						<b:PanelBody>
+							<g:HTMLPanel>
+								<b:Form type="HORIZONTAL">
+									<b:FormGroup ui:field='editNotificationTemplateGroup'>
+									   <m:ObidosRowBottom2px>
+											<b:FormLabel for="forProductName" addStyleNames="col-sm-4" HTML="{i18n.header}"/>
+											<g:FlowPanel addStyleNames="col-sm-6">
+												<m:ObidosTextBox ui:field="productTextBox" placeholder="{i18n.productNameLabel}" addStyleNames="{style.bottom-margin}" allowBlank="false" />
+											</g:FlowPanel>
+										</m:ObidosRowBottom2px>
+
+                                       <!-- Bug  849 -->
+ 									   <m:ObidosRowBottom2px visible="false">
+											<b:FormLabel for="forProductUrl" addStyleNames="col-sm-4" HTML="{i18n.productUrlLabel}" />
+											<g:FlowPanel addStyleNames="col-sm-6">
+												<m:ObidosTextBox ui:field="productUrlTextBox" placeholder="{i18n.productUrlLabel}" addStyleNames="{style.bottom-margin}" allowBlank="false" />
+											</g:FlowPanel>
+										</m:ObidosRowBottom2px>
+
+ 									   <m:ObidosRowBottom2px>
+											<b:FormLabel for="forSubject"
+												addStyleNames="col-sm-4" HTML="{i18n.subject}" />
+											<g:FlowPanel addStyleNames="col-sm-6">
+												<m:ObidosTextBox ui:field="subjectTextBox" placeholder="{i18n.subject}" addStyleNames="{style.bottom-margin}" allowBlank="false" />
+											</g:FlowPanel>
+										</m:ObidosRowBottom2px>
+
+ 									   <m:ObidosRowBottom2px>
+											<b:FormLabel for="forHello" addStyleNames="col-sm-4" ui:field="helloLabel" HTML="{i18n.hello}" />
+											<g:FlowPanel addStyleNames="col-sm-6" ui:field="helloFlowPanel">
+												<m:ObidosTextBox ui:field="helloTextBox" placeholder="{i18n.helloPlaceHolder}" addStyleNames="{style.bottom-margin}" allowBlank="false" />
+											</g:FlowPanel>
+										</m:ObidosRowBottom2px>
+
+ 									   <m:ObidosRowBottom2px>
+											<g:FlowPanel addStyleNames="col-sm-offset-2 col-sm-9">
+												<b:Row addStyleNames="{style.x-hr}"/>
+											</g:FlowPanel>
+										</m:ObidosRowBottom2px>
+
+ 									   <m:ObidosRowBottom2px>
+											<b:FormLabel for="forHTMLMessage" addStyleNames="col-sm-4" HTML="{i18n.htmlMessage}" />
+											<g:FlowPanel addStyleNames="col-sm-7">
+												<m:ObidosTextArea maxLength="0"  ui:field="htmlTextArea" addStyleNames="{style.bottom-margin} {style.text-area}" />
+											</g:FlowPanel>
+										</m:ObidosRowBottom2px>
+
+ 									   <m:ObidosRowBottom2px>
+											<b:FormLabel for="forWARNINGMessage" addStyleNames="col-sm-4" ui:field="warningLabel" HTML="{i18n.warningMessage}" />
+											<g:FlowPanel addStyleNames="col-sm-7" ui:field="warningFlowPanel" >
+												<m:ObidosTextArea maxLength="0"  ui:field="warningTextArea" addStyleNames="{style.bottom-margin} {style.text-area}" />
+											</g:FlowPanel>
+										</m:ObidosRowBottom2px>
+
+ 									   <m:ObidosRowBottom2px ui:field='buttonRow'>
+											<b:FormLabel for="forButton" ui:field='buttonLabel' addStyleNames="col-sm-4" HTML="{i18n.buttonTitle}" />
+											<g:FlowPanel addStyleNames="col-sm-6" ui:field="buttonFlowPanel">
+												<m:ObidosTextBox ui:field="buttonTitleTextBox" placeholder="" addStyleNames="{style.bottom-margin}" allowBlank="false" />
+											</g:FlowPanel>
+										</m:ObidosRowBottom2px>
+
+ 									   <m:ObidosRowBottom2px ui:field='buttonHelpRow'>
+											<b:FormLabel for="forAlternate" ui:field='helpLabel' addStyleNames="col-sm-4" HTML="{i18n.helpLabel}" />
+											<g:FlowPanel addStyleNames="col-sm-7" ui:field='helpFlowPanel'>
+												<m:ObidosTextArea maxLength="0"  ui:field="alternateTextArea" placeholder="" addStyleNames="{style.bottom-margin} {style.text-area}" allowBlank="false" />
+											</g:FlowPanel>
+										</m:ObidosRowBottom2px>
+
+										<b:Row>
+											<g:FlowPanel addStyleNames="col-sm-offset-2 col-sm-9">
+												<b:Row addStyleNames="{style.x-hr}"/>
+											</g:FlowPanel>
+										</b:Row>
+
+ 									   <m:ObidosRowBottom2px>
+											<b:FormLabel for="forTextMessage" addStyleNames="col-sm-4" HTML="{i18n.textMessage}" />
+											<g:FlowPanel addStyleNames="col-sm-7">
+												<m:ObidosTextArea maxLength="0"  ui:field="textTextArea" placeholder="" addStyleNames="{style.bottom-margin} {style.text-area}" allowBlank="false" />
+											</g:FlowPanel>
+										</m:ObidosRowBottom2px>
+
+										<b:Row>
+											<g:FlowPanel addStyleNames="col-sm-offset-2 col-sm-9">
+												<b:Row addStyleNames="{style.x-hr}"/>
+											</g:FlowPanel>
+										</b:Row>
+
+ 									   <m:ObidosRowBottom2px>
+											<b:FormLabel for="forContact" addStyleNames="col-sm-4" HTML="{i18n.contact}" />
+											<g:FlowPanel addStyleNames="col-sm-7">
+												<m:ObidosTextArea maxLength="0"  ui:field="contactTextArea" placeholder="" addStyleNames="{style.bottom-margin} {style.text-area}" allowBlank="false" />
+											</g:FlowPanel>
+										</m:ObidosRowBottom2px>
+
+ 									   <m:ObidosRowBottom2px>
+											<b:FormLabel for="forFooter" addStyleNames="col-sm-4" HTML="{i18n.footer}" />
+											<g:FlowPanel addStyleNames="col-sm-7">
+												<m:ObidosTextArea maxLength="0"  ui:field="footerTextArea" placeholder="" addStyleNames="{style.bottom-margin} {style.text-area}" allowBlank="false" />
+											</g:FlowPanel>
+										</m:ObidosRowBottom2px>
+
+										<m:ObidosMessageRow ui:field="messageRow" />
+
+										<m:ObidosRowTop2px>
+											<m:ObidosButtonToolBar ui:field="buttonToolBarBottom" addStyleNames="{style.buttontoolbar-margin}">
+												<b:Button type="SUCCESS" ui:field='submitButton' text="{i18n.updateButtonTitle}" />
+												<m:ObidosResetButton ui:field='resetButton' />
+												<b:Button type="PRIMARY" ui:field='emailButton' text="{i18n.sendTestMail}"/>
+											</m:ObidosButtonToolBar>
+										</m:ObidosRowTop2px>
+
+									</b:FormGroup>
+								</b:Form>
+							</g:HTMLPanel>
+						</b:PanelBody>
+					</b:Panel>
+			</b:Row>
+		</b:Container>
+	</g:HTMLPanel>
+
+</ui:UiBinder>

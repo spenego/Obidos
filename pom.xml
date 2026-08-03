@@ -1,0 +1,972 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.spenego.Obidos</groupId>
+	<artifactId>Obidos</artifactId>
+	<version>1.0.1</version>
+
+	<packaging>war</packaging>
+	<name>Obidos</name>
+
+	<!-- PROPERTIES_START -->
+	<properties>
+		<!-- Bug #140 Jan-01-2026 -->
+		<gwt.module>com.spenego.Obidos.Delegator</gwt.module>
+		<gwt.shortName>Delegator</gwt.shortName>
+		<java.release>11</java.release>
+		<gwt.sourceLevel>11</gwt.sourceLevel>
+
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<!-- Bug #140 -->
+		<!-- The latest version of gwt is required -->
+		<!-- updated Jan-01-2026 -->
+		<gwt.version>2.12.2</gwt.version>
+
+		<gwtp.version>1.6</gwtp.version>
+		<gin.version>2.1.2</gin.version>
+		<!-- note 6.18 is not compatible, 5.3.36 works and have no issues -->
+		<springframework.version>5.3.36</springframework.version>
+		<springcontextsupport.version>5.3.36</springcontextsupport.version>
+		<springldap.version>2.3.2.RELEASE</springldap.version>
+
+		<slf4j.version>2.0.13</slf4j.version>
+		<gwtbootstrap3.version>1.0.1</gwtbootstrap3.version>
+		<exec-maven.version>1.5.0</exec-maven.version>
+		<mybatis.version>3.5.16</mybatis.version>
+		<mybatis-spring.version>2.0.4</mybatis-spring.version>
+		<!-- security update -->
+		<jsoup.version>1.17.2</jsoup.version>
+		<tbroyer.version>1.0.1</tbroyer.version>
+		<bcprov.version>1.65.01</bcprov.version>
+
+		<!-- 1.3.43 works with jdk 1.8 -->
+		<openpdf.jdk8.version>1.3.43</openpdf.jdk8.version>
+		<!-- But we want to use newer version if possible -->
+		<!-- Latest vesion requires java 12 or up -->
+		<!-- So use 1.4.2 for jdk 11 -->
+		<openpdf.jdk11.version>1.4.2</openpdf.jdk11.version>
+
+		<target.jdk>1.8</target.jdk>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+		<webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
+	</properties>
+	<!-- PROPERTIES_END -->
+
+	<!-- fake scm params for buildnumber plugin -->
+	<scm>
+		<connection>scm:git:http://127.0.0.1/dummy</connection>
+		<developerConnection>scm:git:https://127.0.0.1/dummy</developerConnection>
+		<tag>HEAD</tag>
+		<url>http://127.0.0.1/dummy</url>
+	</scm>
+
+	<!-- some people keep things on snapshot for ever -->
+	<profiles>
+		<profile>
+			<id>allow-snapshots</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<repositories>
+				<repository>
+					<id>snapshots-repo</id>
+					<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+					<releases>
+						<enabled>false</enabled>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+				</repository>
+			</repositories>
+		</profile>
+		<!-- Bug #140 Jan-01-2026 -->
+		<profile>
+			<id>jdk-11</id>
+			<activation>
+				<jdk>11</jdk>
+			</activation>
+			<properties>
+				<java.release>11</java.release>
+				<gwt.sourceLevel>11</gwt.sourceLevel>
+			</properties>
+		</profile>
+		<profile>
+			<id>jdk-17</id>
+			<activation>
+				<jdk>17</jdk>
+			</activation>
+			<properties>
+				<java.release>17</java.release>
+				<gwt.sourceLevel>17</gwt.sourceLevel>
+			</properties>
+		</profile>
+		<profile>
+			<id>jdk-21</id>
+			<activation>
+				<jdk>21</jdk>
+			</activation>
+			<properties>
+				<java.release>21</java.release>
+				<gwt.sourceLevel>17</gwt.sourceLevel>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>dev</id>
+			<properties>
+				<gwt.module>com.spenego.Obidos.DelegatorDev</gwt.module>
+			</properties>
+		</profile>
+	</profiles>
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- ensure all GWT deps use the same version (unless overridden) -->
+			<dependency>
+				<groupId>org.gwtproject</groupId>
+				<artifactId>gwt</artifactId>
+				<version>${gwt.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<!-- | We're using gwtbootstrap3 snapshot | ref: https://github.com/gwtbootstrap3/gwtbootstrap3/wiki/Initial-Setup -->
+	<repositories>
+		<repository>
+			<id>sonatype-nexus-snapshots</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+		</repository>
+
+	</repositories>
+
+	<build>
+		<outputDirectory>${webappDirectory}/WEB-INF/classes</outputDirectory>
+
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<excludes>
+					<exclude>**/*.java</exclude>
+					<exclude>**/application/**</exclude>
+				</excludes>
+			</resource>
+			<resource>
+				<directory>src/main/resources/</directory>
+			</resource>
+			<resource>
+				<directory>src/main/resources/filtered</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+
+		<plugins>
+
+			<!-- I decided to use jackson to marshal/unmarshal YAML. jackson uses 
+				snakeyaml under the hood. However it pulls snakeyaml 1.23 and snakeyaml-1.20-android 
+				and android one was causing marshalling to fail, so I am excluding it for 
+				now. Now I question the quality of jackson, I think I will remove this garbage 
+				tomorrow and just use snakeyaml directly. Jun-28-2019 jackson is dumped, 
+				using snamkeyaml 1.24 but keep the exclusion plugin just in case something 
+				else does it- Jun 29, 2019 -->
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.3.2</version>
+				<configuration>
+					<packagingExcludes>
+						WEB-INF/lib/*android*,
+					</packagingExcludes>
+					<archive>
+						<addMavenDescriptor>false</addMavenDescriptor>
+					</archive>
+				</configuration>
+			</plugin>
+
+			<!-- buildnumber plugin http://www.mojohaus.org/buildnumber-maven-plugin/index.html -->
+			<!-- May-06-2017 -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>buildnumber-maven-plugin</artifactId>
+				<version>3.0.0</version>
+				<executions>
+					<execution>
+						<id>buildnumber</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>create</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<format>{0,number}</format>
+					<items>
+						<item>buildNumber</item>
+					</items>
+					<doCheck>true</doCheck>
+					<doUpdate>true</doUpdate>
+					<revisionOnScmFailure>unknownbuild</revisionOnScmFailure>
+
+				</configuration>
+			</plugin>
+
+
+			<plugin>
+				<groupId>net.ltgt.gwt.maven</groupId>
+				<artifactId>gwt-maven-plugin</artifactId>
+				<version>${tbroyer.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<moduleName>${gwt.module}</moduleName>
+					<moduleShortName>${gwt.shortName}</moduleShortName>
+					<skipModule>false</skipModule>
+					<failOnError>true</failOnError>
+					<sourceLevel>${gwt.sourceLevel}</sourceLevel>
+
+					<codeserverArgs>
+						<arg>-src</arg>
+						<arg>${project.basedir}/src/main/java</arg>
+					</codeserverArgs>
+
+					<jvmArgs>
+						<arg>--add-opens=java.base/java.lang=ALL-UNNAMED</arg>
+						<arg>--add-opens=java.base/java.lang.reflect=ALL-UNNAMED</arg>
+					</jvmArgs>
+
+					<compilerArgs>
+						<arg>-XnooptimizeDataflow</arg>
+					</compilerArgs>
+					<optimize>8</optimize>
+					<warDir>${project.build.directory}/${project.build.finalName}</warDir>
+					<classpathScope>compile+runtime</classpathScope>
+					<startupUrls>
+						<startupUrl>index.html</startupUrl>
+					</startupUrls>
+				</configuration>
+			</plugin>
+
+			<!-- Bug #140 jetty for super dev mode -->
+			<plugin>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>9.4.53.v20231009</version>
+				<configuration>
+                    <httpConnector>
+                        <port>8888</port>
+                    </httpConnector>
+					<scanIntervalSeconds>10</scanIntervalSeconds>
+					<webApp>
+						<contextPath>/</contextPath>
+						<descriptor>${project.basedir}/src/main/webapp/WEB-INF/web-dev.xml</descriptor>
+						<resourceBases>
+							<resourceBase>${project.basedir}/target/Obidos-1.0.1</resourceBase>
+						</resourceBases>
+					</webApp>
+				</configuration>
+			</plugin>
+
+
+			<!-- ref: http://stackoverflow.com/questions/18653947/how-to-compile-maven-project-with-xlint -->
+			<!-- to find deprecated stuff, do this: mvn clean mvn -DcompilerArgument=-Xlint:deprecation 
+				compile -->
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.11.0</version>
+				<configuration>
+					<release>${java.release}</release>
+					<compilerArgument>${compilerArgument}</compilerArgument>
+				</configuration>
+			</plugin>
+
+			<!-- mvn exec:exec will run these jobs -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>${exec-maven.version}</version>
+				<configuration>
+					<executable>mvn</executable>
+					<arguments>
+						<argument>clean</argument>
+						<argument>install</argument>
+						<argument>gwt:devmode</argument>
+					</arguments>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.12.4</version>
+				<configuration>
+					<skipTests>false</skipTests>
+                    <argLine>
+                        --add-opens java.naming/com.sun.jndi.ldap=ALL-UNNAMED
+                        --add-exports java.naming/com.sun.jndi.ldap=ALL-UNNAMED
+                    </argLine>
+				</configuration>
+			</plugin>
+
+			<!-- jar with only server side classes -->
+			<!-- mvn jar:jar will create it -->
+			<!-- needed for REST service -->
+			<!-- May-17-2025 -->
+			<!-- update: thin jar is not useul, we need -->
+			<!-- far with all server side classes plus -->
+			<!-- all external jars -->
+			<!-- mk_fat_server_jar.sh creates the far jar -->
+			<!-- which can be used in other projects -->
+			<!-- for example, REST service -->
+			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-jar-plugin</artifactId> 
+				<version>3.2.2</version> <executions> <execution> <id>create-server-jar</id> 
+				<phase>package</phase> <goals> <goal>jar</goal> </goals> <configuration> 
+				<classifier>server</classifier> <includes> <include>com/spenego/Obidos/server/**</include> 
+				<include>com/spenego/Obidos/shared/**</include> </includes> </configuration> 
+				</execution> </executions> </plugin> -->
+		</plugins>
+	</build>
+
+	<!-- DEPENDENCIES_START -->
+	<dependencies>
+		<!-- GWT -->
+		<dependency>
+			<groupId>org.gwtproject</groupId>
+			<artifactId>gwt-servlet</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.gwtproject</groupId>
+			<artifactId>gwt-user</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- spring -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${springframework.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${springframework.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${springframework.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${springframework.version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${springframework.version}</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.springframework.ldap/spring-ldap-core -->
+		<dependency>
+			<groupId>org.springframework.ldap</groupId>
+			<artifactId>spring-ldap-core</artifactId>
+			<version>${springldap.version}</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-context-support -->
+		<!-- for Spring Mail Sender Apr-23-2017 -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${springcontextsupport.version}</version>
+		</dependency>
+
+		<!-- requires for spring mail -->
+		<!-- Issue #769 -->
+		<!-- <dependency> <groupId>javax.mail</groupId> <artifactId>mail</artifactId> 
+			<version>1.5.0-b01</version> </dependency> -->
+		<!-- https://mvnrepository.com/artifact/com.sun.mail/javax.mail -->
+		<!-- switching to this fixed issue #769 -->
+		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<version>1.6.2</version>
+		</dependency>
+
+		<!-- spring -->
+
+		<!-- mybatis -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>${mybatis.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>${mybatis-spring.version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+		<!-- <dependency> <groupId>mysql</groupId> <artifactId>mysql-connector-java</artifactId> 
+			<version>8.0.33</version> </dependency> -->
+		<!-- https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client -->
+		<dependency>
+			<groupId>org.mariadb.jdbc</groupId>
+			<artifactId>mariadb-java-client</artifactId>
+			<version>3.5.3</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/c3p0/c3p0 -->
+		<!-- <dependency> <groupId>c3p0</groupId> <artifactId>c3p0</artifactId> 
+			<version>0.9.1.2</version> </dependency> -->
+
+		<dependency>
+			<groupId>com.mchange</groupId>
+			<artifactId>c3p0</artifactId>
+			<version>0.9.5.5</version>
+		</dependency>
+		<!-- log -->
+		<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+
+		<!-- security udpate may-26-2024 -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>2.17.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>2.17.2</version>
+		</dependency>
+
+
+		<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-log4j12 -->
+		<!-- security update to 2.0.13 May-26-2023 -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-reload4j</artifactId>
+			<version>2.0.13</version>
+		</dependency>
+		<!-- log -->
+
+		<!-- GWTP -->
+		<!-- exclude vulnerable and unnedded dependecies -->
+		<dependency>
+			<groupId>com.gwtplatform</groupId>
+			<artifactId>gwtp-mvp-client</artifactId>
+			<version>${gwtp.version}</version>
+			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>net.sourceforge.htmlunit</groupId>
+					<artifactId>htmlunit</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.google.gwt</groupId>
+					<artifactId>gwt</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<!-- gwtbootstrap3 -->
+		<dependency>
+			<groupId>org.gwtbootstrap3</groupId>
+			<artifactId>gwtbootstrap3</artifactId>
+			<version>${gwtbootstrap3.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.gwtbootstrap3</groupId>
+			<artifactId>gwtbootstrap3-extras</artifactId>
+			<version>${gwtbootstrap3.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- crypto -->
+		<!-- https://mvnrepository.com/artifact/net.java.dev.jna/jna -->
+		<!-- version of jna in libsodium-jna is old an does not work with windows 
+			server 2019 -->
+		<dependency>
+			<groupId>net.java.dev.jna</groupId>
+			<artifactId>jna</artifactId>
+			<version>5.14.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.muquit.libsodiumjna</groupId>
+			<artifactId>libsodium-jna</artifactId>
+			<version>1.0.5</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/commons-beanutils/commons-beanutils -->
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>1.9.4</version>
+		</dependency>
+
+
+		<!-- Generate fake test users -->
+		<!-- https://github.com/DiUS/java-faker -->
+		<dependency>
+			<groupId>com.github.javafaker</groupId>
+			<artifactId>javafaker</artifactId>
+			<version>0.13</version>
+		</dependency>
+
+		<!-- <dependency> <groupId>javax.validation</groupId> <artifactId>validation-api</artifactId> 
+			<version>1.0.0.GA</version> </dependency> -->
+
+		<!-- <dependency> <groupId>javax.validation</groupId> <artifactId>validation-api</artifactId> 
+			<version>1.1.0.Final</version> </dependency> -->
+
+		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-email -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-email</artifactId>
+			<version>1.6.0</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>commons-validator</groupId>
+			<artifactId>commons-validator</artifactId>
+			<version>1.6</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.glassfish</groupId>
+			<artifactId>javax.el</artifactId>
+			<version>3.0.1-b08</version>
+		</dependency>
+
+		<!-- hibernate-validator 5.4.1.Final requires 1.1.0.Final javax-validation -->
+		<!-- It does not pull it automatically although they claim it does -->
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>2.0.1.Final</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate.validator</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>6.2.5.Final</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->
+		<!-- For SafeHtml validation -->
+		<dependency>
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>${jsoup.version}</version>
+		</dependency>
+
+		<!-- https://github.com/ManfredTremmel/mt-bean-validators -->
+		<!-- may use it someday, it extends hibernate-validator -->
+		<!-- Also it supports gwt frontend -->
+		<!-- <dependency> <groupId>de.knightsoft-net</groupId> <artifactId>mt-bean-validators</artifactId> 
+			<version>0.40.2</version> </dependency> -->
+
+		<!-- | Password strength calculator like Dropbox's zxcvbn. I like it better 
+			| than nbvcxz because it works like JavaScript version of zxcvbn | https://github.com/nulab/zxcvbn4j 
+			| Dropbox's demo site: https://dl.dropboxusercontent.com/u/209/zxcvbn/test/index.html -->
+		<dependency>
+			<groupId>com.nulab-inc</groupId>
+			<artifactId>zxcvbn</artifactId>
+			<version>1.2.3</version>
+		</dependency>
+
+		<!-- Password policy http://www.passay.org/ -->
+		<dependency>
+			<groupId>org.passay</groupId>
+			<artifactId>passay</artifactId>
+			<version>1.4.0</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports -->
+		<!-- <dependency> <groupId>net.sf.jasperreports</groupId> <artifactId>jasperreports</artifactId> 
+			<version>6.4.0</version> </dependency> -->
+		<!-- http://www.dynamicreports.org/ -->
+		<!-- Instead of using jasperreports directly, use dynamicreport | It appears 
+			much easier to user -->
+		<!-- <dependency> <groupId>net.sourceforge.dynamicreports</groupId> <artifactId>dynamicreports-core</artifactId> 
+			<version>5.0.0</version> </dependency> -->
+
+		<!-- https://mvnrepository.com/artifact/com.googlecode.libphonenumber/libphonenumber -->
+		<dependency>
+			<groupId>com.googlecode.libphonenumber</groupId>
+			<artifactId>libphonenumber</artifactId>
+			<version>8.13.40</version>
+		</dependency>
+
+		<!-- https://github.com/wstrange/GoogleAuth -->
+		<!-- we use this one for 2FA -->
+		<dependency>
+			<groupId>com.warrenstrange</groupId>
+			<artifactId>googleauth</artifactId>
+			<version>1.4.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>core</artifactId>
+			<version>3.5.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>javase</artifactId>
+			<version>3.5.2</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.j256.two-factor-auth/two-factor-auth -->
+		<!-- just decode 2FA code -->
+		<dependency>
+			<groupId>com.j256.two-factor-auth</groupId>
+			<artifactId>two-factor-auth</artifactId>
+			<version>1.3</version>
+		</dependency>
+
+
+		<!-- JUnit -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+
+
+		<dependency>
+			<groupId>net.sf.dozer</groupId>
+			<artifactId>dozer</artifactId>
+			<version>5.5.1</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.jasypt/jasypt -->
+		<dependency>
+			<groupId>org.jasypt</groupId>
+			<artifactId>jasypt</artifactId>
+			<version>1.9.2</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+		<!-- Delegator does not use it. need this for db/create_testdata.sh -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
+		<dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.11.0</version>
+		</dependency>
+
+		<!-- for using email templates -->
+		<dependency>
+			<groupId>com.github.spullara.mustache.java</groupId>
+			<artifactId>compiler</artifactId>
+			<version>0.9.5</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.simplejavamail</groupId>
+			<artifactId>simple-java-mail</artifactId>
+			<version>5.0.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>net.markenwerk</groupId>
+			<artifactId>utils-mail-dkim</artifactId>
+			<version>1.1.11</version>
+		</dependency>
+
+		<!-- https://github.com/davidmarquis/fluent-interface-proxy -->
+		<dependency>
+			<groupId>com.github.davidmarquis</groupId>
+			<artifactId>fluent-interface-proxy</artifactId>
+			<version>2.0.0</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/commons-cli/commons-cli -->
+		<dependency>
+			<groupId>commons-cli</groupId>
+			<artifactId>commons-cli</artifactId>
+			<version>1.4</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.googlecode.gwt-crypto/gwt-crypto -->
+		<dependency>
+			<groupId>com.googlecode.gwt-crypto</groupId>
+			<artifactId>gwt-crypto</artifactId>
+			<version>2.3.0</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.allen-sauer.gwt.log/gwt-log -->
+		<dependency>
+			<groupId>com.allen-sauer.gwt.log</groupId>
+			<artifactId>gwt-log</artifactId>
+			<version>3.3.2</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp -->
+		<dependency>
+			<groupId>com.squareup.okhttp3</groupId>
+			<artifactId>okhttp</artifactId>
+			<version>4.12.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.11</version>
+		</dependency>
+
+		<!-- https://github.com/l0s/fernet-java8 -->
+		<dependency>
+			<groupId>com.macasaet.fernet</groupId>
+			<artifactId>fernet-java8</artifactId>
+			<version>1.4.2</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml -->
+		<!-- <dependency> <groupId>com.fasterxml.jackson.dataformat</groupId> <artifactId>jackson-dataformat-yaml</artifactId> 
+			<version>2.9.9</version> </dependency> -->
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+		<!-- <dependency> <groupId>com.fasterxml.jackson.core</groupId> <artifactId>jackson-databind</artifactId> 
+			<version>2.9.9</version> </dependency> -->
+		<!-- https://mvnrepository.com/artifact/org.yaml/snakeyaml -->
+		<!-- <dependency> <groupId>com.fasterxml.jackson.core</groupId> <artifactId>jackson-databind</artifactId> 
+			<version>2.11.0</version> </dependency> -->
+
+		<dependency>
+			<groupId>org.yaml</groupId>
+			<artifactId>snakeyaml</artifactId>
+			<version>2.2</version>
+		</dependency>
+
+		<!-- local repos starts -->
+		<!-- the jars are built and copied to jars directory -->
+		<!-- install_jars.sh install the jars as maven repos -->
+		<dependency>
+			<groupId>com.spenego.strongpass</groupId>
+			<artifactId>StrongPass</artifactId>
+			<version>1.0.2</version>
+		</dependency>
+
+		<!-- HTML5 file upload project -->
+		<dependency>
+			<groupId>org.wisepersist</groupId>
+			<artifactId>wisepersist-sdk</artifactId>
+			<version>1.0.1</version>
+		</dependency>
+
+		<!-- generate pronounceable passwords -->
+		<!-- Sep-08-2024 -->
+		<dependency>
+			<groupId>com.muquit.gpw</groupId>
+			<artifactId>gpw</artifactId>
+			<version>1.0.2</version>
+		</dependency>
+
+		<!-- local repos ends -->
+
+		<!-- for profile pic upload using HTML5 File API -->
+		<dependency>
+			<groupId>org.vectomatic</groupId>
+			<artifactId>lib-gwt-file</artifactId>
+			<version>0.3.9</version>
+		</dependency>
+
+		<!-- https://github.com/w32blaster/gwt-cropper -->
+		<dependency>
+			<groupId>com.googlecode.gwt-cropper</groupId>
+			<artifactId>gwt-crop</artifactId>
+			<version>0.5.5</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/commons-configuration/commons-configuration -->
+		<!-- I don't like 2.0 -->
+		<dependency>
+			<groupId>commons-configuration</groupId>
+			<artifactId>commons-configuration</artifactId>
+			<version>1.10</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.apache.directory.api/api-all -->
+		<dependency>
+			<groupId>org.apache.directory.api</groupId>
+			<artifactId>api-all</artifactId>
+			<version>2.1.6</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.tractionsoftware/gwt-traction -->
+		<!-- for friendly date time picking -->
+		<!-- ObidosTimeBox uses it -->
+		<dependency>
+			<groupId>com.tractionsoftware</groupId>
+			<artifactId>gwt-traction</artifactId>
+			<version>1.6.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on -->
+		<!-- if bouncy castle is just in the pom.xml jetty fails to start -->
+		<!-- bc is nice but seems like we can not use it, I have to roll my own 
+			for certificate -->
+		<!-- <dependency> <groupId>org.bouncycastle</groupId> <artifactId>bcprov-jdk15on</artifactId> 
+			<version>${bcprov.version}</version> </dependency> -->
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.5</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.odiszapc</groupId>
+			<artifactId>nginxparser</artifactId>
+			<version>0.9.3</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.twilio.sdk/twilio -->
+		<!-- Sep-17-2023 -->
+		<dependency>
+			<groupId>com.twilio.sdk</groupId>
+			<artifactId>twilio</artifactId>
+			<version>9.12.0</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
+		<!-- twilio requires new version -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5.14</version>
+		</dependency>
+
+
+		<!-- https://mvnrepository.com/artifact/com.vonage/client -->
+		<!-- ref github -->
+		<!-- Oct-01-2023 -->
+		<dependency>
+			<groupId>com.vonage</groupId>
+			<artifactId>client</artifactId>
+			<version>7.9.0</version>
+		</dependency>
+
+		<!-- overwrite vulnerable version with new one -->
+		<!-- https://mvnrepository.com/artifact/net.sourceforge.htmlunit/htmlunit -->
+		<dependency>
+			<groupId>org.htmlunit</groupId>
+			<artifactId>htmlunit</artifactId>
+			<version>4.1.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.18.0</version>
+		</dependency>
+
+		<!-- itextpdf 5+ can not be used in commercial software -->
+		<!-- itext 2.17 is the one can be used with commercial software -->
+		<!-- https://mvnrepository.com/artifact/com.lowagie/itext -->
+		<!-- the following has security issues as well. We will dump it altogether 
+			may-27-2024 -->
+		<!-- <dependency> <groupId>com.lowagie</groupId> <artifactId>itext</artifactId> 
+			<version>2.1.7</version> </dependency> -->
+		<!-- openpdf is a fork of unmaintained iText with security fixes and new 
+			features -->
+		<dependency>
+			<groupId>com.github.librepdf</groupId>
+			<artifactId>openpdf</artifactId>
+			<version>${openpdf.jdk8.version}</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-exec -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-exec</artifactId>
+			<version>1.4.0</version>
+		</dependency>
+
+
+		<!-- https://mvnrepository.com/artifact/org.asciidoctor/asciidoctorj -->
+		<!-- AsciidoctorJ is a java interface for ruby gem Asciidoc -->
+		<!-- It uses jruby. While ruby Asciidoc is excellent. AsciidoctorJ is -->
+		<!-- a piece of garbage. Do not use it in a servlet based application -->
+		<!-- <dependency> <groupId>org.asciidoctor</groupId> <artifactId>asciidoctorj</artifactId> 
+			<version>2.5.13</version> </dependency> -->
+		<!-- https://mvnrepository.com/artifact/org.asciidoctor/asciidoctorj-pdf -->
+		<!-- <dependency> <groupId>org.asciidoctor</groupId> <artifactId>asciidoctorj-pdf</artifactId> 
+			<version>2.3.17</version> </dependency> -->
+
+		<!-- overwrite vulnerable version with new one -->
+		<!-- Bug #66 -->
+		<!-- Fix multiple SLF4J provider warning -->
+		<!-- exclude one -->
+		<dependency>
+			<groupId>eu.maveniverse.maven.plugins</groupId>
+			<artifactId>toolbox</artifactId>
+			<version>0.1.21</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-simple</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-csv -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-csv</artifactId>
+			<version>1.12.0</version>
+		</dependency>
+<dependency>
+    <groupId>org.antlr</groupId>
+    <artifactId>antlr4-runtime</artifactId>
+    <version>4.13.1</version>
+</dependency>
+		<!-- <plugin> <groupId>org.codehaus.mojo</groupId> <artifactId>license-maven-plugin</artifactId> 
+			<version>2.4.0</version> </plugin> <licenses> <license> <name>GNU General 
+			Public License v2.0 or later</name> <url>https://www.gnu.org/licenses/gpl-2.0.html</url> 
+			<distribution>repo</distribution> </license> </licenses> -->
+		<!-- <dependency> <groupId>javax.sql</groupId> <artifactId>javax.sql-api</artifactId> 
+			<version>1.0</version> <scope>provided</scope> </dependency> -->
+
+	</dependencies>
+	<!-- DEPENDENCIES_END -->
+</project>

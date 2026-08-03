@@ -1,0 +1,66 @@
+\documentclass[openany,12pt]{book}
+%
+% LaTeX configuration and packages
+%
+\setcounter{tocdepth}{4}
+\setcounter{secnumdepth}{4}
+
+    \usepackage{float}
+    \usepackage{color}
+    \usepackage{graphicx}
+    \usepackage{titlesec}
+    \usepackage{titlepic}
+    \usepackage{amsmath}
+    \usepackage{hyperref}
+    \usepackage[
+         a4paper,
+         textwidth=175mm,
+         textheight=225mm,
+         heightrounded,
+         ]{geometry}
+    \usepackage{times}
+    \usepackage{hyperref}
+    \include{common/hyperlink_style}
+    \newcommand\tab[1][1cm]{\hspace*{#1}}
+    \definecolor{myblue}{rgb}{0.22,0.45,0.70}
+    \definecolor{mygreen}{rgb}{.0,1,.0}
+    
+    % -------------------------------------------------------------------------------------
+    % BEGIN DOCUMENT
+    % -------------------------------------------------------------------------------------
+    \begin{document}
+    \begin{titlepage}
+    \title{Obidos Administration Guide}
+    \author{https://spenego.com/}
+    \titlepic{\begin{center}
+        \includegraphics[width=60mm]{logo.png} \\
+        \vspace{1cm}
+    \end{center}}
+    \end{titlepage}
+    \maketitle
+    
+    % -------------------------------------------------------------------------------------
+    % TABLE OF CONTENTS
+    % -------------------------------------------------------------------------------------
+    \include{common/toc_style}
+    \newpage
+    
+    % -------------------------------------------------------------------------------------
+    % INCLUDE All the chapters
+    % -------------------------------------------------------------------------------------
+   \include{common/whatis}
+   \include{admin/admins}
+   \include{admin/users}
+   \include{common/password_strength}
+   \include{admin/ldap_configuration}
+   \include{admin/smtp_configuration}
+
+    % -------------------------------------------------------------------------------------
+    % REFERENCES
+    % -------------------------------------------------------------------------------------
+    %\bibliography{}
+    
+    % -------------------------------------------------------------------------------------
+    % END DOCUMENT
+    % -------------------------------------------------------------------------------------
+    \end{document}

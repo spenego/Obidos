@@ -1,0 +1,182 @@
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+             xmlns:g="urn:import:com.google.gwt.user.client.ui"
+             xmlns:b="urn:import:org.gwtbootstrap3.client.ui"
+             xmlns:b.html="urn:import:org.gwtbootstrap3.client.ui.html"
+             xmlns:b.gwt="urn:import:org.gwtbootstrap3.client.ui.gwt"
+             xmlns:m="urn:import:com.spenego.Obidos.client.application.widgets"
+             xmlns:b3="urn:import:org.gwtbootstrap3.extras.toggleswitch.client.ui"
+             xmlns:d="urn:import:com.spenego.Obidos.client.ui">
+
+<ui:with field='i18n' type='com.spenego.Obidos.client.i18n.ObidosMessages'/>
+<ui:style gss="true">
+.twof-spacing{
+    margin-right: 10px;
+}
+.twof-form-error-label{
+	color: red;
+}
+.twof-info{
+    background-color:  #EEEEEE;
+    border-color: #2F79B9;
+}
+.twof-danger{
+    background-color: #eee;
+    border-color: #dFb5b4;
+}
+.twof-margin-fix{
+    margin-top: 0 !important;
+}
+.top-margin{
+    margin-top: 50px;
+}
+.badge-color{
+    background-color: #00f;
+}
+.twof-paragraph-font {
+    font-size: 13px;    
+}
+.twof-hr{
+	border-bottom: 1px solid #ccc;
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+.fp-bottom-margin {
+    margin-bottom: 5px;
+}
+</ui:style>
+<!--  we don't need top-margin here, obidos.css already has that defined -->
+<!--  <g:HTMLPanel ui:field="htmlPanel" addStyleNames='{style.top-margin}'>  -->
+<g:HTMLPanel ui:field="htmlPanel">
+<b:Container addStyleNames="col-sm-12">
+    <b:Row>
+		<b:BlockQuote addStyleNames="{style.twof-info}" ui:field="helpBlockQuote" visible="false">
+			<b.html:Paragraph ui:field="helpParagraph" addStyleNames="{style.twof-paragraph-font}" HTML="{i18n.twoFactorAuthenticationHelp}"/>
+		</b:BlockQuote>
+            <b:Panel type="PRIMARY">
+				<m:ObidosPanelHeader ui:field="panelHeader" showBackButton="false" headerText="{i18n.enable2FAGoogleAuthentication}"/>
+                <b:PanelBody>
+                    <g:HTMLPanel>
+                        <b:Form type="HORIZONTAL">
+                                <b:Row>
+									<b:FormLabel ui:field="requiresTwoFAPasswordResetLabel" addStyleNames="col-sm-4" text="{i18n.twoFactorForPasswordReset}"/>
+									<g:FlowPanel addStyleNames="col-sm-8 {style.fp-bottom-margin}">
+										 <b3:ToggleSwitch ui:field='requiresTwoFAPasswordResetSwitch' size="SMALL" onText="Yes" offText="No" value="true"/>
+									</g:FlowPanel>
+								</b:Row>
+
+                                <b:Row>
+									<b:FormLabel ui:field="twoFAEnabledLabel" addStyleNames="col-sm-4" text="{i18n.twoFAEnabledLabel}"/>
+									<g:FlowPanel addStyleNames="col-sm-8 {style.fp-bottom-margin}">
+										 <b3:ToggleSwitch ui:field='isTwoFAEnabledSwitch' size="SMALL" onText="Yes" offText="No" value="false" onColor="SUCCESS" offColor="DANGER"/>
+									</g:FlowPanel>
+								</b:Row>
+
+                                <b:Row addStyleNames="{style.twof-hr}"/>
+
+								<g:FlowPanel ui:field="badge1Flow" addStyleNames="col-sm-offset-2 col-sm-10">
+									<g:HTMLPanel>
+										<b:Badge addStyleNames="{style.badge-color}">
+											<b.html:Text text="{i18n.badge1Text}"/>
+										</b:Badge>
+										<g:HTML HTML="{i18n.badge1Body}"/>
+									</g:HTMLPanel>
+								</g:FlowPanel>
+
+                                <b:Row addStyleNames="{style.twof-hr}"/>
+
+								<g:FlowPanel ui:field='badge2Flow' addStyleNames="col-sm-offset-2 col-sm-10">
+									<g:HTMLPanel>
+										<b:Badge addStyleNames='{style.badge-color}'>
+											<b.html:Text text='{i18n.badge2Text}'/>
+										</b:Badge>
+										<g:HTML ui:field="genSecretHTMLBody" HTML="{i18n.badge2Body}" visible="false"/>
+									</g:HTMLPanel>
+								</g:FlowPanel>
+
+								<b:FormLabel for="qrCode" addStyleNames="col-sm-4" text="{i18n.qrCodeLabel}" visible="false"/>
+								<g:FlowPanel addStyleNames="col-sm-offset-5 col-sm-7">
+									<b:Image ui:field="qrImage" addStyleNames="{style.twof-spacing}" url="tile.png" visible="false"/>
+    								<b.html:Br/>
+								</g:FlowPanel>
+
+                        
+                                <b:Row ui:field="secretRow">
+                                    <m:ObidosRowBottom2px>
+										<b:FormLabel addStyleNames="col-sm-4" text="{i18n.twoFAIssuer}"/>
+										<g:FlowPanel addStyleNames="col-sm-4" ui:field="issuerLabel">
+											<m:ObidosTextBox ui:field="issuerTextBox" readOnly="true"/>
+										</g:FlowPanel>
+                                    </m:ObidosRowBottom2px>
+
+									<b:Row>
+										<b:FormLabel ui:field='secretLabeXl' addStyleNames="col-sm-4" text="{i18n.secretLabel}"/>
+										<g:FlowPanel addStyleNames="col-sm-4">
+											<b:InputGroup>
+											   <m:ObidosPasswordBox b:id="secretBox" ui:field="secretBox" readOnly="true"/> 
+											   <b:InputGroupButton>
+												<b:Button type="INFO" icon="EYE" ui:field='showHideSecretButton' text=""/>
+											   </b:InputGroupButton>
+											</b:InputGroup>
+										</g:FlowPanel>
+									</b:Row>
+								</b:Row>
+
+								<m:ObidosMessageRow ui:field="configure2FAMessageRow"/>
+
+                                <b:Row>
+									<g:FlowPanel>
+    								    <m:ObidosButtonToolBar ui:field="genSecretbuttonToolBar">
+	       									<b:Button type="SUCCESS" ui:field="configureButton" text="{i18n.configure2FAButtonTitle}"/>
+										</m:ObidosButtonToolBar>
+									</g:FlowPanel>
+								</b:Row>
+
+
+                                <b:Row>
+									<g:FlowPanel ui:field="useGoogleAuthenticatorFlowPanel" addStyleNames="col-sm-offset-4 col-sm-8" visible="false">
+										<g:HTMLPanel ui:field="useGoogleAuthHtmlPanel">
+										   <g:HTML HTML="{i18n.useGoogleAuthenticator}"/>
+										</g:HTMLPanel>
+									</g:FlowPanel>
+								</b:Row>
+
+
+                                <b:Row addStyleNames="{style.twof-hr}"/>
+							
+							    <b:Row>
+									<g:FlowPanel ui:field='enableFlowPanel' addStyleNames="col-sm-offset-2 col-sm-10">
+										<g:HTMLPanel>
+											<b:Badge addStyleNames='{style.badge-color}'>
+												<b.html:Text text='{i18n.badge3Text}'/>
+											</b:Badge>
+											<g:HTML HTML="{i18n.badge3Body}"/>
+										</g:HTMLPanel>
+									</g:FlowPanel>
+								</b:Row>
+
+                                <b:Row>
+									<b:FormLabel ui:field='codeLabel' addStyleNames="col-sm-4" text="{i18n.enterVaidationCodeLabel}"/>
+									<g:FlowPanel ui:field='codeFlowPanel' addStyleNames="col-sm-4">
+										<m:ObidosTextBox ui:field="codeTextBox" placeholder="{i18n.codeFromGoogleAuthenticator}" enabled="true"/>
+									</g:FlowPanel>
+								</b:Row>
+	
+
+								<m:ObidosMessageRow ui:field="messageRow"/>
+
+								<b:Row>
+								    <m:ObidosButtonToolBar ui:field="enable2FAToolBar">
+										 <b:Button type="SUCCESS" ui:field='enableButton' text="{i18n.enable2FAButtonTitle}" enabled="false"/>
+									 </m:ObidosButtonToolBar>
+								</b:Row>
+
+						</b:Form>
+					</g:HTMLPanel>
+                </b:PanelBody>
+            </b:Panel>
+    </b:Row>
+</b:Container>
+</g:HTMLPanel>        
+</ui:UiBinder>

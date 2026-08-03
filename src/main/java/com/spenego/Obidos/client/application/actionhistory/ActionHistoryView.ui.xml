@@ -1,0 +1,221 @@
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:b.gwt="urn:import:org.gwtbootstrap3.client.ui.gwt"
+	xmlns:b="urn:import:org.gwtbootstrap3.client.ui"
+	xmlns:b.html="urn:import:org.gwtbootstrap3.client.ui.html"
+	xmlns:m="urn:import:com.spenego.Obidos.client.application.widgets"
+	xmlns:c="urn:import:com.google.gwt.user.cellview.client"
+	xmlns:b2="urn:import:org.gwtbootstrap3.extras.datetimepicker.client.ui"
+	xmlns:b3="urn:import:org.gwtbootstrap3.extras.datepicker.client.ui"
+	xmlns:select="urn:import:org.gwtbootstrap3.extras.select.client.ui"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+
+	<ui:with field='i18n' type='com.spenego.Obidos.client.i18n.ObidosMessages' />
+	<ui:style gss="true">
+	.cont-help-bq {
+		background-color: #EEEEEE;
+		border-color: #2F79B9;
+	}
+	
+	.margin-fix {
+		margin-top: 0 !important;
+	}
+	
+	.panel-header {
+		background-color: #222222 !important;
+	}
+	
+	.logs-data-grid-cell td div {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		-o-text-overflow: ellipsis;
+		-ms-text-overflow: ellipsis;
+	}
+	
+	.cont-help-paragraph-font {
+		font-size: 13px;
+	}
+	
+	.bottom-margin {
+		margin-bottom: 2px;
+	}
+	
+	.no-left-margin {
+		padding-left: 0px;
+		margin-left: 0px;
+	}
+	
+	.no-right-margin {
+		padding-right: 0px;
+		margin-right: 0px;
+	}
+	
+	.left-margin {
+		padding: 0px;
+		margin-left: 15px;
+	}
+	
+	.width-adjust-90 {
+		width: 37.5% !important;
+	}
+	
+	.width-adjust {
+		width: 10.0% !important;
+	}
+	
+	.width-adjust-small {
+		width: 1.5% !important;
+	}
+	
+	.center-toolbar {
+		justify-content: center;
+		display: flex;
+	}
+	
+	.uhr {
+		border-bottom: 1px solid #ccc;
+		padding-bottom: 10px;
+		margin-bottom: 10px;
+	}
+	
+	.no-padding {
+		padding-right: 0px;
+		padding-left: 0px;
+	}
+	
+	.right-padding {
+		padding-right: 1px;
+	}
+	
+	.left-padding {
+		padding-left: 1px;
+	}
+	
+	.center-label {
+		text-align: center;
+	}
+	.utc-timebox {
+		display: block;
+	    width: 90.0%;
+		height: 34px;
+		padding-top: 6px;
+		padding-bottom: 6px;
+		padding-right: 0px;
+		padding-left: 0px;
+		font-size: 14px;
+		font-weight: bold;
+		text-align: center;
+		line-height: 1.42857143;
+		color: #000;
+		background-color: #fff;
+		background-image: none;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+		box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+		-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+		-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+		transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
+	}
+	.ro-font {
+		color: #000;
+		font-weight: bold;
+	}
+	</ui:style>
+
+	<g:HTMLPanel>
+		<b:Container addStyleNames="col-sm-12">
+			<b:Row>
+			<b:BlockQuote addStyleNames="{style.cont-help-bq}" ui:field='helpBlockQuote' visible="false">
+				<b.html:Paragraph ui:field='helpParagraph' addStyleNames='{style.cont-help-paragraph-font}' HTML="{i18n.actionHistoryHelp}"/>
+			</b:BlockQuote>
+
+			<b:Panel type="PRIMARY">
+				<m:ObidosPanelHeader ui:field="panelHeader" showBackButton="false" headerText="{i18n.actionHistory}"/>
+				<b:PanelBody>
+					<g:HTMLPanel>
+						<b:Form type="HORIZONTAL">
+							<m:ObidosRowBottom2px>
+								<b:FormLabel addStyleNames="col-sm-4" text="{i18n.searchFilters}" />
+								<g:FlowPanel addStyleNames="col-sm-5 {style.width-adjust-90}">
+									<b:InputGroup>
+										<!-- NOTE: the select:Option will be cleared and re-created dynamically in the presenter -->
+										<!--  because some items are for user and some for admin -->
+										<select:MultipleSelect ui:field='selectActions' fixedMenuSize="5" enabled="true"/>
+										<b:InputGroupButton>
+											<b:Button ui:field='clearButton' block="false" type="DEFAULT" text="{i18n.clear}" />
+										</b:InputGroupButton>
+									</b:InputGroup>
+
+
+								</g:FlowPanel>
+							</m:ObidosRowBottom2px>
+
+							<m:ObidosRow bottomMargin="2px" visible="false">
+								<b:FormLabel addStyleNames="col-sm-4" text="{i18n.actions}" />
+								<g:FlowPanel addStyleNames="col-sm-4" ui:field='actionSearchFlowPanel'>
+									<b:ListBox b:id="formActionSearch" ui:field='actionSearchListBox'>
+									   <!--  the items are added programmatically in Presenter -->
+									   <!--  Due to a bug in listbox, values can not be specified -->
+									   <!--  with text or value, so we can not use i18n defined values in-line -->
+									</b:ListBox>
+								</g:FlowPanel>
+							</m:ObidosRow>
+
+							<m:ObidosRow bottomMargin="2px">
+								<b:FormLabel for="forSearchObject" addStyleNames="col-sm-4" text="{i18n.searchString}"/>
+								<g:FlowPanel addStyleNames="col-sm-5 {style.width-adjust-90}">
+										<m:ObidosTextBox ui:field='objectsSearchTextBox' placeholder="{i18n.searchString}"/>
+								</g:FlowPanel>
+							</m:ObidosRow>
+
+							<m:ObidosRow bottomMargin="2px">
+								<b:FormLabel addStyleNames="col-sm-4" text="{i18n.dateRange}"/>
+
+                            <!-- some style for timebox is is in timebox.css -->
+                            <!-- but we also need to set some inline styles defined here -->
+                            <!-- Issue  710 -->
+									<g:FlowPanel addStyleNames="col-sm-2 {style.width-adjust} {style.no-right-margin}">
+										<b3:DatePicker ui:field="sDatePicker" addStyleNames="{style.ro-font} {style.no-padding} {style.center-label}" highlightToday="true" autoClose="true" placeholder="{i18n.dateFormat}" position="BOTTOM_LEFT"/>
+									</g:FlowPanel>
+									<g:FlowPanel addStyleNames="col-sm-1 {style.no-left-margin} {style.right-padding}">
+    								    <m:ObidosTimeBox ui:field="startTimeBox" addStyleNames="{style.utc-timebox}"/>
+									</g:FlowPanel>
+								<b:FormLabel addStyleNames="col-sm-1 {style.width-adjust-small} {style.no-right-margin} {style.no-padding}" text="To"/>
+									<g:FlowPanel addStyleNames="col-sm-2 {style.width-adjust} {style.no-right-margin}">
+										<b3:DatePicker ui:field="eDatePicker" addStyleNames="{style.ro-font} {style.no-padding} {style.center-label}" highlightToday="true" autoClose="true" placeholder="{i18n.dateFormat}" position="BOTTOM_LEFT"/>
+									</g:FlowPanel>
+									<g:FlowPanel addStyleNames="col-sm-1 {style.no-left-margin}">
+    								    <m:ObidosTimeBox ui:field="endTimeBox" addStyleNames="{style.utc-timebox}"/>
+									</g:FlowPanel>
+							</m:ObidosRow>
+					
+							<m:ObidosMessageRow ui:field="messageRow"/>
+
+							<m:ObidosRow bottomMargin="10px">
+								<b:ButtonToolBar addStyleNames="{style.center-toolbar}">
+									<b:Button ui:field='searchButton' block="false" type="SUCCESS" width="127px" text="{i18n.searchButtonTitle}" />
+									<b:Button ui:field='clearButtonX' block="false" type="PRIMARY" width="127px" text="{i18n.clear}" visible="false"/>
+								</b:ButtonToolBar>
+							</m:ObidosRow>
+						</b:Form>
+
+                        <g:HTMLPanel>
+							<b.gwt:DataGrid addStyleNames='{style.logs-data-grid-cell}' bordered="true" condensed="true" striped="true" hover="true" width="100%" ui:field="dataGrid" />
+							<g:HTMLPanel ui:field="htmlPanel">
+								<table style="width:100%">
+									<tr>
+										<td align='center'>
+											<c:SimplePager ui:field='pager' />
+										</td>
+									</tr>
+								</table>
+							</g:HTMLPanel>
+						</g:HTMLPanel>
+					</g:HTMLPanel>
+				</b:PanelBody>
+			</b:Panel>
+			</b:Row>
+		</b:Container>
+	</g:HTMLPanel>
+</ui:UiBinder>

@@ -1,0 +1,368 @@
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+             xmlns:b="urn:import:org.gwtbootstrap3.client.ui"
+        	xmlns:m="urn:import:com.spenego.Obidos.client.application.widgets"
+             xmlns:g="urn:import:com.google.gwt.user.client.ui">
+
+<ui:with field='i18n' type='com.spenego.Obidos.client.i18n.ObidosMessages'/>
+
+<ui:style gss="true">
+.buttons button {
+	margin: 0.5em;
+}
+.labels span {
+	margin-right: 5px;
+}
+.passphrase-icon{
+	font-size:18px;
+	vertical-align: middle;
+	margin-top: 14px !important;
+}
+.red-text-color {
+	background:red;
+	color:#00ffff !important;
+}
+.navbar-default {
+    background-color: #298278;
+    border-color: #a28885;
+}
+.center-pills {
+	margin-top:7.5%;
+}
+.badgex {
+  padding: 1px 9px 2px;
+  font-size: 12.025px;
+  font-weight: normal;
+  white-space: nowrap;
+  color: #ffffff;
+  background-color: #999999;
+  -webkit-border-radius: 9px;
+  -moz-border-radius: 9px;
+  border-radius: 3px;
+
+}
+.badge {
+	margin-top:2px;
+  font-size: 10px;
+  font-weight: normal;
+  white-space: nowrap;
+  background-color: #00f;
+  color: #fff;
+  border-radius: 1px;
+  radius: 2px;
+}
+.badge3 {
+  background-color: #f00;
+  color: #fff;
+}
+.center-button {
+	margin-top:6px;
+}
+    /* https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_loader */
+    /* I seem to like this one better */
+    .loading {
+        display: inline-flex;
+        align-items: center;
+        margin-left: 10px; 
+        /* position: relative; */
+        /* top: 5px !important; */
+        position:absolute; 
+        top:20px; 
+        left:10px;
+    }
+    .loader {
+      border: 2px solid #f3f3f3;
+      border-radius: 50%;
+      /* border-top: 2px solid #3498db; */
+      border-top: 2px solid #9900ff;
+      width: 16px;
+      height: 16px;
+      -webkit-animation: spin 2s linear infinite; /* Safari */
+      animation: spin 2s linear infinite;
+    }
+
+    /* Safari */
+    @-webkit-keyframes spin {
+      0% { -webkit-transform: rotate(0deg); }
+      100% { -webkit-transform: rotate(360deg); }
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+</ui:style>
+
+<!-- 
+Note: we use scrollbars, therefore you will notice navbar will shift when
+the content has scrollbars, that's how bootstrap works at this time.
+ -->
+
+<g:ScrollPanel ui:field='scrollPanel'>
+	<b:Container>
+		<b:Navbar ui:field='navBar' position="FIXED_TOP">
+			<b:Container>
+				<b:NavbarHeader>
+					<b:NavbarBrand ui:field="navBarBrand" text="{i18n.obidos}" b:id="obidos" />
+					<b:NavbarCollapseButton dataTarget="#navbar-collapse"/>
+				</b:NavbarHeader>
+				<b:NavbarCollapse b:id="navbar-collapse" ui:field="navbarCollapse">
+				<b:NavbarNav>
+					<!-- admin menus starts -->
+					<b:ListDropDown ui:field="adminsListDropDown">
+						<b:AnchorButton dataToggle="DROPDOWN" ui:field="configurationAnchorButton" b:id="aa" text="{i18n.admins}"/>
+						<b:DropDownMenu>
+							<b:AnchorListItem ui:field="createNewAdmin" b:id="cna" text="{i18n.createNewAdmin}"/>
+							<b:AnchorListItem ui:field="listadmins" b:id="la" text="{i18n.activeAdmins}"/>
+							<b:AnchorListItem ui:field="listLockedAdminAnchorList" b:id="ll" text="{i18n.listLockedAdmins}"/>
+    						<b:AnchorListItem ui:field="listDeletedAdmins" b:id="ldu" text="{i18n.listDeletedAdmins}"/>
+							<b:Divider/>
+							<b:AnchorListItem ui:field="navAdminsHelp" text="{i18n.helpButtonTitle}"/>
+						</b:DropDownMenu>
+					</b:ListDropDown>
+
+					<b:ListDropDown>
+						<b:AnchorButton dataToggle="DROPDOWN" ui:field="userAccountsAnchorButton" b:id="ua" text="{i18n.users}"/>
+						<b:DropDownMenu>
+							<b:AnchorListItem ui:field="createNewUser" b:id="cnu" text="{i18n.createNewUser}"/>
+						    <b:AnchorListItem ui:field="listusers" b:id="lu" text="{i18n.activeUsers}"/>
+							<b:AnchorListItem ui:field="listLockedUsersAnchorList" b:id="ll" text="{i18n.listLockedUsers}"/>
+    						<b:AnchorListItem ui:field="listDeletedUsersAnchorList" b:id="ldu" text="{i18n.listDeletedUsers}"/>
+    						<b:AnchorListItem ui:field="listLoggedInUsersAnchorList" b:id="llinu" text="{i18n.listLoggedInUsers}"/>
+							<b:Divider/>
+							<b:AnchorListItem ui:field="navUsersHelp" text="{i18n.helpButtonTitle}"/>
+						</b:DropDownMenu>
+					</b:ListDropDown>
+
+					<b:ListDropDown>
+						<b:AnchorButton dataToggle="DROPDOWN" ui:field="settingsAnchorButton" text="{i18n.settings}" b:id="settings"/>
+						<b:DropDownMenu>
+							<b:AnchorListItem ui:field="systemSettings" b:id="sss" text="{i18n.systemSettings}"/>
+							<b:AnchorListItem ui:field="createSMTPAnchorListItem" text="{i18n.smtpSettings}" b:id="css"/>
+							<b:AnchorListItem ui:field="smsSettings" b:id="tsmss" text="{i18n.smsSettings}"/>
+							<b:Divider/>
+							<b:AnchorListItem ui:field="createAdldapsettings" text="{i18n.createADLDAPSettings}" b:id="cadls"/>
+							<b:AnchorListItem ui:field="listAdldapsettings" text="{i18n.listADLDAPSettings}" b:id="ladls"/>
+							<!-- 
+							<b:Divider/>
+							-->
+							<b:AnchorListItem ui:field="listSmtpSettingsAnchorListItem" text="{i18n.listSMTPSettings}" b:id="lss" visible="false"/>
+							<!-- 
+							<b:Divider/>
+							-->
+							<b:Divider/>
+							<b:AnchorListItem ui:field="installCertificate" b:id="ioc" text="{i18n.installObidosCertificate}"/>
+							<b:AnchorListItem ui:field="installAdCertificate" b:id="iadc" text="{i18n.installAdLdapCertificate}"/>
+							<b:AnchorListItem ui:field="viewCertificate" b:id="ilic" text="{i18n.viewCertificates}"/>
+							<b:Divider/>
+							<b:AnchorListItem ui:field="displayLicenseAdmin" b:id="dlia" text="{i18n.displayLicense}"/>
+							<b:AnchorListItem ui:field="installLicense" b:id="ilic" text="{i18n.installLicense}"/>
+							<b:Divider/>
+							<b:AnchorListItem ui:field="navSettignsHelp" text="{i18n.helpButtonTitle}"/>
+						</b:DropDownMenu>
+					</b:ListDropDown>
+
+					<!-- admin menus ends -->
+
+					<!-- user menu items starts -->
+					<b:ListDropDown>
+						<b:AnchorButton dataToggle="DROPDOWN" ui:field="notesAnchorButton" text="{i18n.notes}" b:id="notesmenu"/>
+						<b:DropDownMenu>
+							<b:AnchorListItem ui:field="createNoteAnchorList" text="{i18n.createNewNote}" b:id="newnote"/>
+							<b:Divider/>
+							<b:AnchorListItem ui:field="listNotesAnchorList" text="{i18n.listMyNotes}" b:id="mynotes"/>
+							<b:AnchorListItem ui:field="listNotesSharedWithOthersAnchorList" text="{i18n.listMyNotesSharedWithOthers}"/>
+							<b:AnchorListItem ui:field="listNotesSharedWithMeAnchorList" text="{i18n.listNotesSharedWithMe}"/>
+							<b:Divider/>
+							<b:AnchorListItem ui:field="notesHelpAnchorList" text="{i18n.helpButtonTitle}"/>
+						</b:DropDownMenu>
+    				</b:ListDropDown>
+    				
+ 					<b:ListDropDown>
+						<b:AnchorButton dataToggle="DROPDOWN" ui:field="itemsAnchorButton" text="{i18n.items}"/>
+						<b:DropDownMenu>
+							<b:AnchorListItem ui:field="createItemAnchorList" text="{i18n.createNewItem}"/>
+							<b:Divider/>
+							<b:AnchorListItem ui:field="listItemsAnchorList" text="{i18n.listMyItems}"/>
+							<b:AnchorListItem ui:field="listItemsSharedWithOthersAnchorList" text="{i18n.listMyItemsSharedWithOthers}"/>
+							<b:AnchorListItem ui:field="listItemsSharedWithMeAnchorList" text="{i18n.listItemsSharedWithMe}"/>
+							<b:Divider/>
+							<b:AnchorListItem ui:field="itemsHelpAnchorList" text="{i18n.helpButtonTitle}"/>
+						</b:DropDownMenu>
+    				</b:ListDropDown>
+   				
+<!--
+					<b:ListDropDown>
+						<b:AnchorButton dataToggle="DROPDOWN" ui:field="credentialsAnchorButton">Credentials</b:AnchorButton>
+						<b:DropDownMenu>
+							<b:AnchorListItem ui:field="listCredentialsAnchorList" text="List My Credentials"/>
+							<b:AnchorListItem ui:field="listCredentialsSharedWithOthersAnchorList" text="List My Credentials Shared With Others"/>
+							<b:AnchorListItem ui:field="listCredentialsSharedWithMeAnchorList" text="List Credentials Shared With Me"/>
+						</b:DropDownMenu>
+					</b:ListDropDown>
+-->
+					<b:ListDropDown>
+						<b:AnchorButton dataToggle="DROPDOWN" ui:field="container" text="{i18n.containers}"/>
+						<b:DropDownMenu>
+							<b:AnchorListItem ui:field='newContainerAnchorList' text="{i18n.createNewContainer}"/>
+							<b:Divider/>
+							<b:AnchorListItem ui:field='listContainersAnchorList' text="{i18n.listMyContainers}"/>
+							<b:AnchorListItem ui:field='listMyContainersSharedWithOthersAnchorList' text="{i18n.listMyContainersSharedWithOthers}"/>
+							<b:AnchorListItem ui:field='listContainersSharedWithMeAnchorList' text="{i18n.listContainersSharedWithMe}"/>
+							<b:Divider/>
+							<b:AnchorListItem ui:field="containersHelpAnchorList" text="{i18n.helpButtonTitle}"/>
+						</b:DropDownMenu>
+					</b:ListDropDown>
+
+					<b:ListDropDown>
+						<b:AnchorButton dataToggle="DROPDOWN" ui:field="templates" text="{i18n.templates}"/>
+						<b:DropDownMenu>
+							<b:AnchorListItem ui:field='cnptAL' text="{i18n.createNewPersonalTemplate}"/>
+							<b:AnchorListItem ui:field='lptAL' text="{i18n.listPersonalTemplates}"/>
+							<b:Divider/>
+							<b:AnchorListItem ui:field='createNewGlobalTemplateAL' enabled="false" text="{i18n.createNewGlobalTemplate}"/>
+							<b:AnchorListItem ui:field='listGlobalTemplatesAL' text="{i18n.listGlobalTemplates}"/>
+							<b:Divider/>
+							<b:AnchorListItem ui:field="templatesHelpAnchorList" text="{i18n.helpButtonTitle}"/>
+						</b:DropDownMenu>
+					</b:ListDropDown>
+
+					<b:ListDropDown>
+						<b:AnchorButton dataToggle="DROPDOWN" ui:field="group" text="{i18n.groups}"/>
+						<b:DropDownMenu>
+							<b:AnchorListItem ui:field='newGroupAnchorListItem' text="{i18n.createNewGroup}"/>
+							<b:AnchorListItem ui:field='listGroupAnchorListItem' text="{i18n.myGroup}"/>
+							<b:Divider/>
+							<b:AnchorListItem ui:field="groupHelpAnchorList" text="{i18n.helpButtonTitle}"/>
+						</b:DropDownMenu>
+					</b:ListDropDown>
+					<!--
+					<b:ListDropDown>
+						<b:AnchorButton dataToggle="DROPDOWN" ui:field="keypair">Key Pairs</b:AnchorButton>
+						<b:DropDownMenu>
+							<b:AnchorListItem ui:field='genKeyPair' text="Generate Key Pair"/>
+						</b:DropDownMenu>
+					</b:ListDropDown>
+					-->
+
+					<!-- user menu items ends -->
+				
+					
+				</b:NavbarNav>	
+				<!--  part of admin menu -->
+				<b:NavbarForm pull="LEFT" visible="false">
+			      <m:ObidosTextBox ui:field="searchBox" placeholder="{i18n.searchUsers}" addStyleNames="col-sm-8"/>
+			      <b:Button ui:field="searchButton" type="DEFAULT" icon="SEARCH"/>
+			    </b:NavbarForm>
+			    
+               
+                <!--  Reports -->
+                <b:NavbarNav>
+					<b:ListDropDown ui:field="auditDropDown">
+                        <b:AnchorButton ui:field="auditAnchorButton" dataToggle="DROPDOWN" text="{i18n.audit}"/>
+						<b:DropDownMenu>
+					       <b:AnchorListItem ui:field="auditReportAli" text="{i18n.reportPDF}"/> <!--  for admins only -->
+					       <b:AnchorListItem ui:field="auditLogsAli" text="{i18n.logs}"/> 
+							<b:Divider/>
+						   <b:AnchorListItem ui:field="navReportsHelp" text="{i18n.helpButtonTitle}"/>
+						</b:DropDownMenu>
+                    </b:ListDropDown>
+                </b:NavbarNav>
+
+ 			    <!-- Advanced Search -->
+                <b:NavbarNav ui:field='advancedSearchNavBarNav'>
+                    <b:AnchorListItem ui:field='advancedAnchorListItem' text="{i18n.search}"/>
+                </b:NavbarNav>
+
+                <b:NavbarNav>
+					<b:ListDropDown ui:field="utilsDropDown">
+                        <b:AnchorButton ui:field="utilsAnchorButton" dataToggle="DROPDOWN" text="{i18n.utils}"/>
+						<b:DropDownMenu>
+   						   <b:AnchorListItem ui:field="generatePasswordAnchorListItem" b:id="gpw" text="{i18n.generatePasswordPassphrase}"/>
+   						   <b:Divider/>
+   						   <b:AnchorListItem ui:field="generatePasswordHelpAnchorLitItem" text="{i18n.helpButtonTitle}"/>
+						</b:DropDownMenu>
+                    </b:ListDropDown>
+                </b:NavbarNav>
+   
+				<!--  part of admin menu -->
+				
+					
+						<b:NavbarNav pull="RIGHT">
+							<b:ListDropDown>
+								<b:AnchorButton icon="CIRCLE" dataToggle="DROPDOWN" ui:field="adminAnchorButton" b:id="ap" text="{i18n.administrator}"/>
+								<b:DropDownMenu>
+									<b:AnchorListItem ui:field="buildInfo" b:id="bi" text="{i18n.about}"/>
+									<b:Divider ui:field="ldivider1"/>
+    									<b:AnchorListItem ui:field="displayLicense" b:id="dli" text="{i18n.displayLicense}"/>
+									<b:Divider ui:field="ldivider2"/>
+									<b:AnchorListItem ui:field="changePasswordAnchorListItem" b:id="cpw" text="{i18n.changePassword}"/>
+									<b:AnchorListItem ui:field="myCapabilitiesALI" b:id="mycap" text="{i18n.myCapabilities}"/>
+									<b:Divider ui:field='changePassDividerStart'/>
+									<b:AnchorListItem ui:field="changePassphrasedAnchorListItem" text="{i18n.changePassphrase}"/>
+
+									<!-- I never use this, hide it -->
+									<b:AnchorListItem ui:field="registerPassphrasedAnchorListItem" text="{i18n.enterPassphrase}" visible="false"/>
+
+									<b:AnchorListItem ui:field="forgotPassphrasedAnchorListItem" text="{i18n.forgotPassphrase}"/>
+									<b:Divider ui:field='changePassDividerEnd'/>
+									<b:AnchorListItem ui:field="twoFactorAnchorListItem" text="{i18n.twoFactorAuthentication}" icon="TIMES"/>
+									<b:Divider ui:field='twoFADividerStart'/>
+									<b:AnchorListItem ui:field="userSettingsAnchorListItem" text="{i18n.editProfile}"/>
+									<b:AnchorListItem ui:field="editNotificationTemplateItem" b:id="ent" text="{i18n.editNotificationTemplate}"/>
+									<b:Divider/>
+									<b:AnchorListItem ui:field="sessionInfo" b:id="si" text="{i18n.sessionInformation}"/>
+									<!--  Hide authenticator app. create item with 2FA instead
+									<b:Divider/>
+									-->
+    									<b:AnchorListItem ui:field="twoFactorAnchorModalListItem" text="{i18n.twoFactorAuthenticator}" visible="false"/>
+    									<!-- 
+									<b:Divider/>
+									-->
+									<b:AnchorListItem icon="SIGN_OUT" ui:field="menuItemLogout" b:id="lo" text="{i18n.logout}"/>
+								</b:DropDownMenu>
+						   </b:ListDropDown>
+					</b:NavbarNav>
+					<b:NavbarNav pull="RIGHT">
+					   <b:NavPills ui:field="navNotificaionPillX" addStyleNames="{style.center-pills}">
+					       <m:ObidosNotificationBadge ui:field="notificationBadge"/>
+					   </b:NavPills>
+					   <!--
+					   <b:NavPills ui:field="navNotificaionPillX" addStyleNames="{style.center-pills}">
+					       <b:Button type="DEFAULT" size="SMALL" badgeText="100" icon="BELL" badgePosition="LEFT"/>
+					       <b:Badge text="100" addStyleNames="{style.badge3}">
+					           <b:Icon type="BELL"/>
+					       </b:Badge>
+					   </b:NavPills>
+					       -->
+					   <b:NavPills ui:field="navNotificaionPill" addStyleNames="{style.center-pills}" visible="false">
+							<b:AnchorListItem ui:field="notificationALI" b:id="nali" icon="BELL" active="false" badgeText="0" badgePosition="LEFT" title="{i18n.notification}" enabled="false"/>
+					   </b:NavPills>
+					</b:NavbarNav>
+					<!-- 
+					<b:NavbarNav pull="RIGHT">
+					   <b:Button type="DEFAULT" icon="BELL" badgeText="100" badgePosition="LEFT" addStyleNames="{style.center-button}" enabled="false"/>
+					</b:NavbarNav>
+					-->
+					<!--
+					<b:NavbarNav pull="RIGHT">
+    				   <b:Badge text="100" addStyleNames="{style.badge}"/>
+						<b:AnchorListItem icon="BELL" active="true" enabled="false"/>
+					</b:NavbarNav>
+					-->
+				</b:NavbarCollapse>
+			</b:Container>
+		</b:Navbar>
+		<g:HTMLPanel>
+		<b:Label ui:field='messageLabel'/>
+		<div ui:field="busyField" style="position:absolute; top:10; left:0; background-color:yellow;">
+		  Processing...
+        </div>
+	   <g:HTMLPanel ui:field="processingPanel" addStyleNames="{style.loading}" visible="false">
+		   <span class="{style.loader}"></span>
+	   </g:HTMLPanel>
+
+		<g:SimplePanel ui:field="main"/>
+		</g:HTMLPanel>
+	</b:Container>
+</g:ScrollPanel>
+</ui:UiBinder>

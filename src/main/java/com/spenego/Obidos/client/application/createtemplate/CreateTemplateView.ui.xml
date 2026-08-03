@@ -1,0 +1,141 @@
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:b="urn:import:org.gwtbootstrap3.client.ui"
+	xmlns:b.html="urn:import:org.gwtbootstrap3.client.ui.html"
+	xmlns:m="urn:import:com.spenego.Obidos.client.application.widgets"
+    xmlns:b3="urn:import:org.gwtbootstrap3.extras.toggleswitch.client.ui"
+	xmlns:b.gwt="urn:import:org.gwtbootstrap3.client.ui.gwt">
+
+	<ui:with field='i18n'
+		type='com.spenego.Obidos.client.i18n.ObidosMessages' />
+
+	<ui:style gss="true">
+	.form-error-label {
+		color: red;
+	}
+	
+	.message-info {
+		margin: 10px 0px;
+		padding: 12px;
+		color: #00529B;
+		background-color: #BDE5F8;
+		box-shadow: 1px 1px 3px #888;
+	}
+	
+	.st-message-error {
+		margin: 10px 0px;
+		padding: 12px;
+		color: #D8000C;
+		background-color: #FFBABA;
+		box-shadow: 1px 1px 3px #888;
+	}
+	
+	.ginfo {
+		background-color: #EEEEEE;
+		border-color: #2F79B9;
+	}
+	
+	.bottom-margin {
+		margin-bottom: 10px;
+	}
+	
+	.paragraph-font {
+		font-size: 13px;
+	}
+	
+	.label-font {
+	   font-size: small;
+	   color: #ccc;
+	}
+	.margin-fix {
+		margin-top: 0 !important;
+	}
+
+	.margin {
+		margin: 5px;
+	}
+	
+	.t-name-field-label-align {
+		text-align: left !important;
+	}
+	
+	.t-display-order-label-align {
+		text-align: left !important;
+	}
+	</ui:style>
+
+	<g:HTMLPanel ui:field="htmlPanel">
+		<b:Container addStyleNames="col-sm-12">
+			<b:Row>
+				<b:BlockQuote addStyleNames="{style.ginfo}" ui:field='helpBlockQuote'>
+					<b.html:Paragraph ui:field='paragraph' addStyleNames='{style.paragraph-font}' HTML="Will be updated in the presenter" />
+				</b:BlockQuote>
+					<b:Panel type="PRIMARY">
+                        <m:ObidosPanelHeader ui:field="panelHeader" showBackButton="true" headerText="{i18n.createPersonalTemplate}"/>
+						<b:PanelBody>
+							<g:HTMLPanel>
+								<b:Form ui:field='form' type="HORIZONTAL">
+
+									<b:FormGroup>
+									 <!--  Language -->
+									<m:ObidosRowBottom2px ui:field="languageRow">
+										 <b:FormLabel for="languagel" b:id="languagel" addStyleNames="col-sm-4" HTML="{i18n.language}" />
+										 <g:FlowPanel addStyleNames="col-sm-4">
+											<b:ListBox b:id="languagelb" ui:field='languageListBox'>
+												<g:item>English</g:item>
+												<g:item>বাংলা</g:item>
+											</b:ListBox>
+										</g:FlowPanel>
+									</m:ObidosRowBottom2px>
+
+										<b:Row>
+											<b:FormLabel for="forTempalteName" addStyleNames="col-sm-4" text="{i18n.nameOfTemplate}" />
+											<g:FlowPanel addStyleNames="col-sm-4">
+												<m:ObidosTextBox ui:field="tempalteNameTextBox" placeholder="fillfrompresenter" allowBlank="false" />
+											</g:FlowPanel>
+										</b:Row>
+									</b:FormGroup>
+
+									<b:Row>
+										<b:FormLabel for="forNameAndType" addStyleNames="col-sm-offset-4 col-sm-3 {style.t-name-field-label-align}" HTML="{i18n.templateFieldNames}" />
+										<b:FormLabel for="forNameAndType" addStyleNames="{style.t-display-order-label-align}" HTML="{i18n.displayOrderHTML}" />
+									</b:Row>
+								
+                                    <b:FormGroup>
+										<m:ObidosTemplateRow ui:field="firstRow" icon="PLUS" />
+									</b:FormGroup>
+
+									<b:FormGroup ui:field='addFormGroup'>
+									</b:FormGroup>
+									
+									<m:ObidosRowBottom2px>
+										<b:FormLabel addStyleNames="col-sm-4" text="{i18n.canAttachDocument}"/>
+										<g:FlowPanel addStyleNames="col-sm-8">
+    										 <b3:ToggleSwitch ui:field="attachDocumentToggleSwitch" size="SMALL" onColor="SUCCESS" offColor="DANGER" onText="✓" offText="✗" value="true"/>
+    										 <g:Label addStyleNames="{style.label-font}" ui:field="licenseLabelDoc" visible="false"/>
+										</g:FlowPanel>
+									</m:ObidosRowBottom2px>
+									<m:ObidosRowBottom2px>
+										<b:FormLabel addStyleNames="col-sm-4" text="{i18n.canAddTwoFAInfo}"/>
+										<g:FlowPanel addStyleNames="col-sm-8">
+    										 <b3:ToggleSwitch ui:field="add2FAInfoToggleSwitch" size="SMALL" onColor="SUCCESS" offColor="DANGER" onText="✓" offText="✗" value="true"/>
+    										 <g:Label addStyleNames="{style.label-font}" ui:field="licenseLabel2FA" visible="false"/>
+										</g:FlowPanel>
+									</m:ObidosRowBottom2px>
+
+									<m:ObidosMessageRow ui:field="messageRow"/>
+									<b:FormGroup>
+										<b:Row>
+    										<m:ObidosButtonToolBar ui:field="bottomToolBar">
+												<b:Button type="SUCCESS" ui:field='saveTemplateButton' text="{i18n.create}" />
+											</m:ObidosButtonToolBar>
+										</b:Row>
+									</b:FormGroup>
+								</b:Form>
+							</g:HTMLPanel>
+						</b:PanelBody>
+					</b:Panel>
+			</b:Row>
+		</b:Container>
+	</g:HTMLPanel>
+</ui:UiBinder>

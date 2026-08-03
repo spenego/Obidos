@@ -1,0 +1,12 @@
+<!-- show header, product name etc. -->
+<mj-section background-color="#5A606F" full-width="full-width">
+    <mj-column vertical-align="top" width="100%">
+        <mj-text align="center"
+            font-family="Arial, Helvetica, Times New Roman, Verdana"
+            font-size="24px"
+            font-weight="bold"
+            color="#eee">
+            {{product_name}}
+        </mj-text>
+    </mj-column>
+</mj-section>

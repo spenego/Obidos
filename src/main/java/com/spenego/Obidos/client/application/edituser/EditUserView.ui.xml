@@ -1,0 +1,258 @@
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:b="urn:import:org.gwtbootstrap3.client.ui"
+	xmlns:b.html="urn:import:org.gwtbootstrap3.client.ui.html"
+	xmlns:m="urn:import:com.spenego.Obidos.client.application.widgets"
+    xmlns:select="urn:import:org.gwtbootstrap3.extras.select.client.ui"
+	xmlns:b3="urn:import:org.gwtbootstrap3.extras.toggleswitch.client.ui"
+	xmlns:d="urn:import:com.spenego.Obidos.client.ui">
+
+	<ui:with field='i18n' type='com.spenego.Obidos.client.i18n.ObidosMessages' />
+	<ui:style gss="true">
+	.form-error-label {
+		color: red;
+	}
+	
+	.edit-users-panel-header {
+		background-color: #222222 !important;
+	}
+	
+	.uhr {
+		border-bottom: 1px solid #ccc;
+		padding-bottom: 10px;
+		margin-bottom: 10px;
+	}
+	
+	.fp-bottom-margin {
+		margin-bottom: 5px;
+	}
+	
+	.cont-help-bq {
+		background-color: #EEEEEE;
+		border-color: #2F79B9;
+	}
+	
+	.margin-fix {
+		margin-top: 0 !important;
+	}
+	
+	.cont-help-paragraph-font {
+		font-size: 13px;
+	}
+	
+	.center {
+		text-align: center;
+	}
+	.ro-font {
+	   color: #000;
+	   font-weight: bold;
+	}
+	.customSelect button {
+		color: #000 !important;
+	}
+	.fp-right-margin {
+		margin-right: 10px;
+	}
+	</ui:style>
+
+	<g:HTMLPanel>
+	      <b:Container addStyleNames="col-sm-12">
+			<b:Row>
+			<b:BlockQuote addStyleNames="{style.cont-help-bq}" ui:field='helpBlockQuote' visible="false">
+				<b.html:Paragraph ui:field='helpParagraph' addStyleNames='{style.cont-help-paragraph-font}' HTML="{i18n.editUserHelp}" />
+			</b:BlockQuote>
+			<b:Panel type="PRIMARY">
+		        <m:ObidosPanelHeader ui:field="panelHeader" showBackButton="true" addStyleNames="{style.edit-users-panel-header}" headerText="{i18n.editUser}"/>
+				<b:PanelBody>
+					<g:HTMLPanel>
+						<b:Form type="HORIZONTAL">
+							<b:FormGroup ui:field='editUserFormGroup'>
+								<m:ObidosRow bottomMargin="2px">
+									<g:FlowPanel addStyleNames="col-sm-offset-4 col-sm-8">
+										<b:Image type="THUMBNAIL" ui:field="profilePreviewImage" url="128x128.png"/>
+									</g:FlowPanel>
+								</m:ObidosRow>
+
+								<m:ObidosRow bottomMargin="2px">
+									<g:FlowPanel addStyleNames="col-sm-offset-4 col-sm-2">
+									  <b:Button ui:field="uploadButton" size="SMALL" type="DEFAULT" text="{i18n.uploadProfilePic}"/>
+									</g:FlowPanel>
+
+									<g:FlowPanel addStyleNames="col-sm-5 {style.fp-bottom-margin}" ui:field="deleteProfileFlowPanel">
+										  <b:FormLabel addStyleNames="{style.fp-right-margin}" ui:field='deleteProfilePicLabel'  text="{i18n.deleteProfilePic}"/>
+										  <b3:ToggleSwitch ui:field="deleteProfilePicSwitch" size="SMALL" onColor="SUCCESS" offColor="DANGER" onText="✓" offText="✗" value="false"/>
+									  </g:FlowPanel>
+								</m:ObidosRow>
+
+									<!--  create a invisible image to be  -->
+									<!--  used to determine the preview image size -->
+									<b:Row visible="false">
+									   <g:FlowPanel>
+    									   <b:Image ui:field="invisibleImage" visible="false"/>
+									   </g:FlowPanel>
+									</b:Row>
+
+								<m:ObidosRowBottom2px>
+									<b:FormLabel for="forUsername" ui:field='usernameLabel' addStyleNames="col-sm-4" HTML="{i18n.usernameLabelHtml}" />
+									<g:FlowPanel addStyleNames="col-sm-5">
+										<m:ObidosTextBox ui:field="usernameTextBox" placeholder="{i18n.usernameTextBoxPlaceHolder}" allowBlank="false" />
+									</g:FlowPanel>
+								</m:ObidosRowBottom2px>
+
+								<m:ObidosRowBottom2px>
+									<b:FormLabel for="forFullname" ui:field='fullnameLabel' addStyleNames="col-sm-4" HTML="{i18n.fullnameLabelHtml}" />
+									<g:FlowPanel addStyleNames="col-sm-5">
+										<m:ObidosTextBox ui:field="fullnameTextBox" placeholder="{i18n.fullnameTextBoxPlaceHolder}" allowBlank="false" />
+									</g:FlowPanel>
+								</m:ObidosRowBottom2px>
+
+								<m:ObidosRowBottom2px>
+									<b:FormLabel for="formAuthSource" ui:field='authSourceLabel' addStyleNames="col-sm-4" HTML="{i18n.authenticationSourceLabelHtml}" />
+									<g:FlowPanel addStyleNames="col-sm-5" ui:field='authSourceFlowPanel'>
+										<b:ListBox b:id="formAuthSource" ui:field='authSourceListBox'>
+											<g:item>Local</g:item>
+										</b:ListBox>
+									</g:FlowPanel>
+								</m:ObidosRowBottom2px>
+
+								<m:ObidosRowBottom2px>
+									<b:FormLabel for="forPrimaryEmail" ui:field='primaryEmailLabel' addStyleNames="col-sm-4" HTML="{i18n.primaryEmailLabelHtml}" />
+									<g:FlowPanel addStyleNames="col-sm-5"> <m:ObidosTextBox ui:field="primaryemailTextBox" placeholder="{i18n.primaryEmailTextBoxPlaceHolder}" />
+									</g:FlowPanel>
+								</m:ObidosRowBottom2px>
+
+								<m:ObidosRowBottom2px>
+									<b:FormLabel for="forPrimaryPhone" ui:field='primaryPhoneLabel' addStyleNames="col-sm-4" HTML="{i18n.primaryPhoneLabelHtml}" />
+									<g:FlowPanel addStyleNames="col-sm-5">
+										<m:ObidosTextBox ui:field="primaryphoneTextBox" placeholder="{i18n.primaryPhoneTextBoxPlaceHolder}" />
+									</g:FlowPanel>
+								</m:ObidosRowBottom2px>
+
+								<m:ObidosRowBottom2px>
+									<b:FormLabel ui:field='mobilePhoneLabel' addStyleNames="col-sm-4" HTML="{i18n.mobilePhone}"/>
+									<g:FlowPanel addStyleNames="col-sm-5">
+									  <b:Column size="XS_5 SM_5" paddingRight="2" paddingLeft="0">
+										   <select:Select addStyleNames="{style.customSelect}" liveSearch="true" ui:field="countryCodeSelect" title="{i18n.countryCode}" showTick="true"></select:Select>
+									  </b:Column>
+									  <b:Column size="XS_7 SM_7" paddingLeft="2" paddingRight="0">
+										<m:ObidosTextBox ui:field="mobilePhoneTextBox" placeholder="{i18n.mobilePhoneSMS}"/>
+										</b:Column>
+									</g:FlowPanel>
+								</m:ObidosRowBottom2px>
+
+
+								<m:ObidosRowBottom2px ui:field='changePasswordRow'>
+									<b:FormLabel for="resetPassword" ui:field="resetPasswordLabel" addStyleNames="col-sm-4" text="{i18n.changePassword}" />
+									<g:FlowPanel addStyleNames="col-sm-5" ui:field='passwordFlowPanel'>
+										<b:InputGroup ui:field='inputGroup'>
+											<m:ObidosPasswordBox ui:field="resetPasswordBox" placeholder="{i18n.resetPasswordButtonTitle}" />
+											<b:InputGroupButton>
+												<b:Button type="INFO" icon="EYE" ui:field='showHidePasswordButton' text="" />
+											</b:InputGroupButton>
+										</b:InputGroup>
+									</g:FlowPanel>
+								</m:ObidosRowBottom2px>
+								
+                                <m:ObidosRowBottom2px ui:field='passwordAgeRow'>
+										<b:FormLabel ui:field='passwordAgeLabel' addStyleNames="col-sm-4" text="{i18n.maxPasswordAgeInDays}"/>
+										<g:FlowPanel addStyleNames="col-sm-5">
+											<m:ObidosIntegerTextBox ui:field="passwordAgeTextBox" b:id="passwordAge" placeholder="{i18n.maxPasswordAgeInDays}"/>
+										</g:FlowPanel>
+  								</m:ObidosRowBottom2px>
+
+
+                                <m:ObidosRowBottom2px ui:field='passwordExpiresRow'>
+										<b:FormLabel ui:field='passwordExpiresLabel' addStyleNames="col-sm-4" text="{i18n.passwordWillExpireIn}"/>
+										<g:FlowPanel addStyleNames="col-sm-5">
+											<m:ObidosReadonlyTextBox ui:field="passwordExpiresTextBox" b:id="expires"/>
+										</g:FlowPanel>
+  								</m:ObidosRowBottom2px>
+
+<!-- 
+								<m:ObidosRowBottom2px>
+									<b:FormLabel ui:field='deleteProfilePicLabel' addStyleNames="col-sm-4" text="{i18n.deleteProfilePic}"/>
+									<g:FlowPanel addStyleNames="col-sm-2 {style.fp-bottom-margin}" ui:field="deleteProfileFlowPanel">
+										 <b3:ToggleSwitch ui:field="deleteProfilePicSwitch" size="SMALL" onColor="SUCCESS" offColor="DANGER" onText="✓" offText="✗" value="false"/>
+									</g:FlowPanel>
+								</m:ObidosRowBottom2px>
+ -->
+
+								<b:Row ui:field="settingsRow">
+									<b:FormGroup>
+									</b:FormGroup>
+	                                   <b:Row>
+											<g:FlowPanel addStyleNames="col-sm-offset-1 col-sm-7"> <b:FormLabel text="{i18n.settings}"/>
+											</g:FlowPanel>
+										</b:Row>
+
+                                        <b:Row>
+											<g:FlowPanel addStyleNames="col-sm-offset-1 col-sm-8"> <b:Row addStyleNames="{style.uhr}" />
+											</g:FlowPanel>
+										</b:Row>
+
+<!--
+									<b:Row>
+										<g:FlowPanel addStyleNames="col-sm-offset-5 col-sm-2 {style.center}">
+											<b:FormLabel ui:field='capabilitiesLabel' text="{i18n.settings}" />
+										</g:FlowPanel>
+									</b:Row>
+									<b:Row>
+										<g:FlowPanel addStyleNames="col-sm-offset-2 col-sm-8">
+											<b:Row addStyleNames="{style.uhr}" />
+										</g:FlowPanel>
+									</b:Row>
+									-->
+
+									<b:Row ui:field='twofaRequiredRow'>
+										<b:FormLabel ui:field="requiresTwoFAPasswordResetLabel" addStyleNames="col-sm-4" text="{i18n.twoFactorForPasswordReset}" />
+										<g:FlowPanel addStyleNames="col-sm-5 {style.fp-bottom-margin}">
+											<b3:ToggleSwitch ui:field='requiresTwoFAPasswordResetSwitch' size="SMALL" onColor="SUCCESS" offColor="DANGER" onText="✓" offText="✗" value="true" />
+										</g:FlowPanel>
+									</b:Row>
+
+									<b:Row ui:field='twofaEnabledRow'>
+										<b:FormLabel ui:field="twoFAEnabledLabel" addStyleNames="col-sm-4"
+											text="{i18n.twoFAEnabledLabel}" />
+										<g:FlowPanel addStyleNames="col-sm-5 {style.fp-bottom-margin}">
+											<b3:ToggleSwitch ui:field='isTwoFAEnabledSwitch' size="SMALL"
+												onText="✓" offText="✗" value="false" onColor="SUCCESS" offColor="DANGER" />
+										</g:FlowPanel>
+									</b:Row>
+
+
+									<b:Row>
+										<b:FormLabel ui:field="reset2FALabel" addStyleNames="col-sm-4"
+											text="{i18n.resetTtwoFactorLabel}" />
+										<g:FlowPanel addStyleNames="col-sm-5 {style.fp-bottom-margin}" ui:field='reset2FAFlowPanel'>
+											<b:CheckBox ui:field='reset2FACheckBox' value="false" text="" />
+										</g:FlowPanel>
+									</b:Row>
+
+									<b:Row>
+										<b:FormLabel ui:field="canCreateGlobalTemplateLabel"
+											addStyleNames="col-sm-4" text="{i18n.canManageGlobalTemplates}" />
+										<g:FlowPanel addStyleNames="col-sm-5 {style.fp-bottom-margin}">
+											<b3:ToggleSwitch ui:field='globalTemplateToggleSwitch' b:id="globaltemplatetoggleswitch" size="SMALL" onColor="SUCCESS" offColor="DANGER" onText="✓" offText="✗" value="false" />
+										</g:FlowPanel>
+									</b:Row>
+								</b:Row>
+
+								<m:ObidosMessageRow ui:field="messageRow" />
+
+								<m:ObidosRowTop2px>
+									<m:ObidosButtonToolBar ui:field="buttonToolBarBottom">
+										<b:Button type="SUCCESS" ui:field='saveButton' text="{i18n.saveButtonTitle}" />
+										<m:ObidosResetButton ui:field='resetButton' />
+										<b:Button type="PRIMARY" ui:field='listButton' text="{i18n.listUsers}" visible="false" />
+									</m:ObidosButtonToolBar>
+								</m:ObidosRowTop2px>
+							</b:FormGroup>
+						</b:Form>
+					</g:HTMLPanel>
+				</b:PanelBody>
+			</b:Panel>
+			</b:Row>
+		</b:Container>
+	</g:HTMLPanel>
+
+</ui:UiBinder>

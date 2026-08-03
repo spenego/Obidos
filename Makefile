@@ -1,0 +1,15 @@
+########################################################################
+# Makefile for Spenego Obidos from Spenego Software LLC
+# Requires https://github.com/muquit/markdown-toc-go
+# Jul-05-2026 
+########################################################################
+
+.PHONY: all docs doc
+
+docs:
+	chmod 644 ./README.md
+	markdown-toc-go -i docs/README.md \
+		-o ./README.md --glossary docs/glossary.txt -f
+	chmod 444 ./README.md
+
+doc: docs

@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   Copyright (c) 2016, 2018, Spenego. All rights reserved.
+   SPENEGO PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+   Original dtd available at: "http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+ -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
+<mapper namespace="com.spenego.Obidos.server.dao.ItemMapper">
+	<resultMap id="BaseResultMap" type="com.spenego.Obidos.server.model.Item">
+		<id column="id"								jdbcType="BIGINT"		property="id" />
+		<result column="user_id"					jdbcType="BIGINT"		property="userId" />
+		<result column="container_assignment_id"	jdbcType="BIGINT"		property="containerAssignmentId" />
+		<result column="version"					jdbcType="INTEGER"		property="version" />
+		<result column="security_classification"	jdbcType="INTEGER"		property="securityClassification" />
+		<result column="shareable"					jdbcType="BIT"			property="shareable" />
+		<result column="shared"						jdbcType="BIT"			property="shared" />
+		<result column="is_container_private"		jdbcType="BIT"			property="isContainerPrivate" />
+		<result column="created_at"					jdbcType="TIMESTAMP"	property="createdAt" />
+		<result column="updated_at"					jdbcType="TIMESTAMP"	property="updatedAt" />
+		<result column="shares_expire_at"			jdbcType="TIMESTAMP"	property="sharesExpireAt" />
+		<result column="name"						jdbcType="VARCHAR"		property="name" />
+		<result column="container_name"				jdbcType="VARCHAR"		property="containerName" />
+	</resultMap>
+
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" prefixOverrides="and" suffix=")">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" prefixOverrides="and" suffix=")">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+
+	<sql id="Base_Column_List">
+			i.id as id, i.user_id as user_id, container_assignment_id, security_classification, shareable, i.shared as shared, i.name as name,
+		   	i.created_at as created_at, i.updated_at as updated_at, shares_expire_at, i.version as version
+	</sql>
+	<sql id="With_Container_Column_List">
+		c.name as container_name, c.is_private as is_container_private,
+		<include refid="Base_Column_List" />
+	</sql>
+	<select id="selectByExample" parameterType="com.spenego.Obidos.server.model.ItemExample" resultMap="BaseResultMap">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from items i
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		select
+		<include refid="With_Container_Column_List" />
+		from items i
+		join container_assignments ca on ca.id = i.container_assignment_id
+		join containers c on c.id = ca.container_id
+		where i.id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from items
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.spenego.Obidos.server.model.ItemExample">
+		delete from items
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+
+	<insert id="insert" parameterType="com.spenego.Obidos.server.model.Item">
+		insert into items (id, user_id, container_assignment_id, version,
+			security_classification, shareable, shared, name, created_at, updated_at, shares_expire_at)
+			values (#{r.id,jdbcType=BIGINT}, #{r.userId,jdbcType=BIGINT}, #{r.containerAssignmentId,jdbcType=BIGINT}, #{r.version,jdbcType=INTEGER},
+			#{r.securityClassification,jdbcType=INTEGER}, #{r.shareable,jdbcType=BIT}, #{r.shared,jdbcType=BIT}, #{r.name,jdbcType=VARCHAR},
+		   	#{r.createdAt,jdbcType=TIMESTAMP}, #{r.updatedAt,jdbcType=TIMESTAMP}, #{r.sharesExpireAt,jdbcType=TIMESTAMP})
+	</insert>
+
+	<insert id="insertSelective" parameterType="com.spenego.Obidos.server.model.Item">
+		insert into items
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">r.id, </if>
+			<if test="userId != null">r.user_id, </if>
+			<if test="containerAssignmentId != null">r.container_assignment_id,</if>
+			<if test="securityClassification != null">r.security_classification,</if>
+			<if test="shareable != null">r.shareable,</if>
+			<if test="shared != null">r.shared,</if>
+			<if test="name != null">r.name,</if>
+			<if test="version != null">r.version,</if>
+			<if test="createdAt != null">r.created_at,</if>
+			<if test="updatedAt != null">r.updated_at,</if>
+			<if test="sharesExpireAt != null">r.shares_expire_at,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="r.id != null">#{r.id,jdbcType=BIGINT},</if>
+			<if test="r.userId != null">#{r.userId,jdbcType=BIGINT},</if>
+			<if test="r.containerAssignmentId != null">#{r.containerAssignmentId,jdbcType=BIGINT},</if>
+			<if test="r.securityClassification != null">#{r.securityClassification,jdbcType=INTEGER},</if>
+			<if test="r.shareable != null">#{r.shareable,jdbcType=BIT},</if>
+			<if test="r.shared != null">#{r.shared,jdbcType=BIT},</if>
+			<if test="r.version != null">#{r.version,jdbcType=INTEGER},</if>
+			<if test="r.name != null">#{r.name,jdbcType=VARCHAR},</if>
+			<if test="r.createdAt != null">#{r.createdAt,jdbcType=TIMESTAMP},</if>
+			<if test="r.updatedAt != null">#{r.updatedAt,jdbcType=TIMESTAMP},</if>
+			<if test="r.sharesExpireAt != null">#{r.sharesExpireAt,jdbcType=TIMESTAMP},</if>
+		</trim>
+	</insert>
+
+	<select id="countByExample" parameterType="com.spenego.Obidos.server.model.ItemExample" resultType="java.lang.Integer">
+		select count(*) from items
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+
+	<update id="updateByExampleSelective" parameterType="map">
+		update items
+		<set>
+			<if test="r.id != null">id = #{r.id,jdbcType=BIGINT},</if>
+			<if test="r.userId != null">user_id = #{r.userId,jdbcType=BIGINT},</if>
+			<if test="r.containerAssignmentId != null">container_assignment_id = #{r.containerAssignmentId,jdbcType=BIGINT},</if>
+			<if test="r.securityClassification != null">shareable = #{r.securityClassification,jdbcType=INTEGER},</if>
+			<if test="r.shareable != null">shareable = #{r.shareable,jdbcType=BIT},</if>
+			<if test="r.shared != null">shared = #{r.shared,jdbcType=BIT},</if>
+			<if test="r.name != null">name = #{r.name,jdbcType=VARCHAR},</if>
+			<if test="r.createdAt != null">created_at = #{r.createdAt,jdbcType=TIMESTAMP},</if>
+			<if test="r.updatedAt != null">updated_at = #{r.updatedAt,jdbcType=TIMESTAMP},</if>
+			<if test="r.sharesExpireAt != null">shares_expire_at = #{r.sharesExpireAt,jdbcType=TIMESTAMP},</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+
+	<update id="updateByExample" parameterType="map">
+		update items
+		set id = #{r.id,jdbcType=BIGINT},
+			user_id = #{r.userId,jdbcType=BIGINT},
+			container_assignment_id = #{r.containerAssignmentId,jdbcType=BIGINT},
+			security_classification = #{r.securityClassification,jdbcType=INTEGER},
+			shareable = #{r.shareable,jdbcType=BIT},
+			shared = #{r.shared,jdbcType=BIT},
+			name = #{r.name,jdbcType=VARCHAR},
+			created_at = #{r.createdAt,jdbcType=TIMESTAMP},
+			updated_at = #{r.updatedAt,jdbcType=TIMESTAMP},
+			shares_expire_at = #{r.sharesExpireAt,jdbcType=TIMESTAMP}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.spenego.Obidos.server.model.Item">
+		update items
+		<set>
+			<if test="r.userId != null">user_id = #{r.userId,jdbcType=BIGINT},</if>
+			<if test="r.containerAssignmentId != null">container_assignment_id = #{r.containerAssignmentId,jdbcType=BIGINT},</if>
+			<if test="r.securityClassification != null">security_classification = #{r.securityClassification,jdbcType=INTEGER},</if>
+			<if test="r.shareable != null">shareable = #{r.shareable,jdbcType=BIT},</if>
+			<if test="r.shared != null">shared = #{r.shared,jdbcType=BIT},</if>
+			<if test="r.name != null">name = #{r.name,jdbcType=VARCHAR},</if>
+			<if test="r.createdAt != null">created_at = #{r.createdAt,jdbcType=TIMESTAMP},</if>
+			<if test="r.updatedAt != null">updated_at = #{r.updatedAt,jdbcType=TIMESTAMP},</if>
+			<if test="r.sharesExpireAt != null">shares_expire_at = #{r.sharesExpireAt,jdbcType=TIMESTAMP},</if>
+		</set>
+		where id = #{r.id,jdbcType=BIGINT}
+	</update>
+
+	<update id="updateByPrimaryKey" parameterType="com.spenego.Obidos.server.model.Item">
+		update items
+		set user_id = #{r.userId,jdbcType=BIGINT},
+			container_assignment_id = #{r.containerAssignmentId,jdbcType=BIGINT},
+			security_classification = #{r.securityClassification,jdbcType=INTEGER},
+			shareable = #{r.shareable,jdbcType=BIT},
+			shared = #{r.shared,jdbcType=BIT},
+			name = #{r.name,jdbcType=VARCHAR},
+			created_at = #{r.createdAt,jdbcType=TIMESTAMP},
+			updated_at = #{r.updatedAt,jdbcType=TIMESTAMP},
+			shares_expire_at = #{r.sharesExpireAt,jdbcType=TIMESTAMP}
+		where id = #{r.id,jdbcType=BIGINT}
+	</update>
+
+	<select id="hasGroupUpdate" resultType="java.lang.Integer">
+		select count(ig.update_permitted)
+				from item_groups ig
+				join groups g on ig.group_id = g.id
+				join group_members gm on gm.group_id = g.id
+				where ig.item_id = #{iid} and gm.user_id = #{uid} and ig.update_permitted = 1;
+	</select>
+
+	<select id="hasGroupOwnershipControl" resultType="java.lang.Integer">
+		select count(ig.ownership_control)
+				from items i
+				join item_groups ig on ig.item_id = i.id
+				join groups g on ig.group_id = g.id
+				join group_members gm on gm.group_id = g.id
+				where i.id = #{iid} and gm.user_id = #{uid} and ig.ownership_control = 1;
+	</select>
+
+</mapper>
