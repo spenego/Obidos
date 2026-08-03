@@ -560,4 +560,4 @@ Look at [HOW_TO_COMPILE.txt](HOW_TO_COMPILE.txt) for details.
 
 
 ---
-<sub>TOC is created by https://github.com/muquit/markdown-toc-go on Aug-02-2026</sub>
+<sub>TOC/glossary expansion by https://github.com/muquit/markdown-toc-go v1.0.5 on Aug-02-2026</sub>
