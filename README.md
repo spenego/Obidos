@@ -35,6 +35,7 @@
     - [Logging in](#logging-in)
     - [Changing the Jetty port](#changing-the-jetty-port)
 - [GWT Super Dev Mode](#gwt-super-dev-mode)
+- [Issues](#issues)
 
 </br>
 
@@ -558,6 +559,13 @@ will reference the wrong port.
 Look at [HOW_TO_COMPILE.txt](HOW_TO_COMPILE.txt) for details.
 
 
+</br>
+
+# Issues
+
+Please submit issues at [Obidos Issues](https://github.com/spenego/Obidos/issues) 
+
+
 
 ---
-<sub>TOC/glossary expansion by https://github.com/muquit/markdown-toc-go v1.0.5 on Aug-02-2026</sub>
+<sub>TOC/glossary expansion by https://github.com/muquit/markdown-toc-go v1.0.5 on Oct-02-2026</sub>
