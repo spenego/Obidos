@@ -568,4 +568,4 @@ Please submit issues at [Obidos Issues](https://github.com/spenego/Obidos/issues
 
 
 ---
-<sub>TOC/glossary expansion by https://github.com/muquit/markdown-toc-go v1.0.5 on Oct-02-2026</sub>
+<sub>TOC/glossary expansion by https://github.com/muquit/markdown-toc-go v1.0.6 on Oct-04-2026</sub>

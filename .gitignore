@@ -1,4 +1,8 @@
 .env
+.env_ldap
+env_ldap
+env_ldaps
+env_ldap_starttls
 .classpath
 .project
 .settings/

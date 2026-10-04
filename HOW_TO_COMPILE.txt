@@ -52,10 +52,21 @@ Project -> Build Automatically
 - Start dev mode. It runs a script with tmux. This script is written by
 Gemini AI Pro from my instructions. It saves lot of pain to start, stop
 scripts manually in 2 terminals.
-  ./dev_tmux.sh
-  Usage: ./dev_tmux.sh {start|stop|status|attach}
 
- ./dev_tmux.sh start
+./compile_dev_tmux.sh
+ ./compile_dev_tmux.sh [commands]
+Where the commands are:
+    dev_compile             - Compile in dev mode and exit
+    x|dev_compile_and_start - Compile in dev mode and start GWT super dev mode
+    production_compile      - Compile in production mode and exit
+    start                   - Start super dev mode (requires dev compilation)
+    stop                    - Stop tmux sessions if running
+    attach                  - Attach to running super dev mode
+    status                  - Check status of dev mode
+To detach: CTRL+b d
+To exit sessions: CTRL+b x in each pane
+
+./compile_dev_tmux.sh x
 
 This script starts tmux:
  - At top pane, it starts jetty using the script ./dev_run_jetty.sh

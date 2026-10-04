@@ -136,11 +136,6 @@ public final class LdapConfigActionsImpl extends CryptoActions<Ldap> implements 
 		{
 			env.put(Context.SECURITY_CREDENTIALS, bindPass);
 		}
-		// handle exception:
-		// java.security.cert.CertificateException: No subject alternative names
-		// matching IP address
-		System.setProperty("com.sun.jndi.ldap.object.disableEndpointIdentification", "true");
-
 		try
 		{
 			final DirContext ctx = new InitialDirContext(new Hashtable<>(env));

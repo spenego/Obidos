@@ -22,9 +22,16 @@ echo "🚀 Starting Spring Backend on Port 8080..."
 # 1. java.lang: Fixes 'detailMessage' access in Exceptions
 # 2. java.util: Fixes serialization of ArrayList/HashMap internals
 # 3. java.io: Fixes file/stream serialization issues (often needed)
+# 4. java.naming/com.sun.jndi.ldap: Spring LDAP's AbstractContextSource
+#    reflectively touches com.sun.jndi.ldap.LdapCtxFactory; jetty:run shares
+#    this JVM (via MAVEN_OPTS) so it needs the same opens/exports already
+#    declared for maven-surefire-plugin in pom.xml, or it throws
+#    IllegalAccessError on the first LDAP authenticate() call.
 export MAVEN_OPTS="--add-opens java.base/java.lang=ALL-UNNAMED \
                    --add-opens java.base/java.util=ALL-UNNAMED \
-                   --add-opens java.base/java.io=ALL-UNNAMED"
+                   --add-opens java.base/java.io=ALL-UNNAMED \
+                   --add-opens java.naming/com.sun.jndi.ldap=ALL-UNNAMED \
+                   --add-exports java.naming/com.sun.jndi.ldap=ALL-UNNAMED"
 
 # Run Jetty
 # works on intelmac

@@ -35,6 +35,7 @@ import javax.net.ssl.SSLContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ldap.core.LdapTemplate;
 import org.springframework.ldap.core.support.LdapContextSource;
+import org.springframework.ldap.support.LdapEncoder;
 import org.springframework.stereotype.Component;
 
 import com.spenego.Obidos.server.actions.LdapConfigActions;
@@ -50,6 +51,7 @@ import com.spenego.Obidos.shared.exceptions.ServerSideException;
  *
  * @author spgdev@spenego.com - Feb 19, 2017
  * Updated for StartTLS #111, Mar-3-2025
+ * Fix Issue #2. Oct-04-2026
  */
 @Component
 public final class LDAPSecurity
@@ -119,18 +121,6 @@ public final class LDAPSecurity
 		final String readTimeoutStr = String.valueOf(readTimeout);
 		env.put("com.sun.jndi.ldap.connect.timeout", connectTimeoutStr); // 5 seconds connection timeout
 		env.put("com.sun.jndi.ldap.read.timeout", readTimeoutStr); // 5 seconds read timeout
-
-		// Handle certificate validation
-		System.setProperty("com.sun.jndi.ldap.object.disableEndpointIdentification", "true");
-        try
-        {
-            DirContext ctx = new InitialDirContext(env);
-            ctx.close();
-            logger.info(() -> "Connected to LDAP server successfully");
-        } catch (final Throwable e)
-        {
-            throw new ServerSideException("Could not connect to LDAP server: " + e.getMessage());
-        }
 
 		try
 		{
@@ -274,6 +264,15 @@ public final class LDAPSecurity
 		final int connectTimeout,
 		final int readTimeout) throws ServerSideException
     {
+        // An LDAP simple bind with a DN and an empty password is an
+        // "unauthenticated bind" that many servers accept as success.
+        // Never let that count as a verified password.
+        if (password == null || password.isEmpty())
+        {
+            logger.error(() -> "Authentication failed (empty password)");
+            throw new ServerSideException("Authentication failed");
+        }
+
         Map<String, Object> baseEnv = new Hashtable<>();
         baseEnv.put("com.sun.jndi.ldap.connect.timeout", String.valueOf(connectTimeout));
         baseEnv.put("com.sun.jndi.ldap.read.timeout", String.valueOf(readTimeout));
@@ -305,7 +304,7 @@ public final class LDAPSecurity
         	    logger.info(() -> "Authenticating username: " + username + " attribute: " + authAttribute + " in base DN: " + baseDN);
         	    
         	    // Explicitly provide the baseDN in the authenticate call
-        	    boolean authenticated = ldapTemplate.authenticate(baseDN, "(" + authAttribute + "=" + username + ")", password);
+        	    boolean authenticated = ldapTemplate.authenticate(baseDN, "(" + authAttribute + "=" + LdapEncoder.filterEncode(username) + ")", password);
         	    if (!authenticated) {
         	        logger.error(() -> "Authentication failed (returned false)");
         	        throw new ServerSideException("Authentication failed");
@@ -349,18 +348,18 @@ public final class LDAPSecurity
 
         	// Start TLS
         	StartTlsResponse tls = (StartTlsResponse) ctx.extendedOperation(new StartTlsRequest());
-        	tls.setHostnameVerifier((hostname, session) -> true);  // Skip hostname verification for now
 
-        	// Dynamically get all supported TLS protocols from the JVM
+        	// Dynamically get all supported TLS protocols from the JVM.
+        	// Deprecated/insecure protocols (SSLv2Hello, SSLv3, TLSv1, TLSv1.1) are
+        	// excluded so negotiation cannot silently downgrade to a broken protocol.
         	SSLContext tempContext = SSLContext.getDefault();
         	List<String> supportedProtocols = Arrays.stream(tempContext.createSSLEngine().getSupportedProtocols())
-        			.filter(p -> p.startsWith("TLS"))  // Only use TLS protocols
+        			.filter(p -> p.startsWith("TLSv1.2") || p.startsWith("TLSv1.3"))
         			.sorted(Comparator.reverseOrder()) // Sort by version, newest first
         			.collect(Collectors.toList());
 
-        	// Make sure we always try TLSv1 as last resort
-        	if (!supportedProtocols.contains("TLSv1")) {
-        		supportedProtocols.add("TLSv1");
+        	if (supportedProtocols.isEmpty()) {
+        		throw new Exception("No secure TLS protocol (TLSv1.2 or higher) available in this JVM for StartTLS");
         	}
 
         	logger.info(() -> "Available TLS protocols: " + String.join(", ", supportedProtocols));
@@ -392,7 +391,7 @@ public final class LDAPSecurity
         	}
 
         	// Now perform the authentication
-        	String searchFilter = "(" + authAttribute + "=" + username + ")";
+        	String searchFilter = "(" + authAttribute + "=" + LdapEncoder.filterEncode(username) + ")";
         	SearchControls searchControls = new SearchControls();
         	searchControls.setSearchScope(SearchControls.SUBTREE_SCOPE);
 
@@ -403,12 +402,10 @@ public final class LDAPSecurity
         		String userDN = result.getNameInNamespace();
 
         		try {
-        			// Create new context with user credentials to verify password
-        			Hashtable<String, Object> authEnv = new Hashtable<>(env);
-        			authEnv.put(Context.SECURITY_PRINCIPAL, userDN);
-        			authEnv.put(Context.SECURITY_CREDENTIALS, password);
-
-        			// new InitialLdapContext(authEnv, null);
+        		    // Issue #2. Re-bind 
+        			ctx.addToEnvironment(Context.SECURITY_PRINCIPAL, userDN);
+        			ctx.addToEnvironment(Context.SECURITY_CREDENTIALS, password);
+        			ctx.reconnect(null);
 
         			// Save the successful protocol for future reference (could be stored in config/cache)
         			final String np = negotiatedProtocol;

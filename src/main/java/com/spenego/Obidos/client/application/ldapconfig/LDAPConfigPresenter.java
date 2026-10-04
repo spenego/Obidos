@@ -68,6 +68,7 @@ public class LDAPConfigPresenter extends Presenter<LDAPConfigPresenter.MyView, L
         bindDN,
         bindPassword,
         authAttr,
+        startTLS,
     };
     private static EnumMap<FieldNumber, Boolean> eMap = new EnumMap<FieldNumber,Boolean>(FieldNumber.class);
    	private Timer busyTimer = null;
@@ -99,6 +100,7 @@ public class LDAPConfigPresenter extends Presenter<LDAPConfigPresenter.MyView, L
         public ObidosTextBox getTestUsernameTextBox();
         public ObidosPasswordBox getTestPasswordBox();
 		public CheckBox getStartTLSCheckBox();
+		public FormLabel getStartTLSLabel();
 		public HTMLPanel getProcessingPanel();
 		public Button getTestAuthenticationButton();
 	}
@@ -812,6 +814,8 @@ public class LDAPConfigPresenter extends Presenter<LDAPConfigPresenter.MyView, L
         ClientUtils.resetFormLabelColor(label);
         label = getView().getAuthAttrLabel();
         ClientUtils.resetFormLabelColor(label);
+        label = getView().getStartTLSLabel();
+        ClientUtils.resetFormLabelColor(label);
     }
 
     @Override
@@ -967,7 +971,29 @@ public class LDAPConfigPresenter extends Presenter<LDAPConfigPresenter.MyView, L
 	@Override
 	public void startTLSCheckBoxClickHandler()
 	{
-		gwtLog("MMM Checkbox clicked");
+		LdapDTO dto = getOrigLdapDTO();
+		if (dto == null)
+		{
+			return;
+		}
+
+		boolean origVal = ClientUtils.fromBoolean(dto.getStartTls());
+		boolean newVal = getView().getStartTLSCheckBox().getValue();
+		boolean dirty = (origVal != newVal);
+
+		eMap.put(FieldNumber.startTLS, dirty);
+
+		FormLabel label = getView().getStartTLSLabel();
+		if (dirty)
+		{
+			ClientUtils.setFormLabelsColorChanged(label);
+		}
+		else
+		{
+			ClientUtils.setFormLabelsColorOriginal(label);
+		}
+
+		enableDisableUpdateButton();
 	}
 
 }

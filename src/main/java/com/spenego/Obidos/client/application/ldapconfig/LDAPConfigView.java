@@ -137,6 +137,9 @@ class LDAPConfigView extends ViewWithUiHandlers<LDAPConfigUiHandlers> implements
 	CheckBox startTLSCheckBox;
 
 	@UiField
+	FormLabel startTLSLabel;
+
+	@UiField
 	HTMLPanel processingPanel;
 
 	@UiField
@@ -404,6 +407,11 @@ class LDAPConfigView extends ViewWithUiHandlers<LDAPConfigUiHandlers> implements
 	public CheckBox getStartTLSCheckBox()
 	{
 		return startTLSCheckBox;
+	}
+
+	public FormLabel getStartTLSLabel()
+	{
+		return startTLSLabel;
 	}
 
 	public HTMLPanel getProcessingPanel()
