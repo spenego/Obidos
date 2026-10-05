@@ -14,6 +14,8 @@
   - AD/LDAP configuration page: the StartTLS checkbox now marks the form as
     changed and enables the Update button.
 
+Thanks to kta1kri@gmail.com for finding the bugs.
+
 > [!IMPORTANT]
 > Hostname verification is now enforced. The AD/LDAP URI must use a host
 > name (or IP address) that is present in the server certificate's Subject
